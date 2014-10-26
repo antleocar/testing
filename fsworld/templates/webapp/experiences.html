@@ -1,0 +1,43 @@
+{% extends "webapp/base.html" %}
+{% load staticfiles %}
+
+
+{% block container %}
+{% if experiences %}
+    <h1>Experiences</h1>
+
+    <div class="row">
+        {% for experience in experiences %}
+
+                <div class="col-md-3 panel follow-list-item experience-max-height">
+                    <img class="img-rounded"
+                         src="{{ experience.main_image.url }}"/>
+
+                    <div class="limit-text experience-title-max-height">
+                        <h3 class="user-name"><a >
+                            {{ experience.title }}</a></h3>
+                    </div>
+
+                    <br />
+
+
+                    <!--<p class="location">
+                        <span class="glyphicon glyphicon-map-marker"></span><span>{{ friend_profile.location }}</span>
+                    </p>-->
+
+                    <!--<p class="extra-info">"No experiences yet"</p>-->
+                </div>
+        {% endfor %}
+    </div>
+{% else %}
+    {% if is_owner %}
+        <div class="experience-name">
+            <h2 class="follow-msg">You do not have any experience yet</h2>
+        </div>
+    {% else %}
+        <div class="experience-name">
+            <h2 class="follow-msg">This user does not has any experience yet</h2>
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}
