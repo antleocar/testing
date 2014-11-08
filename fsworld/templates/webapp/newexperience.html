@@ -1,0 +1,509 @@
+{% extends "webapp/base.html" %}
+{% load staticfiles %}
+
+{% load experience_form %}
+
+
+{% block custom_css %}
+    <link href="{% static 'webapp/css/bootstrap-select.min.css' %}" rel="stylesheet">
+    <link href="{% static 'webapp/css/slider.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block custom_js %}
+    <script src="{% static 'webapp/js/bootstrap-slider.js' %}"></script>
+    <script src="{% static 'webapp/js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'webapp/js/repeatable-fields.js' %}"></script>
+    <script src="{% static 'webapp/js/jquery-ui-1.10.4.custom.min.js' %}"></script>
+    <script src="{% static 'webapp/js/ajax-image-upload.js' %}"></script>
+    <script type="text/javascript">
+        var settings;
+        $().ready(function () {
+            $('select').selectpicker(); //TODO ¿Poner esto en toda la web y ya está?
+            $('.slider').slider();
+            jQuery(function () {
+                jQuery('.repeat').each(function () {
+                    settings = jQuery(this).repeatable_fields({
+                        wrapper: '.repeatable-wrapper',
+                        container: '.repeatable-container',
+                        row: '.repeatable-row',
+                        add: '.repeatable-add',
+                        remove: '.repeatable-remove',
+                        move: '.repeatable-move',
+                        template: '.repeatable-template',
+                        is_sortable: true,
+                        before_add: null,
+                        before_remove: null,
+                        after_remove: null,
+                        after_add: function (container, new_row) {
+                            if(new_row.hasClass("ingredient-item")){
+                                new_row.find(".ingredient-input").focus();
+                            }else if(new_row.hasClass("step-item")){
+                                new_row.find(".step-input").focus();
+                            }
+
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        var galleryArray = {};
+        var associationStepPicture = {};
+
+        function setMainPicture(url) {
+            $("#main-picture").css('background-image', 'url(' + url + ')');
+            $("#main-picture-indicator").hide();
+        }
+
+        function addGalleryPicture(url, id) {
+            $("#gallery").append('<div class="col-sm-3 gallery-item"><img class="img-rounded" src="' + url + '" data-picture-id="' + id + '"></div>');
+        }
+
+        function procesaFormularioInicial() {
+            // - Main Picture
+            var mainPictureInputName = "#id_{{ form.main_picture_id.name }}";
+            var $mainPictureInput = $(mainPictureInputName);
+            // La url está almacenada en el atributo initial-picture-url
+            var mainPictureUrl = $mainPictureInput.attr("initial-picture-url");
+            if (mainPictureUrl) {
+                setMainPicture(mainPictureUrl);
+            }
+
+            // - Gallery
+            // Las urls se guardan en items de una lista oculta
+            $("#initial-pictures-urls").find("li").each(function (index, item) {
+                var url = $(item).text();
+                var id = $(item).attr('data-picture-id');
+                galleryArray[url] = id;
+                addGalleryPicture(url, id);
+            });
+        }
+
+
+        $().ready(function () {
+
+            var $form = $("#experience-form");
+            $form.submit(function (e) {
+                //e.preventDefault();
+
+                // Genera el json de fotos
+                var pictures = [];
+                $(".gallery-item").each(function (index, element) {
+                    var picture_id = $(element).find("img").attr("data-picture-id");
+                    if (picture_id) {
+                        pictures.push(picture_id);
+                    }
+                });
+                if (pictures.length) {
+                    var picturesInput = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "{{ form.pictures_ids_json.name }}")
+                            .val(JSON.stringify(pictures));
+                    $form.append(picturesInput);
+                }
+
+
+                // Genera el json de ingredientes
+                var ingredients = [];
+                $(".ingredient-item").each(function (index, element) {
+                    if (!$(element).hasClass("repeatable-template")) {
+                        var ingredient = $(element).find(".ingredient-input").val();
+                        if (ingredient) {
+                            ingredients.push(ingredient);
+                        }
+                    }
+                });
+                if (ingredients.length) {
+                    var ingredientsInput = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "{{ form.ingredients_json.name }}")
+                            .val(JSON.stringify(ingredients));
+                    $form.append(ingredientsInput);
+                }
+
+                // Genera el json de pasos
+                var steps = [];
+                $(".step").each(function (index, element) {
+                    if (!$(element).hasClass("repeatable-template")) {
+                        var step = {};
+                        var stepText = $(element).find(".step-input").val();
+                        if (stepText) {
+                            step['text'] = stepText;
+                            var pictureId = $(element).find("img").attr("data-picture-id");
+                            if (pictureId) {
+                                step['picture'] = pictureId;
+                            }
+                            steps.push(step);
+                        }
+                    }
+                });
+                if (steps.length) {
+                    var stepsInput = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "{{ form.steps_json.name }}")
+                            .val(JSON.stringify(steps));
+                    $form.append(stepsInput);
+                }
+            });
+
+            procesaFormularioInicial();
+
+            // Drag&Drop for main picture
+            activateDragAndDrop($("#main-picture"), "{% url 'upload' %}", function (returndata) {
+                var response = $.parseJSON(returndata);
+                //TODO validar y tal
+                setMainPicture(response.url);
+                // Guardar la info en un campo oculto
+                var input_id = "#id_{{ form.main_picture_id.name }}";
+                $(input_id).val(response.id);
+            });
+
+            // Drag&Drop for gallery
+            var gallery = $("#gallery");
+            activateDragAndDrop(gallery, "{% url 'upload' %}", function (returndata) {
+                var response = $.parseJSON(returndata);
+                addGalleryPicture(response.url, response.id)
+
+                // Guardar la info en un campo oculto
+                var input_id = "#id_{{ form.pictures_ids_list.name }}";
+                //TODO este campo es difícil de limpiar si se quiere quitar una foto de la lista
+                var current_val = $(input_id).val();
+                $(input_id).val(current_val + ";" + response.id);
+
+                // Y en una variable global
+                galleryArray[response.url] = response.id;
+            });
+
+            $(".step-list").on("click", ".step-picture", function (event) {
+                var stepPicture = $(this);
+                var stepIndex = stepPicture.attr("data-step-index");
+
+                var $modal = $("#modal-picture");
+                $modal.modal("show");
+                var $gallery = $modal.find("#gallery-modal");
+                $gallery.empty();
+
+                var urls = [];
+                $("#gallery").find(".gallery-item").each(function (index, Element) {
+                    urls.push($(Element).find("img").attr("src"))
+                });
+
+                for (var i = 0; i < urls.length; i++) {
+                    $gallery.append('<div class="col-sm-3 gallery-item"><img class="img-rounded" src="' + urls[i] + '"></div>');
+                }
+
+                $gallery.find(".gallery-item").click(function (e) {
+                    var url = $(this).find("img").attr("src");
+                    var id = galleryArray[url];
+
+                    var $control = stepPicture.children(".step-picture-add");
+                    var $pic = stepPicture.children("img");
+
+                    $pic.attr("src", url);
+                    $pic.attr("data-picture-id", id);
+                    $pic.show();
+
+                    $control.hide();
+
+                    $modal.modal("hide");
+                });
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block container %}
+    <div class="panel panel-default">
+    <div class="panel-body">
+    <form role="form well well-lg" id="experience-form" class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <h3 class="col-lg-offset-1">Información básica</h3>
+    <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 100px">
+
+        <!-- Title -->
+        <div class="form-group">
+            <div class="col-sm-12">
+                Nombre de la experiencia
+                <input type="text" class="form-control input-xlg" placeholder="{{ pl_name_experience }}"
+                       name="{{ form.title.name }}" id="id_{{ form.title.name }}"
+                       value="{{ form.title.value | default_if_none:'' }}">
+            </div>
+        </div>
+        {% if form.title.errors %}
+            <span class="alert alert-danger">
+                {% for error in form.title.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </span>
+        {% endif %}
+
+        <!-- Main Image -->
+        <input type="hidden" id="id_{{ form.main_picture_id.name }}" name="{{ form.main_picture_id.name }}"
+               initial-picture-url="{% picture_from_id form.main_picture_id.value %}"
+               value="{{ form.main_picture_id.value |default:"" }}">
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="main-picture drop-target" id="main-picture">
+                    <div id="main-picture-indicator">
+                        <p>Añadir la imagen principal</p>
+                        <span class="glyphicon glyphicon-camera"></span>
+
+                        <p>Arrastrar y soltar la imagen aquí</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if form.main_picture_id.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.main_picture_id.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </div>
+            <br>
+        {% endif %}
+
+        <!-- Gallery -->
+        {% if form.pictures_ids_json %}
+            <ul id="initial-pictures-urls" style="display: none">
+                {% for pic_id in form.get_pictures_ids_list %}
+                    {% if pic_id %}
+                        <li data-picture-id="{{ pic_id }}">{% picture_from_id pic_id %}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <input type="hidden" id="id_{{ form.pictures_ids_list.name }}" name="{{ form.pictures_ids_list.name }}"
+               value="{{ form.pictures_ids_list.value |default:"" }}">
+        <!-- TODO con ciertos tamaños de imagen se buggea y la cuadrícula se va a tomar viento -->
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="row gallery drop-target" id="gallery">
+                    <!-- Gallery item -->
+                    {% comment %}<div class="col-sm-3 gallery-item">
+                        <img class="img-rounded"
+                             src="http://www.cocinillas.es/wp-content/uploads/2011/05/DSC08380-1600x1200.jpg">
+                    </div>{% endcomment %}
+                    <div id="gallery-indicator">
+                        <p>Añade más imágenes</p>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <div class="col-sm-12">
+                <!-- <label for="id_{{ form.description.name }}"
+               class="col-sm-2 ">{{ form.description.label }}</label> -->
+                Escribe una pequeña descripción
+                <textarea class="form-control input-lg"
+                          placeholder="{{ description_text }}"
+                          rows="4"
+                          name="{{ form.description.name }}" id="id_{{ form.description.name }}"
+                        >{{ form.description.value | default_if_none:'' }}</textarea>
+            </div>
+            {% if form.description.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.description.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        </div>
+    </fieldset>
+
+    <span class="clearfix"></span>
+
+    <h3 class="col-lg-offset-1"></h3>
+    <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 100px">
+
+        <h4>Paso a paso</h4>
+
+        <div class="repeat">
+            <div class="form-group repeatable-wrapper step-list">
+                <div class="repeatable-container">
+                    <!-- Step item -->
+                    <div class="repeatable-row repeatable-template step-item">
+                        <div class="form-group step">
+                            <div class="col-sm-1">
+                                <span>{row-number-placeholder}</span>
+                            </div>
+                            <div class="col-sm-9">
+                                {"Describe this step..." as step_description }
+                                <textarea class="form-control input-lg step-input"
+                                          placeholder="{{ step_description }}"
+                                          rows="4"
+                                          name="step_{row-count-placeholder}" id="id_step_{row-count-placeholder}"
+                                          autofocus="autofocus"
+                                        ></textarea>
+                            </div>
+                            <div class="col-sm-2 step-picture" data-step-index="{row-count-placeholder}">
+                                <a class="btn btn-default step-picture-add"><span
+                                        class="glyphicon glyphicon-camera"></span></a>
+                                <img class="img-rounded"
+                                     src="" style="display: none">
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <!-- /Step item -->
+
+                    {% for step in form.get_steps_list %}
+                        <div class="repeatable-row">
+                            <div class="form-group step">
+                                <div class="col-sm-1">
+                                    <span>{{ forloop.counter }}</span>
+                                </div>
+                                <div class="col-sm-9">
+                                    {"Describe this step..." as the_description }
+                                    <textarea class="form-control input-lg step-input"
+                                              placeholder="{{ the_description }}"
+                                              rows="4"
+                                              name="step_{{ forloop.counter0 }}" id="id_step_{{ forloop.counter0 }}"
+                                            >{{ step.text }}</textarea>
+                                </div>
+                                <div class="col-sm-2 step-picture" data-step-index="{{ forloop.counter0 }}">
+                                    <input type="text" hidden name="step-picture-id_{{ forloop.counter0 }}"
+                                           value="{% step_picture form.data forloop.counter0 %}">
+                                    {% if step.picture %}
+                                        <a class="btn btn-default step-picture-add" style="display: none"><span
+                                                class="glyphicon glyphicon-camera"></span></a>
+                                        <img class="img-rounded" data-picture-id="{{ step.picture }}"
+                                             src="{% picture_from_id step.picture %}">
+                                    {% else %}
+                                        <a class="btn btn-default step-picture-add"><span
+                                                class="glyphicon glyphicon-camera"></span></a>
+                                        <img class="img-rounded"
+                                             src="" style="display: none">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="form-group step">
+                    <div class="col-sm-1">
+                        <span>+</span>
+                    </div>
+                    <div class="col-sm-9">
+                        { "Next step?" as the_new_desc }
+                        <textarea class="form-control input-lg repeatable-add"
+                                  placeholder="{{ the_new_desc }}"
+                                  rows="4"
+                                  name="step" id="id_step"
+                                ></textarea>
+                    </div>
+                </div>
+                {% comment %}TODO: colocar mejor el mensaje de error{% endcomment %}
+                {% if form.steps_json.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.steps_json.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">{ "Pick a picture" }</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12">
+                            <div class="row gallery" id="gallery-modal">
+                                <!-- Gallery item -->
+                                {% comment %}<div class="col-sm-3 gallery-item">
+                                    <img class="img-rounded"
+                                         src="http://www.cocinillas.es/wp-content/uploads/2011/05/DSC08380-1600x1200.jpg">
+                                </div>{% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{ "Cancel" }</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5>{ "Additional notes" }</h5>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                { "Anything else you want to point out about your experience?" as place_holder }
+                <textarea class="form-control input-lg"
+                          placeholder="{{ place_holder }}"
+                          rows="3"
+                          name="{{ form.notes.name }}" id="id_{{ form.notes.name }}"
+                        >{{ form.notes.value | default_if_none:'' }}</textarea>
+            </div>
+        </div>
+    </fieldset>
+
+    <span class="clearfix"></span>
+
+    <h3 class="col-lg-offset-1">Información extra</h3>
+    <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 50px">
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="id_{{ form.tags.name }}">Tags</label>
+
+                    <div class="col-sm-8">
+                        Escríbelos separados por una coma (,)
+                        <input type="text" class="form-control" placeholder="{{ pl_comma }}"
+                               name="{{ form.tags.name }}" id="id_{{ form.tags.name }}"
+                               value="{{ form.tags.value | default_if_none:'' }}">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <span class="clearfix"></span>
+
+
+
+            <div id="steps-div">
+                <textarea id="steps" style="display:none" name="steps"></textarea>
+            </div>
+
+
+    </fieldset>
+
+    <!-- Submit Button -->
+    <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 50px">
+        <div class="form-group">
+            <label for="inputDisplayName" class="col-sm-1 control-label"></label>
+
+            <div class="col-sm-3">
+                <input type="submit" class="btn btn-success" value="Publicar experiencia" />
+            </div>
+        </div>
+    </fieldset>
+    </form>
+
+    <!-- Ajax uploads -->
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" id="upload-form"
+          style="display: none">
+        {% csrf_token %}
+    </form>
+    </div>
+    </div>
+{% endblock %}

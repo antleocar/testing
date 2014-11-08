@@ -8,7 +8,7 @@ from django.core.files import File
 from ajax.models import UploadedImage
 import json
 from webapp.models import Following
-from webapp.models import Recipe, Vote
+from webapp.models import Experience, Vote
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -87,7 +87,7 @@ def unfollow(request):
     return HttpResponse(json.dumps({"message": "You are not following " + who.username}), status=400)
 
 
-def vote_recipe(request):
+def vote_experience(request):
     # Compruebo que el usuario actual este logeado
     ppal = request.user
     if not ppal.is_authenticated():
@@ -96,14 +96,14 @@ def vote_recipe(request):
     # Comprobacion previa y carga de los datos de la peticion
 
     # Compruebo que se ha especificado un id y que existe una receta con ese id
-    recipe_id = request.POST['recipe']
-    if not recipe_id:
-        return HttpResponse(json.dumps({"message": "You must specify a recipe to vote by its id"}), status=400)
+    experience_id = request.POST['experience']
+    if not experience_id:
+        return HttpResponse(json.dumps({"message": "You must specify a experience to vote by its id"}), status=400)
 
     try:
-        recipe = Recipe.objects.get(id=recipe_id)
+        experience = Experience.objects.get(id=experience_id)
     except ObjectDoesNotExist:
-        return HttpResponse(json.dumps({"message": "Invalid recipe"}), status=400)
+        return HttpResponse(json.dumps({"message": "Invalid experience"}), status=400)
 
     # Compruebo que se ha especificado un tipo de voto valido y construyo un nuevo voto con el
     vote_type = request.POST['type']
@@ -119,53 +119,52 @@ def vote_recipe(request):
 
     #TODO: refactorizar! los dos bucles for son muy parecidos... se podria extraer un metodo para no repetir codigo?
     if not found:
-        for vote in recipe.positives:
+        for vote in experience.positives:
             if vote.user == ppal:
                 if vote_type == u'positive':
                     return HttpResponse(json.dumps({"message": "already voted, no action is necessary"}), status=200)
                 else:
-                    recipe.positives.remove(vote)
+                    experience.positives.remove(vote)
                     found = True
                     break
 
     if not found:
-        for vote in recipe.negatives:
+        for vote in experience.negatives:
             if vote.user == ppal:
                 if vote_type == u'negative':
                     return HttpResponse(json.dumps({"message": "already voted, no action is necessary"}), status=200)
                 else:
-                    recipe.negatives.remove(vote)
+                    experience.negatives.remove(vote)
                     break
 
     # Almaceno el nuevo voto
     if vote_type == u'positive':
-        recipe.positives.append(new_vote)
-        recipe.save()
+        experience.positives.append(new_vote)
+        experience.save()
     else:
-        recipe.negatives.append(new_vote)
-        recipe.save()
+        experience.negatives.append(new_vote)
+        experience.save()
 
     return HttpResponse(json.dumps({"message": "OK"}), status=201)
 
-def recipe_votes(request, recipe_id):
-    if recipe_id == u'':
-        return HttpResponse(json.dumps({"message": "ERROR: you must specify recipe id"}), status=400)
+def experience_votes(request, experience_id):
+    if experience_id == u'':
+        return HttpResponse(json.dumps({"message": "ERROR: you must specify experience id"}), status=400)
 
-    recipe = Recipe.objects.get(id=recipe_id)
+    experience = Experience.objects.get(id=experience_id)
 
-    total_votos = len(recipe.positives) + len(recipe.negatives)
+    total_votos = len(experience.positives) + len(experience.negatives)
     porcentaje_positivos = 50
     porcentaje_negativos = 50
     if total_votos != 0:
-        porcentaje_positivos = (len(recipe.positives) / float(total_votos))*100
-        porcentaje_negativos = (len(recipe.negatives) / float(total_votos))*100
+        porcentaje_positivos = (len(experience.positives) / float(total_votos))*100
+        porcentaje_negativos = (len(experience.negatives) / float(total_votos))*100
 
-    context= {"positives": len(recipe.positives),
-              "negatives": len(recipe.negatives),
+    context= {"positives": len(experience.positives),
+              "negatives": len(experience.negatives),
               "total": total_votos,
               "por_pos": porcentaje_positivos,
               "por_neg": porcentaje_negativos}
-
 
 
     return HttpResponse(json.dumps(context), status=200)

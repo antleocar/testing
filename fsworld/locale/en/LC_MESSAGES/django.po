@@ -1,0 +1,1383 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-03 11:16+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+#: .\templates\404.html.py:14
+msgid "404 error: not found"
+msgstr ""
+
+#: .\templates\404.html.py:15
+msgid "Sorry! The page that you requested cannot be found at this moment"
+msgstr ""
+
+#: .\templates\500.html.py:14
+msgid "500 error: server error"
+msgstr ""
+
+#: .\templates\500.html.py:15
+msgid "Sorry! The server has suffered an error and couldn't serve your query"
+msgstr ""
+
+#: .\templates\email\activation_email.txt.py:3
+#, python-format
+msgid "Hola %(username)s,"
+msgstr "Hello %(username)s,"
+
+#: .\templates\email\activation_email.txt.py:6
+msgid "Bienvenido a FsWorld! Para activar su cuenta acceda a la siguiente url:"
+msgstr "Welcome to FsWorld! To activate your account use this link:"
+
+#: .\templates\email\activation_email_subject.txt.py:1
+msgid "Activa tu cuenta de FsWorld"
+msgstr "Activate your FsWorld account"
+
+#: .\templates\password_reset\recovery_done.html.py:9
+msgid ""
+"Your password has successfully been reset. You can use it right now on the "
+"login page."
+msgstr ""
+
+#: .\templates\password_reset\recovery_done.html.py:10
+msgid "Go to the login page."
+msgstr ""
+
+#: .\templates\password_reset\recovery_email.txt.py:1
+#, python-format
+msgid "Dear %(username)s,"
+msgstr ""
+
+#: .\templates\password_reset\recovery_email.txt.py:3
+#, python-format
+msgid ""
+"You -- or someone pretending to be you -- has requested a password reset on %"
+"(domain)s."
+msgstr ""
+
+#: .\templates\password_reset\recovery_email.txt.py:5
+msgid "You can set your new password by following this link:"
+msgstr ""
+
+#: .\templates\password_reset\recovery_email.txt.py:9
+msgid ""
+"If you don't want to reset your password, simply ignore this email and it "
+"will stay unchanged."
+msgstr ""
+
+#: .\templates\password_reset\recovery_email_subject.txt.py:1
+#, python-format
+msgid "Password recovery on %(domain)s"
+msgstr ""
+
+#: .\templates\password_reset\recovery_form.html.py:11
+#, fuzzy
+msgid "Forgot your password? Nothing to worry about!"
+msgstr "Forgot your password?"
+
+#: .\templates\password_reset\recovery_form.html.py:12
+msgid "we can recover it!"
+msgstr ""
+
+#: .\templates\password_reset\recovery_form.html.py:16
+#, fuzzy
+msgid "Username or email"
+msgstr "Username"
+
+#: .\templates\password_reset\recovery_form.html.py:18
+#, fuzzy
+msgid "Recover my password"
+msgstr "Forgot your password?"
+
+#: .\templates\password_reset\reset.html.py:11
+#, python-format
+msgid ""
+"Sorry, this password reset link is invalid. You can still <a href=\"%"
+"(recovery_url)s\">request a new one</a>."
+msgstr ""
+
+#: .\templates\password_reset\reset.html.py:14
+#, python-format
+msgid "Hi, <strong>%(username)s</strong>. Please choose your new password."
+msgstr ""
+
+#: .\templates\password_reset\reset.html.py:22
+#, fuzzy
+msgid "Password:"
+msgstr "Password"
+
+#: .\templates\password_reset\reset.html.py:35
+#, fuzzy
+msgid "Repeat password:"
+msgstr "Forgot your password?"
+
+#: .\templates\password_reset\reset.html.py:47
+#, fuzzy
+msgid "Set new password"
+msgstr "Forgot your password?"
+
+#: .\templates\password_reset\reset_sent.html.py:9
+#, python-format
+msgid ""
+"An email was sent to <strong>%(email)s</strong> %(ago)s ago. Use the link in "
+"it to set a new password."
+msgstr ""
+
+#: .\templates\webapp\about.html.py:7
+msgid "What is FsWorld?"
+msgstr ""
+
+#: .\templates\webapp\about.html.py:10
+msgid ""
+"FsWorld es una red social en la que podr&aacute; compartir sus experiencias, "
+"mejorar las de sus amigos y relacionarse con los dem&aacute;s. De este modo, "
+"podr&aacute; preparar su comida favorita de otra forma y otras comidas de "
+"cualquier parte del mundo."
+msgstr ""
+"FsWorld is a social network where you can share experiences, improve your "
+"friend's and relation with others. You'd prepare your favourite food and "
+"other countries experiences!"
+
+#: .\templates\webapp\about.html.py:18
+msgid "Create"
+msgstr ""
+
+#: .\templates\webapp\about.html.py:21
+msgid ""
+"En FsWorld podr&aacute;s crear sus propias experiencias y compartirlas con sus "
+"amigos. Explora comidas de otros usuarios, varíalas con tus propios gustos, "
+"ingredientes y métodos."
+msgstr ""
+"You will be able to create experiences and share with your friends. Explore "
+"other user's experiences, change them regarding your own tastes, ingredients and "
+"methods."
+
+#: .\templates\webapp\about.html.py:35
+msgid "Improve"
+msgstr ""
+
+#: .\templates\webapp\about.html.py:38
+msgid ""
+"Si le gusta alguna experiencia pero quiere añadir algún ingrediente o algún paso "
+"tiene la opción de mejorarla. De este modo se crear&aacute; un árbol "
+"genealógico de experiencias en el que figurar&aacute; la jerarqu&iacute;a de las "
+"mismas."
+msgstr ""
+"If you like a experience but you want to add any ingredient or step, you can "
+"improve it. This way you will create a genealogic tree of experiences where you "
+"will see all the relatives that a experience has."
+
+#: .\templates\webapp\about.html.py:50
+msgid "Social"
+msgstr ""
+
+#: .\templates\webapp\about.html.py:53
+msgid ""
+"Los usuarios tienen su propio perfil, através del cual otros usuarios pueden "
+"ver tus experiencias y actividad. Puedes seguir a otros usuarios para estar al "
+"día de su actividad."
+msgstr ""
+"Users have their own profil, through this, all users can watch their experiences "
+"and activities. You can follow other people in order to know what are they "
+"cooking!"
+
+#: .\templates\webapp\about.html.py:64
+msgid "Recommendations and affinity"
+msgstr ""
+
+#: .\templates\webapp\about.html.py:67
+msgid ""
+"En su perfil podr&aacute; indicar sus sabores preferidos. Con dichos sabores "
+"le podremos recomendar multitud de experiencias con par&aacute;metros similares."
+msgstr ""
+"In your profile you'll be able to mark your preferred savours. With this, we "
+"will recommend you a lot of experiences with similar parameters."
+
+#: .\templates\webapp\about_team.html.py:13
+msgid ""
+"All the members of the team are students of Software Engineering and "
+"Professional Practice (IT - Software Engineering, University of Seville)"
+msgstr ""
+
+#: .\templates\webapp\about_team.html.py:26
+msgid "Project Manager"
+msgstr ""
+
+#: .\templates\webapp\about_team.html.py:39
+#: .\templates\webapp\about_team.html.py:85
+#: .\templates\webapp\about_team.html.py:98
+msgid "Developer"
+msgstr ""
+
+#: .\templates\webapp\about_team.html.py:56
+#: .\templates\webapp\about_team.html.py:69
+msgid "Analyst and Tester"
+msgstr ""
+
+#: .\templates\webapp\about_team.html.py:113
+msgid "Developer Lead"
+msgstr ""
+
+#: .\templates\webapp\affinity.html.py:13
+msgid "The affinity is: "
+msgstr ""
+
+#: .\templates\webapp\affinity.html.py:20
+msgid " has an affinity of"
+msgstr ""
+
+#: .\templates\webapp\affinity.html.py:20
+msgid "with "
+msgstr ""
+
+#: .\templates\webapp\base.html.py:36
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: .\templates\webapp\base.html.py:48
+msgid "Home"
+msgstr "Home"
+
+#: .\templates\webapp\base.html.py:50 .\templates\webapp\base.html.py:65
+#: .\templates\webapp\profile.html.py:20 .\templates\webapp\experiences.html.py:7
+msgid "experiences"
+msgstr "experiences"
+
+#: .\templates\webapp\base.html.py:51
+msgid "Explore"
+msgstr "Explore"
+
+#: .\templates\webapp\base.html.py:55
+msgid "Search..."
+msgstr ""
+
+#: .\templates\webapp\base.html.py:69
+#, fuzzy
+msgid "Search experiences"
+msgstr "No experiences yet"
+
+#: .\templates\webapp\base.html.py:73
+#, fuzzy
+msgid "People"
+msgstr "Profile"
+
+#: .\templates\webapp\base.html.py:77
+msgid "Search people"
+msgstr ""
+
+#: .\templates\webapp\base.html.py:94 .\templates\webapp\main.html.py:12
+msgid "Hello"
+msgstr "Hello"
+
+#: .\templates\webapp\base.html.py:103 .\templates\webapp\main.html.py:13
+msgid "Profile"
+msgstr "Profile"
+
+#: .\templates\webapp\base.html.py:105 .\templates\webapp\main.html.py:14
+msgid "Logout"
+msgstr "Logout"
+
+#: .\templates\webapp\base.html.py:111 .\templates\webapp\main.html.py:20
+msgid "Add experience"
+msgstr "Add experience"
+
+#: .\templates\webapp\base.html.py:117 .\templates\webapp\login.html.py:72
+#: .\templates\webapp\main.html.py:27
+msgid "Sign in"
+msgstr "Sign in"
+
+#: .\templates\webapp\base.html.py:153
+msgid "This web is under development by the members of fifth group of ISPP."
+msgstr ""
+
+#: .\templates\webapp\base.html.py:156
+msgid ""
+"Any feedback, suggestion, bug reports or similar given from you is "
+"appretiated, so please use the following button to contact us."
+msgstr ""
+
+#: .\templates\webapp\base.html.py:160
+msgid "Thank you for your feedback"
+msgstr ""
+
+#: .\templates\webapp\base.html.py:165 .\templates\webapp\contact.html.py:48
+msgid "Send email"
+msgstr ""
+
+#: .\templates\webapp\base.html.py:180
+msgid "Terms & conditions"
+msgstr ""
+
+#: .\templates\webapp\base.html.py:181 .\templates\webapp\contact.html.py:15
+msgid "About us"
+msgstr ""
+
+#: .\templates\webapp\base.html.py:182
+msgid "The team"
+msgstr ""
+
+#: .\templates\webapp\base.html.py:183
+msgid "Contact"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:16
+msgid ""
+"The idea that originated FsWorld’s development was that experiences are not "
+"something final. It changes, you adapt to you personal taste or maybe "
+"someone advises you; so we decided to do manage the real life experience's "
+"evolution . With this, you can control the life your experiences, help to "
+"improve your friend’s, copy them and giving your personal touch… You create "
+"a experience, you share it,  everyone contributes, it evolves and the whole "
+"community benefits."
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:21
+msgid "What we appreciate from you"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:23
+msgid "Suggestions for the website"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:24
+msgid "Bug reports"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:25
+msgid "Your experience as a user"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:26
+#, fuzzy
+msgid "Requests"
+msgstr "Required"
+
+#: .\templates\webapp\contact.html.py:30
+msgid "Promotion proposals"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:31
+msgid "Business offers"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:32
+msgid "Development help"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:39
+msgid "Contact Us"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:42
+msgid ""
+"This website is currently under development by the members of the fifth "
+"group of Software Engineering and Professional Practice (IT - Software "
+"Engineering, University of Seville)."
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:43
+msgid ""
+"Any feedback you can give to us will be very useful. Please, feel free to "
+"contact us by sending an email to our address: FsWorld.contact@gmail.com or "
+"by clicking in the following button:"
+msgstr ""
+
+#: .\templates\webapp\contact.html.py:46
+msgid "Thanks for your interest!"
+msgstr ""
+
+#: .\templates\webapp\following.html.py:24
+#: .\templates\webapp\experiences.html.py:31
+msgid "No experiences yet"
+msgstr "No experiences yet"
+
+#: .\templates\webapp\following.html.py:32
+msgid "Don't you have friends? Let's make some!"
+msgstr "Don't you have friends? Let's make some!"
+
+#: .\templates\webapp\following.html.py:36
+msgid "has no friends yet"
+msgstr "has no friends yet"
+
+#: .\templates\webapp\login.html.py:13
+#: .\templates\webapp\newaccount_done.html.py:14
+msgid "Welcome to FsWorld"
+msgstr "Welcome to FsWorld"
+
+#: .\templates\webapp\login.html.py:15
+msgid ""
+"Do you like to eat? Then FsWorld is for you. Explore everyone's experiences and "
+"their variations, create and customize your own food, and collaborate to "
+"find the best experiences in the world!"
+msgstr ""
+"Do you like to eat? Then FsWorld is for you. Explore everyone's experiences and "
+"their variations, create and customize your own food, and collaborate to "
+"find the best experiences in the world!"
+
+#: .\templates\webapp\login.html.py:48
+#, fuzzy
+msgid "Username and password don't match."
+msgstr "Passwords don't match"
+
+#: .\templates\webapp\login.html.py:51
+msgid "You need to be logged-in to view this page."
+msgstr "You need to be logged-in to view this page."
+
+#: .\templates\webapp\login.html.py:58
+msgid "Please sign in"
+msgstr "Please sign in"
+
+#: .\templates\webapp\login.html.py:62
+#: .\templates\webapp\newaccount.html.py:127
+#: .\templates\webapp\newaccount.html.py:130
+msgid "Username"
+msgstr "Username"
+
+#: .\templates\webapp\login.html.py:68
+#: .\templates\webapp\newaccount.html.py:178
+msgid "Password"
+msgstr "Password"
+
+#: .\templates\webapp\login.html.py:76
+#, fuzzy
+msgid "Create an account"
+msgstr "Create an account"
+
+#: .\templates\webapp\login.html.py:79
+msgid "Forgot your password?"
+msgstr "Forgot your password?"
+
+#: .\templates\webapp\login.html.py:85
+msgid "Or use a shortcut"
+msgstr ""
+
+#: .\templates\webapp\login.html.py:90
+msgid "Sign in with Google+"
+msgstr ""
+
+#: .\templates\webapp\login.html.py:103
+msgid "Sign in with Facebook"
+msgstr ""
+
+#: .\templates\webapp\logo.html.py:9
+msgid "This is a provisional starting page"
+msgstr "This is a provisional starting page"
+
+#: .\templates\webapp\logo.html.py:11
+msgid "Under construction"
+msgstr "Under construction"
+
+#: .\templates\webapp\newaccount.html.py:109
+#: .\templates\webapp\profile.html.py:50
+msgid "Edit profile"
+msgstr "Edit profile"
+
+#: .\templates\webapp\newaccount.html.py:111
+#: .\templates\webapp\newaccount.html.py:511
+msgid "Create account"
+msgstr "Create account"
+
+#: .\templates\webapp\newaccount.html.py:121
+msgid "Account information"
+msgstr "Account information"
+
+#: .\templates\webapp\newaccount.html.py:149
+#: .\templates\webapp\newaccount.html.py:171
+#: .\templates\webapp\newaccount.html.py:193
+#: .\templates\webapp\newaccount.html.py:215
+#: .\templates\webapp\newaccount.html.py:240
+#: .\templates\webapp\newaccount.html.py:271
+msgid "Required"
+msgstr "Required"
+
+#: .\templates\webapp\newaccount.html.py:156
+#: .\templates\webapp\profile.html.py:63
+msgid "Email"
+msgstr "Email"
+
+#: .\templates\webapp\newaccount.html.py:159
+msgid "youremail@example.com"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:181
+#, fuzzy
+msgid "Your password"
+msgstr "Forgot your password?"
+
+#: .\templates\webapp\newaccount.html.py:200
+#: .\templates\webapp\newaccount.html.py:203
+#, fuzzy
+msgid "Repeat your password"
+msgstr "Forgot your password?"
+
+#: .\templates\webapp\newaccount.html.py:220
+msgid "Profile information"
+msgstr "Profile information"
+
+#: .\templates\webapp\newaccount.html.py:225
+msgid "Display name"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:228
+msgid "Your public name"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:247
+#, fuzzy
+msgid "Preferred Language"
+msgstr "Language"
+
+#: .\templates\webapp\newaccount.html.py:278
+msgid "Additional Language"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:281
+#: .\templates\webapp\newexperience.html.py:615
+#: .\templates\webapp\newexperience.html.py:657
+#: .\templates\webapp\search_experience_result.html.py:56
+#: .\templates\webapp\search_experience_result.html.py:79
+#: .\templates\webapp\search_experience_result.html.py:101
+#: .\templates\webapp\search_experience_result.html.py:124
+#: .\templates\webapp\search_experience_result.html.py:147
+msgid "None selected"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:307
+#: .\templates\webapp\profile.html.py:148
+msgid "Gender"
+msgstr "Gender"
+
+#: .\templates\webapp\newaccount.html.py:333
+msgid "Location"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:336
+msgid "Your city, country or else"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:353
+#, fuzzy
+msgid "Website"
+msgstr "website"
+
+#: .\templates\webapp\newaccount.html.py:356
+msgid "Your page's URL"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:373
+#, fuzzy
+msgid "Birth date"
+msgstr "Bith date"
+
+#: .\templates\webapp\newaccount.html.py:391
+#, fuzzy
+msgid "Profile picture"
+msgstr "Profile"
+
+#: .\templates\webapp\newaccount.html.py:415
+msgid "Consumer preferences"
+msgstr "Consumer preferences"
+
+#: .\templates\webapp\newaccount.html.py:421
+msgid "Tastes"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:422
+#: .\templates\webapp\newexperience.html.py:726
+#: .\templates\webapp\profile.html.py:237
+#: .\templates\webapp\experience_template.html.py:329
+#: .\templates\webapp\search_experience_result.html.py:167
+msgid "Salty"
+msgstr "Salty"
+
+#: .\templates\webapp\newaccount.html.py:437
+#: .\templates\webapp\newexperience.html.py:741
+#: .\templates\webapp\profile.html.py:246
+#: .\templates\webapp\experience_template.html.py:339
+#: .\templates\webapp\search_experience_result.html.py:182
+msgid "Sour"
+msgstr "Sour"
+
+#: .\templates\webapp\newaccount.html.py:450
+#: .\templates\webapp\newexperience.html.py:754
+#: .\templates\webapp\profile.html.py:255
+#: .\templates\webapp\experience_template.html.py:349
+#: .\templates\webapp\search_experience_result.html.py:195
+msgid "Bitter"
+msgstr "Bitter"
+
+#: .\templates\webapp\newaccount.html.py:463
+#: .\templates\webapp\newexperience.html.py:767
+#: .\templates\webapp\profile.html.py:264
+#: .\templates\webapp\experience_template.html.py:359
+#: .\templates\webapp\search_experience_result.html.py:208
+msgid "Sweet"
+msgstr "Sweet"
+
+#: .\templates\webapp\newaccount.html.py:476
+#: .\templates\webapp\newexperience.html.py:780
+#: .\templates\webapp\profile.html.py:273
+#: .\templates\webapp\experience_template.html.py:369
+#: .\templates\webapp\search_experience_result.html.py:221
+msgid "Spicy"
+msgstr "Spicy"
+
+#: .\templates\webapp\newaccount.html.py:495
+msgid "I have read and I accept "
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:495
+msgid "the terms and conditions"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:496
+msgid "You must accept the terms and conditions"
+msgstr ""
+
+#: .\templates\webapp\newaccount.html.py:509
+msgid "Save changes"
+msgstr "Save changes"
+
+#: .\templates\webapp\newaccount_done.html.py:16
+msgid ""
+"We have sent an activation email to the inbox of your email address you "
+"provided at registration."
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:224
+#, fuzzy
+msgid "Basic information"
+msgstr "Basic info"
+
+#: .\templates\webapp\newexperience.html.py:230
+#, fuzzy
+msgid "Name your experience"
+msgstr "No experiences yet"
+
+#: .\templates\webapp\newexperience.html.py:253
+msgid "Add main picture"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:256
+msgid "Drag and drop an image here"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:293
+msgid "Add more pictures"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:305
+msgid "Write a short description. What is your experience about?"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:324
+msgid "How to make it"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:327
+msgid "Ingredients list"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:378
+msgid "Add an ingredient..."
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:391
+msgid "Step by Step"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:403
+#: .\templates\webapp\newexperience.html.py:429
+msgid "Describe this step..."
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:461
+msgid "Next step?"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:487
+msgid "Pick a picture"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:502
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:508
+msgid "Additional notes"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:512
+msgid "Anything else you want to point out about your experience?"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:524
+#, fuzzy
+msgid "Extra information"
+msgstr "Account information"
+
+#: .\templates\webapp\newexperience.html.py:530
+msgid "Preparation time"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:534
+#: .\templates\webapp\newexperience.html.py:557
+#, fuzzy
+msgid "minutes"
+msgstr "Bitter"
+
+#: .\templates\webapp\newexperience.html.py:553
+msgid "Cooking time"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:580
+msgid "Serves"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:583
+msgid "Two persons or Five units"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:592
+#: .\templates\webapp\search_experience_result.html.py:53
+msgid "Difficulty"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:612
+#: .\templates\webapp\experience_template.html.py:290
+#: .\templates\webapp\search_experience_result.html.py:76
+msgid "Occasions"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:633
+#: .\templates\webapp\search_experience_result.html.py:98
+msgid "Food type"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:654
+#: .\templates\webapp\search_experience_result.html.py:121
+msgid "Special conditions"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:675
+#: .\templates\webapp\profile.html.py:71
+#: .\templates\webapp\search_experience_result.html.py:144
+msgid "Language"
+msgstr "Language"
+
+#: .\templates\webapp\newexperience.html.py:696
+msgid "Free tags"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:699
+msgid "Comma separated tags"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:708
+#: .\templates\webapp\experience_template.html.py:309
+msgid "Nationality"
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:722
+#: .\templates\webapp\experience_template.html.py:325
+#: .\templates\webapp\search_experience_result.html.py:163
+#, fuzzy
+msgid "Savours"
+msgstr "Sour"
+
+#: .\templates\webapp\newexperience.html.py:798
+msgid ""
+"Savour values defines the savour of your experience and stuff. This way we can "
+"better recommend people your experience based on ther personal tastes and so on, "
+"you know. Savours are measured in a relative way, of course. For more "
+"information, check Wikipedia or something, dude."
+msgstr ""
+
+#: .\templates\webapp\newexperience.html.py:808
+#, fuzzy
+msgid "Publish experience"
+msgstr "Add experience"
+
+#: .\templates\webapp\profile.html.py:22 .\webapp\views.py:637
+msgid "Followers"
+msgstr "Followers"
+
+#: .\templates\webapp\profile.html.py:24 .\webapp\views.py:620
+msgid "Following"
+msgstr "Following"
+
+#: .\templates\webapp\profile.html.py:29
+msgid "That's you!"
+msgstr "That's you!"
+
+#: .\templates\webapp\profile.html.py:31 .\templates\webapp\profile.html.py:34
+#, fuzzy
+msgid "Follow"
+msgstr "Followers"
+
+#: .\templates\webapp\profile.html.py:32 .\templates\webapp\profile.html.py:35
+msgid "Unfollow"
+msgstr "Unfollow"
+
+#: .\templates\webapp\profile.html.py:38
+msgid "Register to follow "
+msgstr ""
+
+#: .\templates\webapp\profile.html.py:43
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#: .\templates\webapp\profile.html.py:46
+msgid "Done!"
+msgstr "Done!"
+
+#: .\templates\webapp\profile.html.py:59
+msgid "Basic info"
+msgstr "Basic info"
+
+#: .\templates\webapp\profile.html.py:101
+msgid "Check-in date"
+msgstr "Check-in date"
+
+#: .\templates\webapp\profile.html.py:136
+msgid "User info"
+msgstr "User info"
+
+#: .\templates\webapp\profile.html.py:140
+msgid "website"
+msgstr "website"
+
+#: .\templates\webapp\profile.html.py:194
+msgid "Personal info"
+msgstr "Personal info"
+
+#: .\templates\webapp\profile.html.py:198
+msgid "Bith date"
+msgstr "Bith date"
+
+#: .\templates\webapp\profile.html.py:206
+msgid "Last login"
+msgstr "Last login"
+
+#: .\templates\webapp\profile.html.py:235
+msgid "Savours profile"
+msgstr "Savours profile"
+
+#: .\templates\webapp\experience_template.html.py:16
+msgid "Made from "
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:62
+msgid "Affinity"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:70
+msgid "Select the users: "
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:98
+#, fuzzy
+msgid "You do not have any friend yet."
+msgstr "No experiences yet"
+
+#: .\templates\webapp\experience_template.html.py:115
+msgid "Make it your way"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:122
+msgid "experiences derived from this:"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:135
+#, fuzzy
+msgid "No derived experiences yet"
+msgstr "No experiences yet"
+
+#: .\templates\webapp\experience_template.html.py:140
+msgid "Clone it yourself"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:160
+msgid "By"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:185
+msgid "Like"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:197
+#, fuzzy
+msgid "Edit experience"
+msgstr "Add experience"
+
+#: .\templates\webapp\experience_template.html.py:201
+#, fuzzy
+msgid "Delete experience"
+msgstr "Add experience"
+
+#: .\templates\webapp\experience_template.html.py:214
+msgid "prep + cook time"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:216
+#: .\templates\webapp\experience_template.html.py:219
+msgid "min"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:217
+#: .\templates\webapp\experience_template.html.py:220
+msgid "prep time"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:226
+msgid "difficulty"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:231
+msgid "serves"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:238
+msgid "Ingredients"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:250
+msgid "Notes"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:287
+#, fuzzy
+msgid "More information"
+msgstr "Profile information"
+
+#: .\templates\webapp\experience_template.html.py:297
+msgid "Food Type"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:302
+msgid "Suitable for"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:314
+msgid "Tags"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:384
+msgid "Comments"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:402
+msgid "Unban Comment"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:405
+msgid "Ban comment"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:408
+msgid "This comment has been banned."
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:416
+msgid "No comments yet. Be the first!"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:428
+msgid "Write a comment about the experience…"
+msgstr ""
+
+#: .\templates\webapp\experience_template.html.py:429
+#, fuzzy
+msgid "Send"
+msgstr "Gender"
+
+#: .\templates\webapp\experience_template.html.py:435
+#, python-format
+msgid "Want to comment? <a href=\"%(the_url)s\">Log in</a> first."
+msgstr ""
+
+#: .\templates\webapp\experiences.html.py:38
+#, fuzzy
+msgid "You do not have any experience yet"
+msgstr "No experiences yet"
+
+#: .\templates\webapp\experiences.html.py:42
+msgid "This user does not has any experience yet"
+msgstr ""
+
+#: .\templates\webapp\registration_done.html.py:14
+msgid "You are already an FsWorld user!"
+msgstr ""
+
+#: .\templates\webapp\registration_done.html.py:16
+msgid "Now you can login on FsWorld!"
+msgstr ""
+
+#: .\templates\webapp\search_person_result.html.py:9
+#, fuzzy
+msgid "Users"
+msgstr "Username"
+
+#: .\templates\webapp\search_experience_result.html.py:42
+msgid "Search"
+msgstr ""
+
+#: .\templates\webapp\search_experience_result.html.py:240
+#, fuzzy
+msgid "Filter"
+msgstr "Bitter"
+
+#: .\templates\webapp\search_experience_result.html.py:257
+#, python-format
+msgid "Found %(results)s experiences"
+msgstr ""
+
+#: .\templates\webapp\search_experience_result.html.py:288
+msgid "No results found!"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:7
+msgid "Terms and conditions"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:9
+msgid ""
+"The following terms and conditions govern your use of the website give "
+"FsWorld.herokuapp.com and any of the content available on or through this web "
+"site, including any content derivative thereof has made available the "
+"Website. We may change the Terms and Conditions of Use at any time without "
+"notice, only posting the changes on the Website. BY USING THE SITE, YOU "
+"ACCEPT AND AGREE TO THESE TERMS AND CONDITIONS WITH REGARD TO YOUR USE OF "
+"THE WEB SITE. If you do not agree to these Terms and Conditions, you may not "
+"have access to it or use the Website in any other way."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:11
+msgid "1. Property Rights"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:13
+msgid ""
+"FsWorld is the sole and exclusive owner of the rights to the title, content "
+"(including, for example, audio, photographs, illustrations, graphics, other "
+"visuals, video, copy, text, software, titles) codes, data and materials of "
+"the same, the look and feel, design and organization of the website, the "
+"compilation of the content, code, data and materials on the website, "
+"including but not limited to, any copyright, rights trademark, patent "
+"rights, database rights, moral rights, sui generis rights and other "
+"intellectual property, proprietary rights of the same, and in general all "
+"the Website. Use of the Web Site does not grant to you ownership of any "
+"content, code, data or materials you may access on or through the WebSite."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:15
+msgid "2. Prohibited Use"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:17
+msgid ""
+"Any distribution, publication or commercial or promotional exploitation of "
+"the Website or any content, code, data or materials on the Website is "
+"strictly prohibited unless you have received the express prior written "
+"permission from authorized personnel FsWorld or any other applicable rights "
+"holder. Except as expressly provided in this agreement, you may not "
+"download, inform, display, publish, copy, reproduce, distribute, transmit, "
+"modify, perform, broadcast, transfer, create derivative works from, sell or "
+"otherwise exploit any of the content, code, data or materials on or "
+"available through the web Site. You further agree not to alter, edit, "
+"delete, remove, or otherwise change the meaning or appearance of, or "
+"repurpose, any of the content, code, data or materials on or available "
+"through the Website including, without limitation, the alteration or removal "
+"of any trademark, registered trademark, logo, service mark or any other "
+"proprietary content or proprietary rights notice. You acknowledge that you "
+"do not acquire any ownership rights by downloading any copyrighted material "
+"from or through the Website. If you make other use of the Website, or the "
+"content, code, data or materials that there are or available through the "
+"Website, except as provided above, you may violate copyright laws copyright "
+"and other laws of the European Union, as well as applicable state laws "
+"( Spain ), and may be subject to liability for such unauthorized use. "
+"'FsWorld' is a site owned FsWorld. All contents on display are the sole "
+"property of  FsWorld. It is forbidden to total reproduction and / or parcial. "
+"Content on this site is the result of material produced by FsWorld, our "
+"partners and our users. Includes experiences, comments or images in culinary or "
+"related field. All content is governed by these terms and conditions. Users "
+"and reviewers are solely responsible for the content they publish and "
+"transmit through the site, and shall indemnify FsWorld. possible claims "
+"against them generated.The accuracy and quality of the experiences are the "
+"responsibility of the author. The rating both experiences as places reflects the "
+"experience of our users. All content is for informational purposes. FsWorld. "
+"assumes no responsibility for any decisions that arrives the receiver of the "
+"information nor for any damage caused by insufficient accuracy of the data "
+"entered."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:19
+msgid "3. Trademarks"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:21
+msgid ""
+"The trademarks, logos, service marks, trademarks (collectively the "
+"Trademarks) displayed on the Website or on content available through the "
+"Website are Trademarks of FsWorld, and registered and unregistered other, and "
+"can not be used in connection with products and / or services that are not "
+"related, associated, or sponsored by their rights holders that are likely to "
+"cause confusion among customers, or in any manner that disparages or "
+"discredits their rights holders. All Trademarks non FsWorld displayed on the "
+"Website or on or through the services of the Website, if any, are the "
+"property of their respective owners. Nothing contained on the Site should be "
+"construed as granting, by implication, estoppel, or otherwise, any license "
+"or right to use any Trademark displayed in the Site without the written "
+"permission of FsWorld or third party that may own such Trademark. The misuse "
+"of the Trademarks displayed on the Website or on or through any of the "
+"services of the Website is strictly prohibited."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:23
+#, fuzzy
+msgid "4. User Information"
+msgstr "Profile information"
+
+#: .\templates\webapp\terms_and_conditions.html.py:25
+msgid ""
+"In the course of your use of the Website and / or the services made "
+"available on or through the Web Site, you may be asked to provide certain "
+"personalized information (such information referred to as 'User "
+"Information'. Use policies and information collection FsWorld with respect to "
+"the privacy of such User Information are set forth in the Privacy Policy of "
+"the Website, which is incorporated therein by reference for all purposes. "
+"You acknowledge and agree to be solely responsible for the accuracy of the "
+"content of the User Information."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:27
+msgid "5. Links to the Website"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:29
+msgid ""
+"You agree that if you include a ( link) link any other website to the "
+"Website, the link will open in a new window navigator and linked with the "
+"full version of an HTML formatted page of this Website. You are not allowed "
+"to link directly to any image stored on the Website or our services, such "
+"method is to use a button 'in - line' to cause the image stored by us was "
+"exposed on another website. You agree not to download or use stored on this "
+"Website on another web site, images for any purpose, including, without "
+"limitation, posting such images on another web site. You agree not to link "
+"from any other web site to this Web Site so that the Site, or any page of "
+"the Web Site, is framed, surrounded or obfuscated by the contents, materials "
+"or slots mark of any third. We reserve all of our rights under the law to "
+"insist that any link to the Website is discontinued and revoke your right to "
+"link to the Website from any other website at any time when we send written "
+"notice."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:31
+msgid "6. Compensation"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:33
+msgid ""
+"You agree to indemnify and hold harmless get to, directors, officers, "
+"employees, agents FsWorld and its subsidiaries from any claims, liabilities, "
+"costs and expenses, of any nature, including fees lawyers, they incur as a "
+"result of using the web Site, your placement or transmission of any message, "
+"content, information, software or other materials through the web Site, or "
+"your breach or violation of the law or of these Terms and Conditions. FsWorld "
+"reserves the right, at its own expense, to assume the exclusive defense and "
+"control of any matter otherwise subject to indemnification by you, and in "
+"such case, you agree to cooperate with FsWorld in the defense of such claim."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:35
+msgid "7. Third Party Websites"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:37
+msgid ""
+"You can link (link) Web Site to third party web sites and third can be "
+"linked to ('Linked Sites') Website. You acknowledge and agree that we have "
+"no responsibility for the information, content, products, services, "
+"advertising, code or other materials which may or may not be provided by or "
+"through Linked Sites, even if they are owned or are led by our affiliates. "
+"The links ( links) to Linked Sites do not constitute an endorsement or our "
+"sponsorship of such sites or the information, content, products, services, "
+"advertising, code or other materials presented on or through such websites. "
+"The inclusion of any link to such sites on our Site does not imply "
+"endorsement, sponsorship or recommendation of the Web Site, FsWorld disclaims "
+"any liability for links ( 1) from another web site to this Website and ( 2) "
+"another website to this Website. FsWorld can not guarantee the standards of "
+"any web site to which you provide links on this Site, or be FsWorld "
+"responsible for the contents of such sites, or any subsequent link. FsWorld "
+"does not represent or warrant that the content of any third party website "
+"are accurate, to comply with state or federal law, or to comply with the "
+"laws of copyright or other intellectual property laws. FsWorld is not "
+"responsible for any form of transmission received from any linked website. "
+"Any reliance on the contents of a third party website is done at your own "
+"risk and you assume all responsibilities and consequences resulting from "
+"such reliance."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:39
+msgid "8. Copyright Agent"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:41
+msgid ""
+"In the event that any User or third party considers that any content have "
+"been introduced into the portal with violation of their intellectual "
+"property rights should send a fax to the company containing the following "
+"elements: ( a) personal data : name, address, phone number and email address "
+"of the claimant, ( b ) authentic or equivalently, with the personal data of "
+"the owner of the copyright allegedly infringed or person lawfully authorized "
+"to act on behalf and for (c) precise and complete indication of protected by "
+"intellectual property rights allegedly infringed, and its location on the "
+"portal; ; account holder of the copyright allegedly infringed ( d ) A clear "
+"statement that introducing indicated content was carried out without the "
+"consent of the responsibility of the claimant that the information in the "
+"notification is accurate and that the introduction of content is a violation "
+"of their intellectual property rights."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:42
+msgid ""
+"These notifications must be sent to: Av.Constitución # 8, CP Spain 41004, "
+"Fax 954 78 59 89"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:43
+msgid ""
+"If the letter and information provided, it appears that they are violating "
+"the intellectual right of a person, FsWorld immediately suspend public access "
+"to the relevant information, and make available to the owner."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:46
+msgid "9. Effectiveness"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:48
+msgid ""
+"The provision of the Website and other services is indefinite. FsWorld "
+"however, may terminate, suspend or discontinue at any time and without prior "
+"notice, the provision of services on the Website and / or any of the "
+"Services (including Open the User Services)."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:50
+msgid "10. Law and Jurisdiction"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:52
+msgid ""
+"For the interpretation, compliance and enforcement of these Terms and "
+"Conditions of Use of the Website, FsWorld and the User agree to submit to the "
+"jurisdiction of the competent courts in Spain, renouncing the jurisdiction "
+"that under their existing or future or addresses for any other reason may "
+"apply and will be governed by the provisions applicable in the Spanish and "
+"European laws."
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:54
+msgid "11. API"
+msgstr ""
+
+#: .\templates\webapp\terms_and_conditions.html.py:56
+msgid ""
+"You are granted a limited, non exclusive, non sublicensable right to access "
+"the FsWorld Application Programming Interface (API) of the terms specified "
+"herein. This website, the content API and are available for personal, "
+"noncommercial use. Any other use, including but not limited to any "
+"commercial use or reproduction of large distribution, modification, "
+"republication, display or performance, without the prior written permission "
+"of FsWorld, is strictly prohibited. You may reproduce, modify, create "
+"derivative works from, or otherwise exploit any content, code, data or "
+"materials available through the API, provided they clearly indicate the "
+"original author of the experience, maintaining and publishing the FsWorld name "
+"provider and provided that the beneficiary of the API link directly to the "
+"website FsWorld. We reserve the right, without notice and in our sole "
+"discretion, to terminate your license to use the API. The violation of any "
+"of these terms or conditions that you may be subject to legal action."
+msgstr ""
+
+#: .\webapp\forms.py:10
+msgid "Unspecified"
+msgstr ""
+
+#: .\webapp\forms.py:10
+msgid "Male"
+msgstr ""
+
+#: .\webapp\forms.py:10
+msgid "Female"
+msgstr ""
+
+#: .\webapp\forms.py:43 .\webapp\forms.py:183
+msgid "Easy"
+msgstr ""
+
+#: .\webapp\forms.py:43 .\webapp\forms.py:183
+msgid "Medium"
+msgstr ""
+
+#: .\webapp\forms.py:43 .\webapp\forms.py:183
+msgid "Hard"
+msgstr ""
+
+#: .\webapp\views.py:146 .\webapp\views.py:418
+msgid "Passwords don't match"
+msgstr "Passwords don't match"
+
+#: .\webapp\views.py:151
+#, fuzzy
+msgid "Username alerady taken"
+msgstr "Username aleready taken"
+
+#: .\webapp\views.py:161
+msgid "Email alerady exists"
+msgstr ""
+
+#: .\webapp\views.py:216
+msgid "Your account has been successfully activated. You can log in now."
+msgstr ""
+
+#, fuzzy
+#~ msgid "in the selected experience"
+#~ msgstr "Add experience"
+
+#, fuzzy
+#~ msgid "Clone"
+#~ msgstr "Done!"
+
+#, fuzzy
+#~ msgid "Spain"
+#~ msgstr "Spicy"
+
+#, fuzzy
+#~ msgid "Summer"
+#~ msgstr "Sour"
+
+#, fuzzy
+#~ msgid "Winter"
+#~ msgstr "Bitter"
+
+#, fuzzy
+#~ msgid "Spanish)"
+#~ msgstr "Spicy"
+
+#, fuzzy
+#~ msgid "Don't you have experiences? Let's make yourself one!"
+#~ msgstr "Don't you have friends? Let's make some!"

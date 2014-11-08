@@ -1,0 +1,70 @@
+{% extends "webapp/base.html" %}
+{% load staticfiles %}
+
+<STYLE type="text/css">
+  h3 {margin-right:20px;
+      text-align:justify;
+      text-justify:inter-word;}
+ </STYLE>
+
+{% block container %}
+
+    <div class="row">
+        <div class="col-md-6 contact-about-parent">
+            <div class="panel panel-body contact-more">
+                
+                <p class="contact-text-soft">The idea that originated fsworld’s development was that experiences are not something final. It changes, you adapt to you personal taste or maybe someone advises you; so we decided to do manage the real life experience's evolution . With this, you can control the life your experiences, help to improve your friend’s, copy them and giving your personal touch… You create a experience, you share it,  everyone contributes, it evolves and the whole community benefits." %} </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row panel panel-body">
+        <h3 class="contact-about-us-title">Contacto</h3>
+
+        <p class="contact-text-soft">
+            Esta web está pensada para englobar los conceptos de la pesca y acercarlo a las personas.
+            Cualquier duda o sugerencia, póngase en contacto con nosotros.
+            </p>
+        <p class="contact-text-soft">
+            Gracias por su interés!
+        </p>
+            <a class="plus btn btn-contact" href="mailto:fsworld.contact@gmail.com?subject=Feedback sobre fsworld!">Enviar email</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script>
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+    </script>
+{% endblock %}

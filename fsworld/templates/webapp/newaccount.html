@@ -1,0 +1,320 @@
+{% extends "webapp/base.html" %}
+{% load staticfiles %}
+
+
+
+{% block custom_css %}
+    <link href="{% static 'webapp/css/bootstrap-select.min.css' %}" rel="stylesheet">
+    <link href="{% static 'webapp/css/slider.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block custom_js %}
+    <script src="{% static 'webapp/js/bootstrap-slider.js' %}"></script>
+    <script src="{% static 'webapp/js/bootstrap-select.min.js' %}"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            $('select').selectpicker(); //TODO ¿Poner esto en toda la web y ya está?
+            $('.slider').slider();
+        })
+    </script>
+
+    <script type="text/javascript">
+        // Gracias a http://hayageek.com/drag-and-drop-file-upload-jquery/
+        // Y a http://digipiph.com/blog/submitting-multipartform-data-using-jquery-and-ajax
+        var obj = $("#drop-target");
+        obj.on('dragenter', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).css('border', '2px solid #0B85A1');
+        });
+        obj.on('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+        obj.on('drop', function (e) {
+
+            $(this).css('border', '2px dotted #0B85A1');
+            e.preventDefault();
+            var files = e.originalEvent.dataTransfer.files;
+
+            //We need to send dropped files to Server
+            handleFileUpload(files, obj);
+        });
+
+        function handleFileUpload(files, obj) {
+            var fd = new FormData($('form')[0]);
+            fd.append('image', files[0]);
+            // Envía el csrf token con los datos de post, para que Django no lo interprete como un ataque
+            // Visto en: https://docs.djangoproject.com/en/dev/ref/contrib/csrf/#ajax
+            var csrftoken = getCookie('csrftoken');
+            $.ajaxSetup({
+                crossDomain: false, // obviates need for sameOrigin test
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type)) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+            $.ajax({
+                url: '{% url 'upload' %}',
+                type: 'POST',
+                data: fd,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (returndata) {
+                    var response = $.parseJSON(returndata);
+                    var $avatar = $("#avatar-target");
+                    $avatar.attr("src", response.url);
+                    $("#id_avatar_url").val($avatar.prop("src"));
+                    $("#id_avatar_id").val(response.id);
+                }
+            });
+        }
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function checkTermsAndConds(){
+             var check = $("#terms_conds").is(":checked");
+             if(!check){
+                 $("#error_terms_conds").show();
+                 return false;
+             }
+         }
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+    </script>
+{% endblock %}
+
+
+{% block container %}
+
+<div class="panel panel-default">
+<div class="panel-body">
+    <h1>{{ title }}</h1>
+
+    <form role="form well well-lg" class="form-horizontal" method="post" enctype="multipart/form-data" {% if not edit %} onsubmit="return checkTermsAndConds();" {% endif %}>
+    {% csrf_token %}
+
+
+    <legend>Información de perfil</legend>
+    <fieldset class="panel-body">
+
+        <!-- Username -->
+        <div class="form-group">
+            <label for="id_{{ form.username.name }}"
+                   class="col-sm-2 control-label">Nombre</label>
+
+            <div class="col-sm-3">
+
+                {% comment %}
+                    Utilizo esta técnica en vez de poner {{ form.username }} para permitir estilos personalizados.
+                    Se pueden añadir estilos en la clase NewAccountForm, pero de esta forma es más flexible y deja la
+                    visualización como responsabilidad de la plantilla.
+                    Visto en: http://stackoverflow.com/questions/18805999/how-to-style-a-django-form-bootstrap
+                    {% endcomment %}
+                <input type="text" class="form-control" placeholder="{{ user_name }}"
+                       name="{{ form.username.name }}" id="id_{{ form.username.name }}"
+                       value="{{ form.username.value | default_if_none:'' }}" {% if edit %} disabled {% endif %}>
+            </div>
+            {% if form.username.errors %}
+                <span class="alert alert-danger">
+                    {% for error in form.username.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <span class="help-block">Obligatorio</span>
+            {% endif %}
+        </div>
+
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="id_{{ form.email.name }}" class="col-sm-2 control-label">Email</label>
+
+            <div class="col-sm-3">
+
+                <input type="email" class="form-control" placeholder="{{ your_email }}"
+                       name="{{ form.email.name }}" id="id_{{ form.email.name }}"
+                       value="{{ form.email.value | default_if_none:'' }}" {% if edit %} disabled {% endif %}>
+            </div>
+            {% if form.email.errors %}
+                <span class="alert alert-danger">
+                    {% for error in form.email.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <span class="help-block">Obligatorio</span>
+            {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="id_{{ form.password.name }}"
+                   class="col-sm-2 control-label">Obligatorio</label>
+
+            <div class="col-sm-3">
+
+                <input type="password" class="form-control" placeholder="{{ your_pass }}"
+                       name="{{ form.password.name }}" id="id_{{ form.password.name }}"
+                       value="{{ form.password.value | default_if_none:'' }}">
+            </div>
+            {% if form.password.errors %}
+                <span class="alert alert-danger">
+                    {% for error in form.password.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <span class="help-block">Obligatorio</span>
+            {% endif %}
+        </div>
+
+        <!-- Password repeat -->
+        <div class="form-group">
+            <label for="id_{{ form.password_repeat.name }}"
+                   class="col-sm-2 control-label"> Repite tu contraseña </label>
+
+            <div class="col-sm-3">
+
+                <input type="password" class="form-control" placeholder="{{ repeat_your_pass }}"
+                       name="{{ form.password_repeat.name }}" id="id_{{ form.password_repeat.name }}"
+                       value="{{ form.password_repeat.value | default_if_none:'' }}">
+            </div>
+            {% if form.password_repeat.errors %}
+                <span class="alert alert-danger">
+                    {% for error in form.password_repeat.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <span class="help-block">Obligatorio</span>
+            {% endif %}
+        </div>
+    </fieldset>
+
+    <legend>Información de perfil</legend>
+    <fieldset class="panel-body">
+        <!-- Display Name -->
+        <div class="form-group">
+            <label for="id_{{ form.display_name.name }}"
+                   class="col-sm-2 control-label"> Nombre Usuario</label>
+
+            <div class="col-sm-3">
+
+                <input type="text" class="form-control" placeholder="{{ your_public_name }}"
+                       name="{{ form.display_name.name }}" id="id_{{ form.display_name.name }}"
+                       value="{{ form.display_name.value | default_if_none:'' }}">
+            </div>
+            {% if form.display_name.errors %}
+                <span class="alert alert-danger">
+                    {% for error in form.display_name.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <span class="help-block">Obligatorio</span>
+            {% endif %}
+        </div>
+
+
+        <!-- Location -->
+        <div class="form-group">
+            <label for="id_{{ form.location.name }}"
+                   class="col-sm-2 control-label">Localización</label>
+
+            <div class="col-sm-3">
+                 País, ciudad o localidad
+                <input type="text" class="form-control" placeholder="{{ your_city }}"
+                       name="{{ form.location.name }}" id="id_{{ form.location.name }}"
+                       value="{{ form.location.value | default_if_none:'' }}">
+            </div>
+            {% if form.location.errors %}
+                <span class="alert alert-danger">
+                    {% for error in form.location.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </div>
+
+
+        <!-- Avatar -->
+        <div class="form-group">
+            <label for="id_{{ form.avatar.name }}" class="col-sm-2 control-label">Imagen de perfil</label>
+            <!-- TODO alternativas para el estilo:
+                http://gregpike.net/demos/bootstrap-file-input/demo.html
+                http://markusslima.github.io/bootstrap-filestyle/
+                -->
+            <div class="col-sm-3">
+                <div id="drop-target" class="drag-and-drop avatar-drop">
+                    <img id="avatar-target" class="img-rounded img-responsive"
+                         src="{{ form.avatar_url.value|default_if_none:'' }}">
+                    <input type="hidden" id="id_{{ form.avatar_url.name }}" name="{{ form.avatar_url.name }}">
+                    <input type="hidden" id="id_{{ form.avatar_id.name }}" name="{{ form.avatar_id.name }}">
+                </div>
+            </div>
+            {% if form.avatar.errors %}
+                <span class="alert alert-danger">
+                    {% for error in form.avatar.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </div>
+
+    </fieldset>
+
+
+    <br />
+
+     {% if not edit %}
+     <div class="checkbox">
+         <label>
+             <input id="terms_conds" type="checkbox">  He leído los términos y los acepto <a class="termsandcond" href="{% url 'terms_and_conditions' %}">  Términos y condiciones </a>
+            <span id="error_terms_conds" style="display: none;" class="alert alert-danger"> Debes aceptar los términos y condiciones </span>
+         </label>
+     </div>
+
+     <br />
+     <br />
+    {% endif %}
+
+    <!-- Submit Button -->
+    <div class="form-group">
+        <label for="inputDisplayName" class="col-sm-1 control-label"></label>
+
+
+        <div class="col-sm-3">
+
+            <input type="submit" class="btn btn-success" value="{{ submit_text }}"/>
+        </div>
+    </div>
+    </form>
+
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" id="avatar-form"
+          style="display: none">
+        {% csrf_token %}
+    </form>
+</div>
+</div>
+{% endblock %}

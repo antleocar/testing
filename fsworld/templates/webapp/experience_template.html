@@ -1,0 +1,406 @@
+{% extends "webapp/base.html" %}
+{% load staticfiles %}
+
+{% load tags %}
+{% load experience_form %}
+
+{% block container %}
+    <!-- Start experience -->
+    <!-- Column Left -->
+
+    <!-- Title -->
+    <div class="col-md-8 col-md-offset-2">
+    <h1 class="experience-name">{{ experience.title }}</h1>
+    
+
+    <div class="panel main-picture-padding row">
+        <div id="carousel-example-generic" class="main-picture-carousel carousel slide"
+             data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                {% for pic in experience.pictures %}
+                    <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter }}"></li>
+                {% endfor %}
+
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner experience-carousel-wrapper">
+                <div class="item active experience-carousel-item"
+                     style="background-image: url('{{ experience.main_image.url }}')">
+                    <img src="{{ experience.main_image.url }}">
+
+                    <div class="carousel-caption"></div>
+                </div>
+                {% for picture in experience.pictures %}
+                    <div class="item experience-carousel-item" style="background-image: url('{{ picture.image.url }}')">
+                        <img src="{{ picture.image.url }}">
+
+                        <div class="carousel-caption"></div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    {% if user.is_authenticated %}
+
+            <div class="modal fade experience-modal-affinity" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Select the users: </h4>
+                        </div>
+                        <div class="modal-body">
+                            {% if following %}
+                                <ul>
+                                    {% for friend in following %}
+                                        <li class="list-affinity">
+                                            <div class="col-md-10 panel follow-list-item"><a class="get-affinity" >
+                                                <div class="col-md-10">
+                                                    <span><img class="img-rounded"
+                                                         src="{% avatar friend.user.profile.get.avatar %}"/>
+                                                    <h3 class="user-name-affinity">
+                                                    {{ friend.display_name }}</h3></span>
+                                                </div>
+                                                <div class="col-md-2 ">
+                                                    <span class="glyphicon glyphicon-chevron-right affinity-right"></span>
+                                                </div>
+                                            </a></div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="modal-footer hide-divider">
+
+                                </div>
+
+                            {% else %}
+                                <div class="experience-modal-children-empty">
+                                    <span>You do not have any friend yet.</span>
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endif %}
+
+        <!-- Author overlay -->
+        <a class="experience-author-link" href="{% url 'profile' experience.author.username %}">
+            <div class="img-circle experience-author experience-author-picture-container">
+                <div class="img-circle experience-author-picture"
+                     style="background-image: url('{% avatar experience.author.profile.get.avatar %}')">
+                    <img class="img-circle experience-author"
+                         src="{% avatar experience.author.profile.get.avatar %}">
+                </div>
+            </div>
+            <h5 class="experience-author experience-author-name"> By {{ experience.author.profile.get.display_name }}</h5>
+        </a>
+
+        <!-- Votes overaly -->
+        <div class="experience-votes-container">
+            <div class="experience-votes">
+                <div class="experience-votes-indicators">
+                    <span class="experience-votes-indicator"><i
+                            class="fa fa-thumbs-up"></i><span
+                            id="positive_votes">{{ experience.positives|length }}</span></span>
+                        <span class="experience-votes-indicator"><i
+                                class="fa fa-thumbs-down"></i><span
+                                id="negative_votes">{{ experience.negatives|length }}</span></span>
+                    <span id="experience-votes-count" class="experience-votes-count">{{ total_votos }}</span>
+                </div>
+
+                <div class="progress experience-votes-progress">
+                    <div id="por_pos" class="progress-bar progress-bar-success" style="width: {{ por_pos }}%">
+                    </div>
+                    <div id="por_neg" class="progress-bar progress-bar-warning" style="width: {{ por_neg }}%">
+                    </div>
+                </div>
+
+                <div class="experience-votes-buttons">
+                    <a id="btn-positive" class="btn btn-default experience-votes-like-btn" {% if not user.is_authenticated %} disabled="disabled" {% endif %}><i
+                            class="fa fa-thumbs-up" ></i> Me gusta</a>
+                    <a id="btn-negative" class="btn btn-default experience-votes-like-btn" {% if not user.is_authenticated %} disabled="disabled" {% endif %}><i
+                            class="fa fa-thumbs-down"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user == experience.author or user.is_staff %}
+        <div class="row panel-body experience-controls">
+            <div class="col-md-4 col-md-offset-1">
+                <a href="{% url 'editexperience' experience.id %}" class="btn btn-default btn-block btn-danger"><i
+                        class="fa fa-edit"></i> Editar experiencia </a>
+            </div>
+            <div class="col-md-4 col-md-offset-2">
+                <a href="#" class="btn btn-default btn-block btn-danger"><i
+                        class="fa fa-trash-o"></i> Borrar experiencia </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="panel panel-body row experience-description">
+        <p class="text-soft"> {{ experience.description }} </p>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-6 experience-ingredients-parent {% if not experience.notes %}col-md-offset-3{% endif %}">
+
+        </div>
+
+        {% if experience.notes %}
+            <div class="col-md-6 experience-notes-parent">
+                <div class="panel-body experience-notes postit">
+                    <h3 class="experience-panel-title"> Notas </h3>
+
+                    <p>{{ experience.notes }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="experience-step-list">
+
+        {% for step in experience.steps %}
+
+            <div id="step-{{ forloop.counter }}" class="experience-step">
+                <div class="row">
+                    <div class="col-md-1 col-md-offset-1 experience-step-count">{{ forloop.counter }}</div>
+                    <div class="col-md-9">
+                        <p class="text-soft">{{ step.text|linebreaks }}</p>
+                    </div>
+                </div>
+                {% if step.image %}
+                    <a class="" href="{{ step.image.url }}" data-lightbox="steplightbox2-{{ forloop.counter }}">
+                        <img class="img-rounded experience-step-picture img-thumbnail center-block"
+                             src="{{ step.image.url }}">
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if not forloop.last %}
+                <span class="experience-step-separator center-block"></span>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 experience-more-parent">
+            <div class="panel panel-body experience-more">
+                <h3 class="experience-panel-title">Más información</h3>
+
+
+                {% if experience.tags %}
+                    <div class="experience-more-title"> Tags:</div>
+                    {% for tag in experience.tags %}
+                        <span><a class="experience-tag" href="{% url 'search_experience' %}?srchterm={{ tag }}">{{ tag }}</a></span>
+                    {% endfor %}
+                {% endif %}
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row panel panel-body">
+        <h3 class="experience-panel-title">Comentarios</h3>
+
+        <div class="experience-comment-list">
+            {% if experience.comments %}
+                {% for comment in experience.comments %}
+                    {% if not comment.is_banned or comment.is_banned and user.is_staff or comment.is_banned and comment.user_own == user %}
+                        <div class="experience-comment">
+                            <img class="img-circle experience-comment-picture"
+                                 src="{{ comment.user_own.profile.get.avatar.url }}">
+
+                            <span class="experience-comment-name">{{ comment.user_own.profile.get.display_name }}</span>
+                            <span class="experience-comment-date">{{ comment.create_date }}</span>
+
+                            <p class="text-soft {% if comment.is_banned %}experience-comment-banned{% endif %}"
+                                    >{{ comment.text|linebreaks }}</p>
+                            {% if user.is_staff %}
+                                {% if comment.is_banned %}
+                                    <a
+                                       class="plus btn btn-default">Unban Comment</a>
+                                {% else %}
+                                    <a
+                                       class="plus btn btn-default">Ban comment</a>
+                                {% endif %}
+                            {% elif comment.user_own == user and comment.is_banned %}
+                                <div class="alert alert-danger">This comment has been banned.</div>
+                            {% endif %}
+                        </div>
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class="experience-comment-empty">
+                    <p class="text-soft">No comments yet. Be the first!</p>
+                </div>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <div id="experience-comment-form" class="experience-comment-form">
+                    <img class="img-circle experience-comment-picture"
+                         src="{% avatar user.profile.get.avatar %}">
+
+                    <form method="POST" action="{% url 'comment' experience.id %}">
+                        {% csrf_token %}
+                        <textarea class="form-control" name="text"
+                                  placeholder=" Write a comment about the experience…"  rows="5"></textarea>
+                        <input class="plus btn btn-default" type="submit" value=" Send" >
+                    </form>
+                </div>
+            {% else %}
+                <div class="experience-comment-login text-soft">
+                    {% url 'login' as the_url %}
+                    {% blocktrans %}Want to comment? <a href="{{ the_url }}">Log in</a> first.{% endblocktrans %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script>
+        var $positive = $("#btn-positive");
+        var $negative = $("#btn-negative");
+        var $positive_votes = $("#positive_votes")
+        var $negative_votes = $("#negative_votes")
+        var $total_count = $("#experience-votes-count");
+        var $error = $("#error-vote");
+        var $ok = $("#ok-vote");
+        var $por_pos = $("#por_pos");
+        var $por_neg = $("#por_neg");
+
+        function show_error(jqXHR, textStatus, errorThrown) {
+            var result = $.parseJSON(jqXHR.responseText);
+            // TODO: Mostrar mensaje de error
+        }
+
+        function vote_refresh(jqXHR, textStatus, errorThrown) {
+            //actualizar conteo de votos sin necesidad de recargar la pagina
+            $.get('{% url 'experience_votes' experience.id %}', function (data) {
+                var result = $.parseJSON(data);
+                console.log(data);
+                $positive_votes.html(result.positives);
+                $negative_votes.html(result.negatives);
+                $total_count.html(result.total);
+                $por_pos.css("width", result.por_pos + '%');
+                $por_neg.css("width", result.por_neg + '%');
+            })
+        }
+
+        var csrftoken = getCookie('csrftoken');
+
+        // establecer valores por defecto utilizados en las peticiones ajax
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            //especificar pretratamiento del XMLHTTPRequest (en este caso, añadir cabecera CSRF)
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        // funcion a ejecutar cuando el DOM este completamente cargado
+        $(document).ready(function () {
+
+            // por defecto los divs para indicar el resultado estan ocultos
+            $error.hide();
+            $ok.hide();
+
+            // establece una función a ejecutar cuando se haga click sobre el elemento
+            $positive.click(function (e) {
+                var data = {"experience": '{{ experience.id }}', "type": "positive"};
+
+                $.ajax({    // Realizar peticion ajax
+                    type: "POST",
+                    url: '{% url 'vote' %}',
+                    data: data,
+                    dataType: "json",
+                    // funcion ejecutada cuando la peticion haya tenido exito
+                    success: vote_refresh,
+                    // funcion ejecutada cuando se haya producido algun error
+                    error: show_error
+                })
+            });
+
+            $negative.click(function (e) {
+                var data = {"experience": '{{ experience.id }}', "type": "negative"};
+
+                $.ajax({
+                    type: "POST",
+                    url: '{% url 'vote' %}',
+                    data: data,
+                    dataType: "json",
+                    success: vote_refresh,
+
+                    error: show_error
+                })
+            })
+        });
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+    </script>
+    <script>
+        $().ready(function () {
+            $(".experience-author-link").hover(
+                    function () {
+                        $(".experience-author").addClass("hover");
+                    },
+                    function () {
+                        $(".experience-author").removeClass("hover");
+                    }
+            );
+
+            //XXX Cuidado, valores puestos a mano. Se podría animar con una clase usando jQueryUI
+            $(".experience-votes-container").hover(
+                    function () {
+                        $(".experience-votes").animate({"margin-bottom": 0}, 150)
+                    },
+                    function () {
+                        $(".experience-votes").animate({"margin-bottom": "-40px"}, 150)
+                    }
+            );
+        });
+    </script>
+{% endblock %}

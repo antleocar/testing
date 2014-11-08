@@ -16,7 +16,7 @@ from ajax import models as models_ajax
 from bson import ObjectId
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
-from webapp.models import Profile, Comment, Step, Picture, Experience,  SetUp
+from webapp.models import Profile, Comment, Step, Picture, Experience,  SetUp, Activation
 from ajax.models import UploadedImage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -55,6 +55,88 @@ def main(request):
         experiences = Experience.objects.all().order_by('-creation_date')
     return render(request, 'webapp/main.html')
 
+@login_required
+def new_experience(request):
+    #TODO if user is authenticated redirect to main
+    if request.method == 'POST':
+        # else -> render respone with the obtained form, with errors and stuff
+        form = ExperienceForm(request.POST)
+        if form.is_valid:  # else -> render respone with the obtained form, with errors and stuff
+            experience = store_experience(form, request.user)
+            if experience:
+                return HttpResponseRedirect(reverse('experience', kwargs={'experience_id': experience.id}))  # Redirect after POST
+    else:
+        form = ExperienceForm()
+
+    return render(request, 'webapp/newexperience.html', {'form': form})
+
+
+def store_experience(form, user, experience=None, parent=None):
+    if form.is_valid():
+        # Extract the data from the form and create the User and Profile instance
+        data = form.cleaned_data
+
+        # Basic information
+        title = data['title']
+        description = data['description']
+        main_picture = data['main_picture_id']
+
+        pictures_id_list = form.get_pictures_ids_list()
+
+        steps = form.get_steps_list()
+
+        notes = data['notes']
+
+        tags = []
+        tags_all = data['tags']
+
+        if tags_all:
+            tags = tags_all.split(",")
+
+        # Genera la experience
+
+        imagen_principal = UploadedImage.objects.get(id=main_picture).image
+
+        if not experience:
+            experience = Experience()
+
+        experience.title = title
+        experience.description = description
+
+        experience.notes = notes
+
+        experience.tags = tags
+        experience.main_image = imagen_principal
+        u = user
+
+        # steps is a list of dict
+        step_list = list()
+        for step in steps:
+            if "picture" in step:
+                picture = UploadedImage.objects.get(id=step["picture"]).image
+                step_object = Step(text=step['text'], image=picture)
+            else:
+                step_object = Step(text=step['text'])
+
+            step_list.append(step_object)
+        experience.steps = step_list
+
+        # pictures_id_list is a list of ids
+        pictures_list = list()
+        if pictures_id_list:
+            for pic in pictures_id_list:
+                if pic:
+                    picture = Picture(image=UploadedImage.objects.get(id=pic).image)
+                    pictures_list.append(picture)
+
+        experience.pictures = pictures_list
+
+        experience.author = u
+        experience.clean()
+        experience.save()
+        return experience
+    else:
+        return None
 
 def experiences(request, username):
     try:
@@ -70,3 +152,195 @@ def experiences(request, username):
     return render(request, 'webapp/experiences.html', {'experiences': experiences_list, 'is_owner': is_owner})
 
 
+def login_user(request):
+    # Usa la Authentication View:
+    # https://docs.djangoproject.com/en/1.5/topics/auth/default/#module-django.contrib.auth.views
+    return views.login(request, 'webapp/login.html')
+
+
+def logout_user(request):
+    # TODO: estaría bien mostrar una página de logout correcto, o un mensaje en la principal
+    return views.logout(request, next_page=reverse('main'))
+
+
+def search_profile(request, terms):
+    if request.method == 'GET':
+
+        client = MongoClient()
+
+        results_profiles = Profile.objects.raw_query({"$text": {"$search": terms}})
+
+        return render(request, 'webapp/search_person_result.html', {'matches_profile': results_profiles})
+
+
+def profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404
+    user_profile = Profile.objects.get(user=user)
+    experiences = Experience.objects.raw_query({'author_id': ObjectId(user.id)})
+    followers_list = Profile.objects.raw_query({'following.user_id': ObjectId(user.id)})
+    is_owner = False
+    if request.user.username == username:
+        is_owner = True
+
+    # Compruebo si está en mi lista de seguidos
+    is_following = False
+    if request.user.is_authenticated() and user.id != request.user.id:
+        my_profile = request.user.profile.get()
+
+        following_now = my_profile.following
+        for f in following_now:
+            if f.user.id == user.id:
+                is_following = True
+
+    return render(request, 'webapp/profile.html',
+                  {'profile': user_profile, 'following': is_following, 'followers_list': followers_list,
+                   'experiences': experiences, 'is_owner': is_owner})
+
+
+def new_account(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('main'))
+
+    if request.method == 'POST':
+        form = NewAccountForm(request.POST)
+        if form.is_valid():  # else -> render respone with the obtained form, with errors and stuff
+            # Extract the data from the form and create the User and Profile instance
+            data = form.cleaned_data
+            username = data['username']
+            email = data['email']
+            password = data['password']
+            password_repeat = data['password_repeat']
+            display_name = data['display_name']
+            location = data['location']
+
+            avatar_id = data['avatar_id']
+            if avatar_id != u'':
+                avatar = models_ajax.UploadedImage.objects.get(id=avatar_id)
+
+            if not password == password_repeat:
+                errors = form._errors.setdefault("password_repeat", ErrorList())
+                output = _("Passwords don't match")
+                errors.append(unicode(output))
+
+            elif User.objects.filter(username=username).count():
+                errors = form._errors.setdefault("username", ErrorList())
+                output = _("Username alerady taken")
+                errors.append(unicode(output))
+
+            try:
+                valid_email = User.objects.get(email=email)
+            except :
+                valid_email = False
+
+            if valid_email:
+                errors = form._errors.setdefault("email", ErrorList())
+                output = _("Email alerady exists")
+                errors.append(unicode(output))
+
+            else:
+                u = User.objects.create_user(username, email, password)
+
+                p = Profile(display_name=display_name, user=u,
+                            location=location, username=username)
+                #TODO capturar cualquier error de validación y meterlo como error en el formulario
+
+                #avatar.image.name = str(p.id) + '.png' # No vale así, hay que copiar el archivo en otro
+                if avatar_id != u'':
+                    p.avatar = avatar.image
+
+                p.user.is_active = False
+
+                p.user.save()
+
+                p.clean()
+                p.save()  # TODO borrar el User si falla al guardar el perfil
+
+                #Generar el codigo y meterlo en la BD.
+
+                #TODO marco de el UploadedImage para que no se borre. Pero lo mejor sería copiar la imagen a otro sitio
+                if avatar_id != u'':
+                    avatar.persist = True
+                    avatar.save()
+
+                #return render(request, 'webapp/newaccount_done.html', {'profile': p.user.username})  # Redirect after POST
+                return HttpResponseRedirect(reverse('newaccount_done', kwargs={'username': p.user.username}))
+
+    else:
+        form = NewAccountForm()
+
+    return render(request, 'webapp/newaccount.html', {'form': form})
+
+
+def new_account_done(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404
+
+    #TODO: esto hay que cambiarlo para que se haga por post, y que muestre un mensaje mas concreto. De momento asi estaria eliminado el bug.
+    if user.is_active:
+        return HttpResponseRedirect(reverse('main'))
+
+    ts = time.time()
+    now_datetime = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+
+    while True:
+        hash = hashlib.md5()
+        hash.update(username)
+        hash.update(str(now_datetime))
+        hash.digest()
+        if not Activation.objects.filter(code=hash.hexdigest()).exists():
+            break
+
+    #a = Activation(user=user, code=hash.hexdigest(), date=now_datetime)
+    #a.save()
+
+    context = {
+            'site': request.get_host(),
+            'user': user,
+            'username': username,
+            #'token': a.code,
+            'secure': request.is_secure(),
+        }
+    #body = loader.render_to_string("email/activation_email.txt", context).strip()
+    #subject = loader.render_to_string("email/activation_email_subject.txt", context).strip()
+    #send_mail(subject, body, "fsworld.contact@gmail.com", [user.email])
+
+    #enviar el mail.
+    return render(request, 'webapp/newaccount_done.html', {}) #pasar profile para mostrar datos en pantallas
+
+
+def experience(request, experience_id):
+
+    following = None
+    if request.user.is_authenticated():
+        #username = request.user.username
+        #user = User.objects.get(username=username)
+        my_profile = request.user.profile.get()
+        following = my_profile.following
+
+    experience = Experience.objects.get(id=experience_id)
+
+    total_votos = len(experience.positives) + len(experience.negatives)
+    porcentaje_positivos = 50
+    porcentaje_negativos = 50
+    if total_votos != 0:
+        porcentaje_positivos = (len(experience.positives) / float(total_votos))*100
+        porcentaje_negativos = (len(experience.negatives) / float(total_votos))*100
+
+
+
+
+    return render(request, 'webapp/experience_template.html', {'experience': experience, 'total_votos': total_votos,
+                                                           'por_pos': int(porcentaje_positivos), 'por_neg': int(porcentaje_negativos),
+                                                           'following': following})
+
+def terms_and_conditions(request):
+    return render(request, 'webapp/terms_and_conditions.html')
+
+
+def contact(request):
+    return render(request, 'webapp/contact.html')

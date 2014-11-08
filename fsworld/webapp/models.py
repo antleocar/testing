@@ -61,6 +61,11 @@ class Experience(models.Model):
     def __str__(self):
         return self.title
 
+class Activation(models.Model):
+    user = models.ForeignKey(User, related_name="activation", unique=True)
+    code = models.CharField(max_length=100) #hash del usuario y la fecha
+    date = models.DateTimeField()
+
 
 class Profile(models.Model):
     display_name = models.CharField(max_length=50, blank=False)

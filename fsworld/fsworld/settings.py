@@ -69,6 +69,18 @@ MONGO_PORT = MONGO_URL.port
 MONGO_USER = MONGO_URL.username
 MONGO_PASS = MONGO_URL.password
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_mongodb_engine',
+        'NAME': MONGO_DB,
+        'USER': MONGO_USER,
+        'PASSWORD': MONGO_PASS,
+        'HOST': MONGO_HOST,
+        'PORT': MONGO_PORT,
+        'SUPPORTS_TRANSACTIONS': False,
+    }
+}
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -140,17 +152,7 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_mongodb_engine',
-        'NAME': MONGO_DB,
-        'USER': MONGO_USER,
-        'PASSWORD': MONGO_PASS,
-        'HOST': MONGO_HOST,
-        'PORT': MONGO_PORT,
-        'SUPPORTS_TRANSACTIONS': False,
-    }
-}
+
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 MESSAGE_TAGS = {message_constants.ERROR: 'danger'}
@@ -190,4 +192,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
 )

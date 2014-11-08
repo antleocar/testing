@@ -9,22 +9,22 @@
         <div class="col-md-12 hidden-md hidden-lg">
         <div class="panel panel-default panel-body text-center">
             {% if user.is_authenticated %}
-                <div class="col-md-12 col-xs-12 hidden-md hidden-lg"><h2 class="navbar-text text-red text-center">{"Hello" }, {{ user.profile.get.display_name }}</h2></div>
-                <div class="col-md-6 col-xs-6 hidden-md hidden-lg"><a >{ "Profile" }</a></div>
-                <div class="col-md-6 col-xs-6 hidden-md hidden-lg"><a >{ "Logout" }</a></div>
+                <div class="col-md-12 col-xs-12 hidden-md hidden-lg"><h2 class="navbar-text text-red text-center">Hola, {{ user.profile.get.display_name }}</h2></div>
+                <div class="col-md-6 col-xs-6 hidden-md hidden-lg"><a href="{% url 'profile' user.username %}">Perfil</a></div>
+                <div class="col-md-6 col-xs-6 hidden-md hidden-lg"><a href="{% url 'logout' %}">Cerrar sesión</a></div>
 
                 <br />
 
                 <div class="col-md-12 col-xs-12 hidden-md hidden-lg">
-                    <a type="button" class="plus btn btn-default" >
-                        <span class="glyphicon glyphicon-plus"></span>{ "Add experience" }
+                    <a type="button" class="plus btn btn-default" href="{% url 'newexperience' %}">
+                        <span class="glyphicon glyphicon-plus"></span> Crear experiencia
                     </a>
                 </div>
             {% else %}
                 <br />
 
-                <div class="col-md-12 col-xs-12 hidden-md hidden-lg"><a class="btn btn-default btn-eathub"
-                   role="button">{"Sign in" }</a></div>
+                <div class="col-md-12 col-xs-12 hidden-md hidden-lg"><a class="btn btn-default btn-fsworld" href="{% url 'login' %}"
+                   role="button">Regístrate</a></div>
 
             {% endif %}
         </div>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="main-card-content">
                         <div class="main-card-name">
-                            <a class="experience-title" ><span>{{ experience.title }}</span></a>
+                            <a class="experience-title" href="{% url 'experience' experience.id %}"><span>{{ experience.title }}</span></a>
                         </div>
 
                         <div class="main-card-description">
@@ -50,7 +50,7 @@
 
                     <div class="experience-author-main">
                                 <span><a class="experience-link-main"
-                                         >by {{ experience.author.profile.get.display_name }}</a></span>
+                                       href="{% url 'profile' experience.author.username %}">por {{ experience.author.profile.get.display_name }}</a></span>
                     </div>
                 </div>
             </div>

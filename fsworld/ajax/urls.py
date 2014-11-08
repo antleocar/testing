@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     url(r'^upload/$', views.upload_picture, name='upload'),
     url(r'^follow/$', views.follow, name='follow'),
     url(r'^unfollow/$', views.unfollow, name='unfollow'),
-    url(r'^vote/$', views.vote_recipe, name='vote'),
+    url(r'^vote/$', views.vote_experience, name='vote'),
     url(r'^votes/(?P<experience_id>\w+)/$', views.experience_votes, name='experience_votes')
 )
