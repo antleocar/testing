@@ -47,25 +47,16 @@ class Experience(models.Model):
     notes = TextField(null=True)
     tags = ListField(null=True, validators=[validate_tags])
     #embedded
-    steps = ListField(EmbeddedModelField('Step'), null=False)
     author = ForeignKey(User)
     pictures = ListField(EmbeddedModelField('Picture'))
     comments = ListField(EmbeddedModelField('Comment'), blank=True)
-    setup = ListField(EmbeddedModelField('SetUp', blank=True))
-
+    setups = ListField(EmbeddedModelField('SetUp', blank=True))
     positives = ListField(EmbeddedModelField('Vote'))
     negatives = ListField(EmbeddedModelField('Vote'))
-
     objects = MongoDBManager()
 
     def __str__(self):
         return self.title
-
-class Activation(models.Model):
-    user = models.ForeignKey(User, related_name="activation", unique=True)
-    code = models.CharField(max_length=100) #hash del usuario y la fecha
-    date = models.DateTimeField()
-
 
 class Profile(models.Model):
     display_name = models.CharField(max_length=50, blank=False)
@@ -86,11 +77,6 @@ class Profile(models.Model):
         return Experience.objects.filter(author=self.user)
 
 
-class SetUp(models.Model):
-    type_of_fishing = models.CharField(max_length=50, blank=False)
-    difficult = IntegerField(null=True, validators=[validate_difficult])
-    steps = ListField(EmbeddedModelField('Step'), null=False)
-
 
 class Vote(models.Model):
     date = models.DateField(validators=[validate_past_date])
@@ -100,9 +86,11 @@ class Vote(models.Model):
         return self.user is other.user and self.date == other.date
 
 
-class Step(models.Model):
+class SetUp(models.Model):
     text = models.TextField(blank=False)
     image = models.ImageField(upload_to="images/experience/", null=True)
+    type_of_fishing = models.CharField(max_length=50, blank=False)
+    difficult = IntegerField(null=True, validators=[validate_difficult])
 
 
 class Picture(models.Model):

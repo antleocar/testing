@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from models import Experience, Profile, SetUp
 
 
-
 class NewAccountForm(forms.Form):
 
     username = forms.CharField(max_length=20, required=True)
@@ -28,9 +27,7 @@ class ExperienceForm(forms.Form):
     main_picture_id = forms.CharField(required=True)
     pictures_ids_json = forms.CharField(required=False)
     description = forms.CharField(required=False)
-
-    steps_json = forms.CharField(required=False)
-    setups = forms.CharField(required=False)
+    setups_json = forms.CharField(required=False)
     notes = forms.CharField(widget=forms.Textarea, required=False)
     tags = forms.CharField(required=False)
 
@@ -49,19 +46,9 @@ class ExperienceForm(forms.Form):
             return None
         return None
 
-    def get_steps_list(self):
+    def get_setups_list(self):
         try:
-            json_data = self.cleaned_data['steps_json']
-            data = json.loads(json_data)
-            return data
-        except AttributeError:
-            return None
-        except KeyError:
-            return None
-
-    def get_setup(self):
-        try:
-            json_data = self.cleaned_data['setup_json']
+            json_data = self.cleaned_data['setups_json']
             data = json.loads(json_data)
             return data
         except AttributeError:
@@ -85,41 +72,22 @@ class ExperienceForm(forms.Form):
             pictures_ids_list.append(UploadedImage.objects.get(image=pic.image).id)
         data['pictures_ids_json'] = json.dumps(pictures_ids_list)
 
-        #steps
-        steps_list = list()
-        for step in e.steps:
-            if step.image:
-                steps_list.append({"text": step.text, "picture": UploadedImage.objects.get(image=step.image).id})
-            else:
-                steps_list.append({"text": step.text})
-        data['steps_json'] = json.dumps(steps_list)
-
-        #setup
-        setup_valor = None
+        #setups
+        setups_list = list()
         for setup in e.setups:
-            if setup.step:
-                setup_valor.append({"type_of_fishing": setup.type_of_fishing, "difficult": setup.difficult,
-                                    "steps": setup.steps, "text":step.text})
-                if step.image:
-                    setup_valor.append({"type_of_fishing": setup.type_of_fishing, "difficult": setup.difficult,
-                                        "steps": setup.steps, "text":step.text, "picture": UploadedImage.objects.
-                        get(image=step.image).id})
+            if setup.image:
+                DIFFICULT = [(1, _("Easy")), (2, _("Medium")), (3, _("Hard"))]
+                difficult = forms.ChoiceField(choices=DIFFICULT, required=False)
+                setups_list.append({"text": setup.text, "difficult": setup.difficult,
+                                    "type_of_fishing": setup.type_of_fishing,"picture": UploadedImage.objects.get(image=setup.image).id})
             else:
-                setup_valor.append({"type_of_fishing": setup.type_of_fishing, "difficult": setup.difficult})
+                setups_list.append({"text": setup.text, "type_of_fishing": setup.type_of_fishing})
+        data['steps_json'] = json.dumps(setups_list)
 
         return ExperienceForm(data)
 
 
 class EditAccountForm(NewAccountForm):
-    def __init__(self, *args, **kwargs):
-        super(EditAccountForm, self).__init__(*args, **kwargs)
-        self.fields['username'].required = False
-        self.fields['email'].required = False
-        self.fields['password'].required = False
-        self.fields['password_repeat'].required = False
-
-
-class SocialAccountForm(NewAccountForm):
     def __init__(self, *args, **kwargs):
         super(EditAccountForm, self).__init__(*args, **kwargs)
         self.fields['username'].required = False

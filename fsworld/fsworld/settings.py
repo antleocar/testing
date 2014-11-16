@@ -13,47 +13,17 @@ from urlparse import urlparse
 import os
 from django.conf import global_settings
 from django.contrib.messages import constants as message_constants
+from django.core.urlresolvers import reverse
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7bmvys@hkimq!7y=s0%v(p2=0x=kp3a27j**^44*tmscnhc1%0'
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    #os.path.join(BASE_DIR, '..', 'templates').replace('\\','/')
-    os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
-
-)
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
-
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    # Anadido para la navegabilidad, de este modo se activa la etiqueta 'active' cuando navegamos.
-    'django.core.context_processors.request',
-    # Login social
-    'social.apps.django_app.context_processors.backends',
-    'social.apps.django_app.context_processors.login_redirect',
-)
-
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.getenv('DEBUG', "True") == "True":
+    DEBUG = True
+else:
+    DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
-
-ALLOWED_HOSTS = []
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -69,6 +39,7 @@ MONGO_PORT = MONGO_URL.port
 MONGO_USER = MONGO_URL.username
 MONGO_PASS = MONGO_URL.password
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_engine',
@@ -80,6 +51,99 @@ DATABASES = {
         'SUPPORTS_TRANSACTIONS': False,
     }
 }
+
+
+ALLOWED_HOSTS = ['*']
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+
+TIME_ZONE = 'Europe/Madrid'
+
+LANGUAGE_CODE = 'en-us'
+
+SITE_ID = 1
+
+USE_I18N = False
+
+USE_L10N = True
+
+USE_TZ = False
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/var/www/example.com/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://example.com/media/", "http://media.example.com/"
+MEDIA_URL = '/media/'
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/var/www/example.com/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_URL = '/static/'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '7bmvys@hkimq!7y=s0%v(p2=0x=kp3a27j**^44*tmscnhc1%0'
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+ROOT_URLCONF = 'fsworld.urls'
+
+WSGI_APPLICATION = 'fsworld.wsgi.application'
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    #os.path.join(BASE_DIR, '..', 'templates').replace('\\','/')
+    os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
+
+)
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+MESSAGE_TAGS = {message_constants.ERROR: 'danger'}
 
 # Application definition
 
@@ -93,22 +157,26 @@ INSTALLED_APPS = (
     'fsworld',
     'webapp',
     'djangotoolbox',
+    'rest_framework',
+    'sorl.thumbnail',
+
 )
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    # Anadido para la navegabilidad, de este modo se activa la etiqueta 'active' cuando navegamos.
+    'django.core.context_processors.request',
+    # Login social
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
-ROOT_URLCONF = 'fsworld.urls'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 
-WSGI_APPLICATION = 'fsworld.wsgi.application'
-
+'''
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -132,6 +200,34 @@ LOGGING = {
         },
     }
 }
+'''
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/mylog.log',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+
+LOGIN_REDIRECT_URL = reverse('main')
+LOGIN_URL = reverse('login')
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -149,51 +245,9 @@ REST_FRAMEWORK = {
 
 
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 
 
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
-MESSAGE_TAGS = {message_constants.ERROR: 'danger'}
-
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'Europe/Madrid'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(BASE_DIR,'static'),
-)
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)

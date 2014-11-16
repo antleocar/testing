@@ -1,6 +1,6 @@
 {% extends "webapp/base.html" %}
 {% load staticfiles %}
-
+{% load i18n %}
 {% load experience_form %}
 
 
@@ -105,45 +105,33 @@
                 }
 
 
-                // Genera el json de ingredientes
-                var ingredients = [];
-                $(".ingredient-item").each(function (index, element) {
-                    if (!$(element).hasClass("repeatable-template")) {
-                        var ingredient = $(element).find(".ingredient-input").val();
-                        if (ingredient) {
-                            ingredients.push(ingredient);
-                        }
-                    }
-                });
-                if (ingredients.length) {
-                    var ingredientsInput = $("<input>")
-                            .attr("type", "hidden")
-                            .attr("name", "{{ form.ingredients_json.name }}")
-                            .val(JSON.stringify(ingredients));
-                    $form.append(ingredientsInput);
-                }
 
-                // Genera el json de pasos
+
+                // Genera el json de montaje
                 var steps = [];
-                $(".step").each(function (index, element) {
+                $(".setup").each(function (index, element) {
                     if (!$(element).hasClass("repeatable-template")) {
-                        var step = {};
-                        var stepText = $(element).find(".step-input").val();
-                        if (stepText) {
-                            step['text'] = stepText;
+                        var setup = {};
+                        var setupText = $(element).find(".setup-input").val();
+                        var setupTypeOfFishing = $(element).find(".setup-input").val();
+                        var setupDifficult = $(element).find(".setup-input").val();
+                        if (setupText) {
+                            setup['text'] = setupText;
+                            setup['type_of_fishing'] = setupTypeOfFishing;
                             var pictureId = $(element).find("img").attr("data-picture-id");
                             if (pictureId) {
-                                step['picture'] = pictureId;
+                                setup['picture'] = pictureId;
+                                setup['difficult'] = setupDifficult;
                             }
                             steps.push(step);
                         }
                     }
                 });
-                if (steps.length) {
-                    var stepsInput = $("<input>")
+                if (setups.length) {
+                    var setupsInput = $("<input>")
                             .attr("type", "hidden")
-                            .attr("name", "{{ form.steps_json.name }}")
-                            .val(JSON.stringify(steps));
+                            .attr("name", "{{ form.setups_json.name }}")
+                            .val(JSON.stringify(setps));
                     $form.append(stepsInput);
                 }
             });
@@ -221,13 +209,13 @@
     <form role="form well well-lg" id="experience-form" class="form-horizontal" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <h3 class="col-lg-offset-1">Información básica</h3>
+    <h3 class="col-lg-offset-1">{% trans "Basic information" %}</h3>
     <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 100px">
 
         <!-- Title -->
         <div class="form-group">
             <div class="col-sm-12">
-                Nombre de la experiencia
+                {% trans "Name your experience" as pl_name_experience %}
                 <input type="text" class="form-control input-xlg" placeholder="{{ pl_name_experience }}"
                        name="{{ form.title.name }}" id="id_{{ form.title.name }}"
                        value="{{ form.title.value | default_if_none:'' }}">
@@ -250,10 +238,10 @@
             <div class="col-sm-12">
                 <div class="main-picture drop-target" id="main-picture">
                     <div id="main-picture-indicator">
-                        <p>Añadir la imagen principal</p>
+                        <p>{% trans "Add main picture" %}</p>
                         <span class="glyphicon glyphicon-camera"></span>
 
-                        <p>Arrastrar y soltar la imagen aquí</p>
+                        <p>{% trans "Drag and drop an image here" %}</p>
                     </div>
                 </div>
             </div>
@@ -289,7 +277,7 @@
                              src="http://www.cocinillas.es/wp-content/uploads/2011/05/DSC08380-1600x1200.jpg">
                     </div>{% endcomment %}
                     <div id="gallery-indicator">
-                        <p>Añade más imágenes</p>
+                        <p>{% trans "Add more pictures" %}</p>
                         <span class="glyphicon glyphicon-plus"></span>
                     </div>
                 </div>
@@ -301,7 +289,7 @@
             <div class="col-sm-12">
                 <!-- <label for="id_{{ form.description.name }}"
                class="col-sm-2 ">{{ form.description.label }}</label> -->
-                Escribe una pequeña descripción
+                {% trans "Write a short description. What is your experience about?" as description_text %}
                 <textarea class="form-control input-lg"
                           placeholder="{{ description_text }}"
                           rows="4"
@@ -316,14 +304,17 @@
             </div>
         {% endif %}
         </div>
+        Tipo de Pesca<input type="text" class="form-control" >
     </fieldset>
 
     <span class="clearfix"></span>
 
-    <h3 class="col-lg-offset-1"></h3>
+    <h3 class="col-lg-offset-1">{% trans "How to make it" %}</h3>
     <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 100px">
 
-        <h4>Paso a paso</h4>
+
+        <h4>{% trans "SetUp " %}</h4>
+
 
         <div class="repeat">
             <div class="form-group repeatable-wrapper step-list">
@@ -335,7 +326,7 @@
                                 <span>{row-number-placeholder}</span>
                             </div>
                             <div class="col-sm-9">
-                                {"Describe this step..." as step_description }
+                                {% trans "Describe this step..." as step_description %}
                                 <textarea class="form-control input-lg step-input"
                                           placeholder="{{ step_description }}"
                                           rows="4"
@@ -352,6 +343,7 @@
                         </div>
                         <hr>
                     </div>
+
                     <!-- /Step item -->
 
                     {% for step in form.get_steps_list %}
@@ -361,7 +353,7 @@
                                     <span>{{ forloop.counter }}</span>
                                 </div>
                                 <div class="col-sm-9">
-                                    {"Describe this step..." as the_description }
+                                    {% trans "Describe this step..." as the_description %}
                                     <textarea class="form-control input-lg step-input"
                                               placeholder="{{ the_description }}"
                                               rows="4"
@@ -393,7 +385,7 @@
                         <span>+</span>
                     </div>
                     <div class="col-sm-9">
-                        { "Next step?" as the_new_desc }
+                        {% trans "Next step?" as the_new_desc %}
                         <textarea class="form-control input-lg repeatable-add"
                                   placeholder="{{ the_new_desc }}"
                                   rows="4"
@@ -418,7 +410,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">{ "Pick a picture" }</h4>
+                        <h4 class="modal-title" id="myModalLabel">{% trans "Pick a picture" %}</h4>
                     </div>
                     <div class="modal-body">
                         <div class="col-sm-12">
@@ -432,17 +424,17 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{ "Cancel" }</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <h5>{ "Additional notes" }</h5>
+        <h5>{% trans "Additional notes" %}</h5>
 
         <div class="form-group">
             <div class="col-sm-12">
-                { "Anything else you want to point out about your experience?" as place_holder }
+                {% trans "Anything else you want to point out about your experience?" as place_holder %}
                 <textarea class="form-control input-lg"
                           placeholder="{{ place_holder }}"
                           rows="3"
@@ -450,22 +442,41 @@
                         >{{ form.notes.value | default_if_none:'' }}</textarea>
             </div>
         </div>
+        <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="id_{{ form.difficult.name }}">{% trans "Difficulty" %}</label>
+
+                    <div class="col-sm-6">
+                        <select class="form-control" name="{{ form.difficult.name }}" id="id_{{ form.difficult.name }}">
+                            {% for choice in form.difficult.field.choices %}
+                                <option value="{{ choice.0 }}"
+                                        {% ifequal form.difficult.value choice.0 %}
+                                        selected
+                                        {% endifequal %}
+                                        >{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
     </fieldset>
 
     <span class="clearfix"></span>
 
-    <h3 class="col-lg-offset-1">Información extra</h3>
+    <h3 class="col-lg-offset-1">{% trans "Extra information" %}</h3>
     <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 50px">
+
+
 
 
 
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="id_{{ form.tags.name }}">Tags</label>
+                    <label class="col-sm-4 control-label" for="id_{{ form.tags.name }}">{% trans "Free tags" %}</label>
 
                     <div class="col-sm-8">
-                        Escríbelos separados por una coma (,)
+                        {% trans "Comma separated tags" as pl_comma %}
                         <input type="text" class="form-control" placeholder="{{ pl_comma }}"
                                name="{{ form.tags.name }}" id="id_{{ form.tags.name }}"
                                value="{{ form.tags.value | default_if_none:'' }}">
@@ -485,7 +496,7 @@
             </div>
 
 
-    </fieldset>
+
 
     <!-- Submit Button -->
     <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 50px">
@@ -493,7 +504,7 @@
             <label for="inputDisplayName" class="col-sm-1 control-label"></label>
 
             <div class="col-sm-3">
-                <input type="submit" class="btn btn-success" value="Publicar experiencia" />
+                <input type="submit" class="btn btn-success" value="{% trans "Publish experience" %}"/>
             </div>
         </div>
     </fieldset>

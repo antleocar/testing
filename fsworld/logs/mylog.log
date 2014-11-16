@@ -1,0 +1,83 @@
+Not Found: /users/pruebasettings1/
+Internal Server Error: /newexperience
+Traceback (most recent call last):
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\core\handlers\base.py", line 113, in get_response
+    response = callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\contrib\auth\decorators.py", line 25, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Antonio-PC\Documents\testing\fsworld\webapp\views.py", line 70, in new_experience
+    return render(request, 'webapp/newexperience.html', {'form': form})
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\shortcuts\__init__.py", line 53, in render
+    return HttpResponse(loader.render_to_string(*args, **kwargs),
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 170, in render_to_string
+    t = get_template(template_name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 146, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 135, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 157, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 274, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader_tags.py", line 215, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 274, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader_tags.py", line 190, in do_block
+    nodelist = parser.parse(('endblock',))
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 274, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\defaulttags.py", line 769, in do_for
+    nodelist_loop = parser.parse(('empty', 'endfor',))
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 272, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 327, in invalid_block_tag
+    (command, get_text_list(["'%s'" % p for p in parse_until])))
+TemplateSyntaxError: Invalid block tag: 'setup_picture', expected 'empty' or 'endfor'
+Internal Server Error: /newexperience
+Traceback (most recent call last):
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\core\handlers\base.py", line 113, in get_response
+    response = callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\contrib\auth\decorators.py", line 25, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Antonio-PC\Documents\testing\fsworld\webapp\views.py", line 70, in new_experience
+    return render(request, 'webapp/newexperience.html', {'form': form})
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\shortcuts\__init__.py", line 53, in render
+    return HttpResponse(loader.render_to_string(*args, **kwargs),
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 170, in render_to_string
+    t = get_template(template_name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 146, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 135, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader.py", line 157, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 274, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader_tags.py", line 215, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 274, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\loader_tags.py", line 190, in do_block
+    nodelist = parser.parse(('endblock',))
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 272, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 327, in invalid_block_tag
+    (command, get_text_list(["'%s'" % p for p in parse_until])))
+TemplateSyntaxError: Invalid block tag: 'trans', expected 'endblock'

@@ -16,7 +16,8 @@ from ajax import models as models_ajax
 from bson import ObjectId
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
-from webapp.models import Profile, Comment, Step, Picture, Experience,  SetUp, Activation
+django.contrib.auth.forms.UserCreationForm
+from webapp.models import Profile, Comment, Picture, Experience,  SetUp
 from ajax.models import UploadedImage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -40,8 +41,6 @@ from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 from django.template import loader
 
-#Para el hash con md5
-import hashlib
 
 #full-text
 from pymongo import *
@@ -80,13 +79,9 @@ def store_experience(form, user, experience=None, parent=None):
         title = data['title']
         description = data['description']
         main_picture = data['main_picture_id']
-
         pictures_id_list = form.get_pictures_ids_list()
-
-        steps = form.get_steps_list()
-
+        setups = form.get_setups_list()
         notes = data['notes']
-
         tags = []
         tags_all = data['tags']
 
@@ -102,24 +97,23 @@ def store_experience(form, user, experience=None, parent=None):
 
         experience.title = title
         experience.description = description
-
         experience.notes = notes
-
         experience.tags = tags
         experience.main_image = imagen_principal
         u = user
 
-        # steps is a list of dict
-        step_list = list()
-        for step in steps:
-            if "picture" in step:
-                picture = UploadedImage.objects.get(id=step["picture"]).image
-                step_object = Step(text=step['text'], image=picture)
+        # setups is a list of dict
+        setup_list = list()
+        for setup in setups:
+            if "picture" in setup:
+                picture = UploadedImage.objects.get(id=setup["picture"]).image
+                setup_object = SetUp(text=setup['text'],type_of_fishing=setup['type_of_fishing'], difficult=setup['difficult'],
+                                     enumerate=setup['enumerate'], image=picture)
             else:
-                step_object = Step(text=step['text'])
+                setup_object = SetUp(text=setup['text'],type_of_fishing=setup['type_of_fishing'])
 
-            step_list.append(step_object)
-        experience.steps = step_list
+            setup_list.append(setup_object)
+        experience.setups = setup_list
 
         # pictures_id_list is a list of ids
         pictures_list = list()
@@ -130,13 +124,13 @@ def store_experience(form, user, experience=None, parent=None):
                     pictures_list.append(picture)
 
         experience.pictures = pictures_list
-
         experience.author = u
         experience.clean()
         experience.save()
         return experience
     else:
         return None
+
 
 def experiences(request, username):
     try:
@@ -159,7 +153,7 @@ def login_user(request):
 
 
 def logout_user(request):
-    # TODO: estaría bien mostrar una página de logout correcto, o un mensaje en la principal
+
     return views.logout(request, next_page=reverse('main'))
 
 
@@ -232,7 +226,7 @@ def new_account(request):
 
             try:
                 valid_email = User.objects.get(email=email)
-            except :
+            except:
                 valid_email = False
 
             if valid_email:
@@ -242,75 +236,32 @@ def new_account(request):
 
             else:
                 u = User.objects.create_user(username, email, password)
-
                 p = Profile(display_name=display_name, user=u,
                             location=location, username=username)
-                #TODO capturar cualquier error de validación y meterlo como error en el formulario
 
                 #avatar.image.name = str(p.id) + '.png' # No vale así, hay que copiar el archivo en otro
                 if avatar_id != u'':
                     p.avatar = avatar.image
 
                 p.user.is_active = False
-
                 p.user.save()
-
                 p.clean()
-                p.save()  # TODO borrar el User si falla al guardar el perfil
+                p.save()
 
                 #Generar el codigo y meterlo en la BD.
 
-                #TODO marco de el UploadedImage para que no se borre. Pero lo mejor sería copiar la imagen a otro sitio
                 if avatar_id != u'':
                     avatar.persist = True
                     avatar.save()
 
-                #return render(request, 'webapp/newaccount_done.html', {'profile': p.user.username})  # Redirect after POST
-                return HttpResponseRedirect(reverse('newaccount_done', kwargs={'username': p.user.username}))
+                return render(request, 'webapp/main', {'profile': p.user.username})  # Redirect after POST
+                #return HttpResponseRedirect(reverse('newaccount_done', kwargs={'username': p.user.username}))
+                #return render(request, 'webapp/main.html')
 
     else:
         form = NewAccountForm()
 
     return render(request, 'webapp/newaccount.html', {'form': form})
-
-
-def new_account_done(request, username):
-    try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        raise Http404
-
-    #TODO: esto hay que cambiarlo para que se haga por post, y que muestre un mensaje mas concreto. De momento asi estaria eliminado el bug.
-    if user.is_active:
-        return HttpResponseRedirect(reverse('main'))
-
-    ts = time.time()
-    now_datetime = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-
-    while True:
-        hash = hashlib.md5()
-        hash.update(username)
-        hash.update(str(now_datetime))
-        hash.digest()
-        if not Activation.objects.filter(code=hash.hexdigest()).exists():
-            break
-
-    #a = Activation(user=user, code=hash.hexdigest(), date=now_datetime)
-    #a.save()
-
-    context = {
-            'site': request.get_host(),
-            'user': user,
-            'username': username,
-            #'token': a.code,
-            'secure': request.is_secure(),
-        }
-    #body = loader.render_to_string("email/activation_email.txt", context).strip()
-    #subject = loader.render_to_string("email/activation_email_subject.txt", context).strip()
-    #send_mail(subject, body, "fsworld.contact@gmail.com", [user.email])
-
-    #enviar el mail.
-    return render(request, 'webapp/newaccount_done.html', {}) #pasar profile para mostrar datos en pantallas
 
 
 def experience(request, experience_id):
