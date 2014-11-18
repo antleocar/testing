@@ -81,3 +81,22 @@ Traceback (most recent call last):
   File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\template\base.py", line 327, in invalid_block_tag
     (command, get_text_list(["'%s'" % p for p in parse_until])))
 TemplateSyntaxError: Invalid block tag: 'trans', expected 'endblock'
+Not Found: /favicon.ico
+Internal Server Error: /account/new/
+Traceback (most recent call last):
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\core\handlers\base.py", line 113, in get_response
+    response = callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Antonio-PC\Documents\testing\fsworld\webapp\views.py", line 244, in new_account
+    p.avatar = avatar.image
+UnboundLocalError: local variable 'avatar' referenced before assignment
+Internal Server Error: /account/new/
+Traceback (most recent call last):
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\core\handlers\base.py", line 113, in get_response
+    response = callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Antonio-PC\Documents\testing\fsworld\webapp\views.py", line 258, in new_account
+    return HttpResponseRedirect(reverse('webapp/main', kwargs={'username': p.user.username}))
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\core\urlresolvers.py", line 520, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv\lib\site-packages\django\core\urlresolvers.py", line 440, in _reverse_with_prefix
+    "arguments '%s' not found." % (lookup_view_s, args, kwargs))
+NoReverseMatch: Reverse for 'webapp/main' with arguments '()' and keyword arguments '{'username': u'pruebajacker1'}' not found.

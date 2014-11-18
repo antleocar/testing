@@ -17,7 +17,7 @@ from bson import ObjectId
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 django.contrib.auth.forms.UserCreationForm
-from webapp.models import Profile, Comment, Picture, Experience,  SetUp
+from webapp.models import Profile, Comment, Picture, Experience,  SetUp, Activation
 from ajax.models import UploadedImage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -27,6 +27,10 @@ from webapp.forms import NewAccountForm,EditAccountForm,ExperienceForm,SearchExp
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpResponseNotAllowed
 from django.shortcuts import render
+
+
+#Para el hash con md5
+import hashlib
 
 
 from django.forms.util import ErrorList
@@ -254,14 +258,93 @@ def new_account(request):
                     avatar.persist = True
                     avatar.save()
 
-                return render(request, 'webapp/main', {'profile': p.user.username})  # Redirect after POST
-                #return HttpResponseRedirect(reverse('newaccount_done', kwargs={'username': p.user.username}))
+                #return render(request, 'webapp/main', {'profile': p.user.username})  # Redirect after POST
+                return HttpResponseRedirect(reverse('newaccount_done', kwargs={'username': p.user.username}))
                 #return render(request, 'webapp/main.html')
 
     else:
         form = NewAccountForm()
 
     return render(request, 'webapp/newaccount.html', {'form': form})
+
+
+def activate_account(request, code):
+    try:
+        a = Activation.objects.get(code=code)
+    except Activation.DoesNotExist:
+        raise Http404
+
+    if a.user.is_active:
+        return HttpResponseRedirect(reverse('main'))
+
+    a.user.is_active = True
+    a.user.save()
+
+    messages.success(request, _("Your account has been successfully activated. You can log in now."))
+    return HttpResponseRedirect(reverse('login'))
+
+
+
+def new_account_done(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404
+
+    #TODO: esto hay que cambiarlo para que se haga por post, y que muestre un mensaje mas concreto. De momento asi estaria eliminado el bug.
+    if user.is_active:
+        return HttpResponseRedirect(reverse('main'))
+
+    ts = time.time()
+    now_datetime = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+
+    while True:
+
+        hash = hashlib.md5()
+        hash.update(username)
+        hash.update(str(now_datetime))
+        hash.digest()
+        if not Activation.objects.filter(code=hash.hexdigest()).exists():
+            break
+
+    a = Activation(user=user, code=hash.hexdigest(), date=now_datetime)
+    a.save()
+
+
+    context = {
+            'site': request.get_host(),
+            'user': user,
+            'username': username,
+            'token': a.code,
+            'secure': request.is_secure(),
+        }
+
+
+    #return HttpResponseRedirect(reverse('activate'), kwargs ={'code': context.__getattribute__('code')})
+
+    body = loader.render_to_string("email/activation_email.txt", context).strip()
+    #subject = loader.render_to_string("email/activation_email_subject.txt", context).strip()
+    #send_mail(subject, body, "fsworldfsworld@gmail.com", [user.email])
+
+    #enviar el mail.
+    return render(request, 'webapp/newaccount_done.html', activate_account(request,a.code)) #pasar profile para mostrar datos en pantallas
+
+
+def activate_account(request, code):
+    try:
+        a = Activation.objects.get(code=code)
+    except Activation.DoesNotExist:
+        raise Http404
+
+    if a.user.is_active:
+        return HttpResponseRedirect(reverse('main'))
+
+    a.user.is_active = True
+    a.user.save()
+
+    messages.success(request, _("Your account has been successfully activated. You can log in now."))
+    return HttpResponseRedirect(reverse('login'))
+
 
 
 def experience(request, experience_id):

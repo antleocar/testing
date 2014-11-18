@@ -1,5 +1,6 @@
 {% extends "webapp/base.html" %}
 {% load staticfiles %}
+{% load i18n %}
 
 
 
@@ -105,6 +106,11 @@
 
 
 {% block container %}
+     {% if edit %}
+        {% trans "Edit profile" as title %}
+    {% else %}
+        {% trans "Create account" as title %}
+    {% endif %}
 
 <div class="panel panel-default">
 <div class="panel-body">
@@ -123,6 +129,7 @@
                    class="col-sm-2 control-label">Nombre</label>
 
             <div class="col-sm-3">
+            {% trans "Username" as user_name %}
 
                 {% comment %}
                     Utilizo esta técnica en vez de poner {{ form.username }} para permitir estilos personalizados.
@@ -151,6 +158,7 @@
             <label for="id_{{ form.email.name }}" class="col-sm-2 control-label">Email</label>
 
             <div class="col-sm-3">
+            {% trans "youremail@example.com" as your_email %}
 
                 <input type="email" class="form-control" placeholder="{{ your_email }}"
                        name="{{ form.email.name }}" id="id_{{ form.email.name }}"
@@ -220,6 +228,7 @@
                    class="col-sm-2 control-label"> Nombre Usuario</label>
 
             <div class="col-sm-3">
+                {% trans "Your public name" as your_public_name %}
 
                 <input type="text" class="form-control" placeholder="{{ your_public_name }}"
                        name="{{ form.display_name.name }}" id="id_{{ form.display_name.name }}"
@@ -244,6 +253,7 @@
 
             <div class="col-sm-3">
                  País, ciudad o localidad
+                {% trans "Your city, country or else" as your_city %}
                 <input type="text" class="form-control" placeholder="{{ your_city }}"
                        name="{{ form.location.name }}" id="id_{{ form.location.name }}"
                        value="{{ form.location.value | default_if_none:'' }}">
@@ -303,9 +313,12 @@
     <div class="form-group">
         <label for="inputDisplayName" class="col-sm-1 control-label"></label>
 
-
+        {% if edit %}
+            {% trans "Save changes" as submit_text %}
+        {% else %}
+            {% trans "Create account" as submit_text %}
+        {% endif %}
         <div class="col-sm-3">
-
             <input type="submit" class="btn btn-success" value="{{ submit_text }}"/>
         </div>
     </div>

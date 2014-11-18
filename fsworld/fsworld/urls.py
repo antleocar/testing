@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^password/', include('password_reset.urls')),
 
+
 )

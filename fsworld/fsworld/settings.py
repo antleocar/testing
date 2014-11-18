@@ -64,7 +64,7 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
-USE_I18N = False
+USE_I18N = True
 
 USE_L10N = True
 
@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     'djangotoolbox',
     'rest_framework',
     'sorl.thumbnail',
+    'registration'
 
 )
 
@@ -176,7 +177,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-'''
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -200,25 +201,6 @@ LOGGING = {
         },
     }
 }
-'''
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'logs/mylog.log',
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
 
 
 LOGIN_REDIRECT_URL = reverse('main')
@@ -227,6 +209,15 @@ LOGIN_URL = reverse('login')
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
+
+#Configuration for django.core.mail.sendmail
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL', "")
+EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_PASSWORD', "")
+EMAIL_PORT = 587
+EMAIL_SUBJECT_PREFIX = 'fs-world: '
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.getenv('DJANGO_EMAIL', "")
 
 
 REST_FRAMEWORK = {
