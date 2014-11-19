@@ -2611,7 +2611,7 @@ input[type="button"].btn-block {
 .glyphicon-move:before {
   content: "\e068";
 }
-.glyphicon-step-backward:before {
+.glyphicon-setup-backward:before {
   content: "\e069";
 }
 .glyphicon-fast-backward:before {
@@ -2635,7 +2635,7 @@ input[type="button"].btn-block {
 .glyphicon-fast-forward:before {
   content: "\e076";
 }
-.glyphicon-step-forward:before {
+.glyphicon-setup-forward:before {
   content: "\e077";
 }
 .glyphicon-eject:before {

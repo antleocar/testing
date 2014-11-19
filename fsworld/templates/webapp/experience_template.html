@@ -173,27 +173,27 @@
         {% endif %}
     </div>
 
-    <div class="experience-step-list">
+    <div class="experience-setup-list">
 
-        {% for step in experience.steps %}
+        {% for setup in experience.setups %}
 
-            <div id="step-{{ forloop.counter }}" class="experience-step">
+            <div id="setup-{{ forloop.counter }}" class="experience-setup">
                 <div class="row">
-                    <div class="col-md-1 col-md-offset-1 experience-step-count">{{ forloop.counter }}</div>
+                    <div class="col-md-1 col-md-offset-1 experience-setup-count">{{ forloop.counter }}</div>
                     <div class="col-md-9">
-                        <p class="text-soft">{{ step.text|linebreaks }}</p>
+                        <p class="text-soft">{{ setup.text|linebreaks }}</p>
                     </div>
                 </div>
-                {% if step.image %}
-                    <a class="" href="{{ step.image.url }}" data-lightbox="steplightbox2-{{ forloop.counter }}">
-                        <img class="img-rounded experience-step-picture img-thumbnail center-block"
-                             src="{{ step.image.url }}">
+                {% if setup.image %}
+                    <a class="" href="{{ setup.image.url }}" data-lightbox="setuplightbox2-{{ forloop.counter }}">
+                        <img class="img-rounded experience-setup-picture img-thumbnail center-block"
+                             src="{{ setup.image.url }}">
                     </a>
                 {% endif %}
             </div>
 
             {% if not forloop.last %}
-                <span class="experience-step-separator center-block"></span>
+                <span class="experience-setup-separator center-block"></span>
             {% endif %}
 
         {% endfor %}

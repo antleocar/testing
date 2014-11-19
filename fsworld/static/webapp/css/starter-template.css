@@ -368,17 +368,17 @@ header .container {
     border-radius: 6px;
 }
 
-.step span {
+.setup span {
     font-size: 50px;
     color: #669933;
 }
 
-.step.next span {
+.setup.next span {
     font-size: 50px;
     color: #ccc4bc;
 }
 
-.step img {
+.setup img {
     height: auto;
     width: 100%;
 }
@@ -1027,28 +1027,28 @@ header .container {
     padding-right: 0;
 }
 
-.experience-step-list{
+.experience-setup-list{
     margin-top: 80px;
     margin-bottom: 50px;
 }
 
-.experience-step {
+.experience-setup {
 
 }
 
-.experience-step-count {
+.experience-setup-count {
     font-size: 55px;
     color: #669933;
     text-align: center;
 }
 
-.experience-step p {
+.experience-setup p {
     font-size: 16px;
     color: #424242;
     line-height: 1.7;
 }
 
-.experience-step-separator {
+.experience-setup-separator {
     background: url('../image/separator.png') no-repeat center;
     height: 65px;
     width: auto;
@@ -1056,7 +1056,7 @@ header .container {
     margin-bottom: 20px;
 }
 
-.experience-step-picture {
+.experience-setup-picture {
     margin-top: 10px;
     height: 200px;
     width: auto;

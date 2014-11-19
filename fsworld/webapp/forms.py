@@ -82,7 +82,7 @@ class ExperienceForm(forms.Form):
                                     "type_of_fishing": setup.type_of_fishing,"picture": UploadedImage.objects.get(image=setup.image).id})
             else:
                 setups_list.append({"text": setup.text, "type_of_fishing": setup.type_of_fishing})
-        data['steps_json'] = json.dumps(setups_list)
+        data['setups_json'] = json.dumps(setups_list)
 
         return ExperienceForm(data)
 

@@ -397,7 +397,7 @@
 .fa-arrows:before {
   content: "\f047";
 }
-.fa-step-backward:before {
+.fa-setup-backward:before {
   content: "\f048";
 }
 .fa-fast-backward:before {
@@ -421,7 +421,7 @@
 .fa-fast-forward:before {
   content: "\f050";
 }
-.fa-step-forward:before {
+.fa-setup-forward:before {
   content: "\f051";
 }
 .fa-eject:before {
