@@ -29,21 +29,21 @@
 
                     <div class="col-md-4">
                         <a href="{% url 'experiences' profile.user.username %}">
-                        <span class="DashboardProfileCard-statLabel">Experiences</span>
+                        <span class="DashboardProfileCard-statLabel">Experiencias</span>
                         <span class="DashboardProfileCard-statValue">{{ experiences|length }}</span>
                         </a>
                     </div>
 
                     <div class="col-md-4">
                         <a >
-                        <span class="DashboardProfileCard-statLabel">Followers</span>
+                        <span class="DashboardProfileCard-statLabel">Seguidores</span>
                         <span class="DashboardProfileCard-statValue">{{ followers_list|length }}</span>
                         </a>
                     </div>
 
                     <div class="col-md-4">
                         <a >
-                        <span class="DashboardProfileCard-statLabel">{Following</span>
+                        <span class="DashboardProfileCard-statLabel">Seguidos</span>
                         <span class="DashboardProfileCard-statValue">{{ profile.following|length }}</span>
                         </a>
                     </div>
@@ -54,16 +54,16 @@
 
                 {% if user.is_authenticated %}
                     {% if profile.user.id == user.id %}
-                        <a class="btn btn-default btn-block btn-follow disabled">That's you!</a>
+                        <a class="btn btn-default btn-block btn-follow disabled">¡Eres tú!</a>
                     {% elif following %}
-                        <a id="btn-follow" class="btn btn-default btn-block btn-follow" style="display: none;">Follow</a>
-                        <a id="btn-unfollow" class="btn btn-default btn-block btn-unfollow">Unfollow</a>
+                        <a id="btn-follow" class="btn btn-default btn-block btn-follow" style="display: none;">Seguir</a>
+                        <a id="btn-unfollow" class="btn btn-default btn-block btn-unfollow">No seguir</a>
                     {% else %}
-                        <a id="btn-follow" class="btn btn-default btn-block btn-follow">Follow</a>
-                        <a id="btn-unfollow" class="btn btn-default btn-block btn-unfollow" style="display: none;">Unfollow</a>
+                        <a id="btn-follow" class="btn btn-default btn-block btn-follow">Seguir</a>
+                        <a id="btn-unfollow" class="btn btn-default btn-block btn-unfollow" style="display: none;">No seguir</a>
                     {% endif %}
                 {% else %}
-                    <a class="btn btn-default btn-block btn-follow disabled">Register to follow {{ profile.display_name }}</a>
+                    <a class="btn btn-default btn-block btn-follow disabled">Registrate para poder seguir a la gente {{ profile.display_name }}</a>
                 {% endif %}
 
             </div>
@@ -82,7 +82,7 @@
                 {% endif %}
 
                 {% if profile.user.date_joined.date %}
-                    <p><span class="profile-bold">"Check-in date":</span> {{ profile.user.date_joined.date }}</p>
+                    <p><span class="profile-bold">Registrado:</span> {{ profile.user.date_joined.date }}</p>
                 {% endif %}
 
 

@@ -280,7 +280,7 @@ def activate_account(request, code):
     a.user.is_active = True
     a.user.save()
 
-    messages.success(request, _("Your account has been successfully activated. You can log in now."))
+    messages.success(request, _("Tú registro se ha completado satisfactoriamente"))
     return HttpResponseRedirect(reverse('login'))
 
 

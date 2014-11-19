@@ -178,7 +178,7 @@
         <!-- Password -->
         <div class="form-group">
             <label for="id_{{ form.password.name }}"
-                   class="col-sm-2 control-label">Obligatorio</label>
+                   class="col-sm-2 control-label">Contraseña</label>
 
             <div class="col-sm-3">
 
@@ -316,7 +316,7 @@
         {% if edit %}
             {% trans "Save changes" as submit_text %}
         {% else %}
-            {% trans "Create account" as submit_text %}
+            {% trans "Crear cuenta" as submit_text %}
         {% endif %}
         <div class="col-sm-3">
             <input type="submit" class="btn btn-success" value="{{ submit_text }}"/>
