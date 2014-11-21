@@ -163,9 +163,7 @@ def logout_user(request):
 
 def search_profile(request, terms):
     if request.method == 'GET':
-
         client = MongoClient()
-
         results_profiles = Profile.objects.raw_query({"$text": {"$search": terms}})
 
         return render(request, 'webapp/search_person_result.html', {'matches_profile': results_profiles})
@@ -266,6 +264,75 @@ def new_account(request):
         form = NewAccountForm()
 
     return render(request, 'webapp/newaccount.html', {'form': form})
+
+
+@login_required
+def modification_account(request, username):
+
+    if request.method == 'POST':
+        form = EditAccountForm(request.POST)
+        if form.is_valid():  # else -> render respone with the obtained form, with errors and stuff
+            valid = True
+            data = form.cleaned_data
+            password = data['password']
+            password_repeat = data['password_repeat']
+            display_name = data['display_name']
+            location = data['location']
+            avatar_id = data['avatar_id']
+
+            if password:
+                if not password == password_repeat:
+                    errors = form._errors.setdefault("password_repeat", ErrorList())
+                    output = _("Passwords don't match")
+                    errors.append(unicode(output))
+                    valid = False
+
+            u = request.user
+            p = u.profile.get()
+            p.display_name = display_name
+            p.location = location
+
+            if password:
+                u.set_password(password)
+
+            avatar = None
+            if avatar_id:
+                avatar = models_ajax.UploadedImage.objects.get(id=avatar_id)
+                if avatar.image:
+                    p.avatar = avatar.image
+
+
+            if valid:
+                u.save()
+                p.clean()
+                p.save()
+
+                if avatar:
+                    avatar.persist = True
+                    avatar.save()
+
+
+                if request.user.is_authenticated():
+
+
+                    return HttpResponseRedirect(reverse('main'))  # Redirect after POST
+
+    else:
+        u = request.user
+        p = u.profile.get()
+        data = {
+            'username': u.username,
+            'email': u.email,
+            'display_name': p.display_name,
+            'location': p.location,
+            }
+        if p.avatar:
+            data['avatar_url']=p.avatar.url
+        else:
+            data['avatar_url']=static("webapp/image/profile_pic_anon.png")
+        form = EditAccountForm(initial=data)
+
+    return render(request, 'webapp/newaccount.html', {'form': form, 'edit': True})
 
 
 def activate_account(request, code):
@@ -371,6 +438,40 @@ def experience(request, experience_id):
     return render(request, 'webapp/experience_template.html', {'experience': experience, 'total_votos': total_votos,
                                                            'por_pos': int(porcentaje_positivos), 'por_neg': int(porcentaje_negativos),
                                                            'following': following})
+
+
+def following(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404
+
+    is_owner = False
+    if request.user.username == username:
+        is_owner = True
+
+    user_profile = Profile.objects.get(user=user)
+    tag = _("Following")
+    return render(request, 'webapp/following.html',
+                  {'follows': user_profile.following, 'profile': user_profile, 'tag': tag, 'is_owner': is_owner})
+
+
+def followers(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404
+
+    is_owner = False
+    if request.user.username == username:
+        is_owner = True
+
+    followers_list = Profile.objects.raw_query({'following.user_id': ObjectId(user.id)})
+    user_profile = Profile.objects.get(user=user)
+    tag = _("Followers")
+    return render(request, 'webapp/following.html',
+                  {'follows': followers_list, 'profile': user_profile, 'tag': tag, 'is_owner': is_owner})
+
 
 def terms_and_conditions(request):
     return render(request, 'webapp/terms_and_conditions.html')

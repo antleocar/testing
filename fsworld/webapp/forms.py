@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from models import Experience, Profile, SetUp
 
 
+
 class NewAccountForm(forms.Form):
 
     username = forms.CharField(max_length=20, required=True)
@@ -23,6 +24,8 @@ class NewAccountForm(forms.Form):
 
 class ExperienceForm(forms.Form):
 
+    DIFFICULT = [(1, _("Facil")), (2, _("Media")), (3, _("Dificil"))]
+    difficult = forms.ChoiceField(choices=DIFFICULT, required=False)
     title = forms.CharField(max_length=50, required=False)
     main_picture_id = forms.CharField(required=True)
     pictures_ids_json = forms.CharField(required=False)
@@ -76,8 +79,7 @@ class ExperienceForm(forms.Form):
         setups_list = list()
         for setup in e.setups:
             if setup.image:
-                DIFFICULT = [(1, _("Easy")), (2, _("Medium")), (3, _("Hard"))]
-                difficult = forms.ChoiceField(choices=DIFFICULT, required=False)
+
                 setups_list.append({"text": setup.text, "difficult": setup.difficult,
                                     "type_of_fishing": setup.type_of_fishing,"picture": UploadedImage.objects.get(image=setup.image).id})
             else:
@@ -101,6 +103,10 @@ class AddComment(forms.Form):
 
 
 class SearchExperienceForm(forms.Form):
+    DIFFICULT = [(1, _("Facil")), (2, _("Media")), (3, _("Dificil"))]
+    srchterm = forms.CharField(max_length=100, required=False)
+    difficult = forms.ChoiceField(choices=DIFFICULT, required=False)
+
     def __init__(self, *args, **kwargs):
         super(SearchExperienceForm, self).__init__(*args, **kwargs)
 

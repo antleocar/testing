@@ -26,28 +26,76 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="newexperience.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/webapp/newexperience.html">
+      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/webapp/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="412" column="93" selection-start="18650" selection-end="18650" vertical-scroll-proportion="0.0" vertical-offset="7004" max-vertical-offset="8942">
+            <state line="103" column="88" selection-start="5406" selection-end="5406" vertical-scroll-proportion="-6.3333335" vertical-offset="1428" max-vertical-offset="3825">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="upload_image.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/ajax/upload_image.html">
+      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="19" selection-start="227" selection-end="234" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1666">
+            <state line="21" column="4" selection-start="791" selection-end="791" vertical-scroll-proportion="-11.12" vertical-offset="62" max-vertical-offset="663">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newaccount_done.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/webapp/newaccount_done.html">
+      <file leaf-file-name="newaccount.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/webapp/newaccount.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="52" selection-start="375" selection-end="375" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="833">
+            <state line="255" column="50" selection-start="9989" selection-end="9989" vertical-scroll-proportion="5.72549" vertical-offset="4627" max-vertical-offset="5746">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="105" column="65" selection-start="3674" selection-end="3674" vertical-scroll-proportion="-17.76" vertical-offset="1256" max-vertical-offset="1938">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tags.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/templatetags/tags.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="0" selection-start="386" selection-end="386" vertical-scroll-proportion="-8.16" vertical-offset="0" max-vertical-offset="493">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile-big.jpg" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/webapp/image/profile-big.jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile_default.png" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/webapp/image/profile_default.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile_pic_anon.png" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/webapp/image/profile_pic_anon.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="experience_form.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/templatetags/experience_form.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="17" selection-start="360" selection-end="360" vertical-scroll-proportion="-6.12" vertical-offset="0" max-vertical-offset="833">
               <folding />
             </state>
           </provider>
@@ -56,18 +104,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="344" column="99" selection-start="11595" selection-end="11595" vertical-scroll-proportion="-10.52" vertical-offset="5585" max-vertical-offset="6545">
-              <folding>
-                <element signature="e#53#66#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newaccount.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/webapp/newaccount.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="180" column="60" selection-start="7019" selection-end="7019" vertical-scroll-proportion="1.8702011" vertical-offset="2037" max-vertical-offset="5746">
+            <state line="51" column="0" selection-start="1508" selection-end="1533" vertical-scroll-proportion="-7.2" vertical-offset="269" max-vertical-offset="8024">
               <folding />
             </state>
           </provider>
@@ -91,7 +128,6 @@
         <option value="$PROJECT_DIR$/templates/main.html" />
         <option value="$PROJECT_DIR$/templates/list_of_experiences.html" />
         <option value="$PROJECT_DIR$/templates/webapp/experience_template_old.html" />
-        <option value="$PROJECT_DIR$/templates/webapp/following.html" />
         <option value="$PROJECT_DIR$/templates/webapp/search_experience_result.html" />
         <option value="$PROJECT_DIR$/templates/webapp/experiences.html" />
         <option value="$PROJECT_DIR$/static/webapp/css/style-search.css" />
@@ -103,13 +139,11 @@
         <option value="$PROJECT_DIR$/ajax/views.py" />
         <option value="$PROJECT_DIR$/venv/Lib/site-packages/boto/opsworks/layer1.py" />
         <option value="$PROJECT_DIR$/templates/webapp/terms_and_conditions.html" />
-        <option value="$PROJECT_DIR$/templates/webapp/base.html" />
         <option value="$PROJECT_DIR$/templates/webapp/main.html" />
         <option value="$PROJECT_DIR$/locale/en/LC_MESSAGES/django.mo" />
         <option value="$PROJECT_DIR$/locale/en/LC_MESSAGES/django.po" />
         <option value="$PROJECT_DIR$/locale/es/LC_MESSAGES/django.mo" />
         <option value="$PROJECT_DIR$/locale/es/LC_MESSAGES/django.po" />
-        <option value="$PROJECT_DIR$/webapp/urls.py" />
         <option value="$PROJECT_DIR$/templates/webapp/activation.html" />
         <option value="$PROJECT_DIR$/webapp/models.py" />
         <option value="$PROJECT_DIR$/fsworld/settings.py" />
@@ -127,13 +161,16 @@
         <option value="$PROJECT_DIR$/templates/webapp/experience_template.html" />
         <option value="$PROJECT_DIR$/static/webapp/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/static/webapp/css/font-awesome.min.css" />
-        <option value="$PROJECT_DIR$/webapp/forms.py" />
         <option value="$PROJECT_DIR$/webapp/templatetags/experience_form.py" />
-        <option value="$PROJECT_DIR$/templates/webapp/profile.html" />
         <option value="$PROJECT_DIR$/templates/webapp/newexperience.html" />
         <option value="$PROJECT_DIR$/templates/webapp/newaccount_done.html" />
+        <option value="$PROJECT_DIR$/templates/webapp/following.html" />
+        <option value="$PROJECT_DIR$/templates/webapp/profile.html" />
         <option value="$PROJECT_DIR$/webapp/views.py" />
+        <option value="$PROJECT_DIR$/templates/webapp/base.html" />
+        <option value="$PROJECT_DIR$/webapp/urls.py" />
         <option value="$PROJECT_DIR$/templates/webapp/newaccount.html" />
+        <option value="$PROJECT_DIR$/webapp/forms.py" />
       </list>
     </option>
   </component>
@@ -250,8 +287,22 @@
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="email" />
+              <option name="myItemId" value="fsworld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsworld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -265,11 +316,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ajax" />
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="image" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -382,11 +437,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Antonio-PC\Documents\testing\fsworld\templates\webapp" />
       <recent name="C:\Users\Antonio-PC\Documents\testing\fsworld\templates" />
       <recent name="C:\Users\Antonio-PC\Desktop\TFG\fsworld" />
       <recent name="C:\Users\Antonio-PC\Desktop\TFG\fsworld\templates\webapp" />
       <recent name="C:\Users\Antonio-PC\Desktop\TFG\fsworld\templates\ajax" />
-      <recent name="C:\Users\Antonio-PC\Desktop\TFG\fsworld\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Antonio-PC\Desktop\TFG\fsworld\static\webapp\img" />
@@ -504,27 +559,7 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="fsworld" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -550,7 +585,27 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="fsworld" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -663,7 +718,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37386706" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3791541" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39869282" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32401812" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -671,19 +726,19 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35457516" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35457516" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35457516" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39869282" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32401812" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -692,9 +747,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36858007" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3791541" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -716,7 +771,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/webapp/views.py</url>
-          <line>250</line>
+          <line>248</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -734,40 +789,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/webapp/contact.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="128" selection-start="1457" selection-end="1457" vertical-scroll-proportion="-11.653846" vertical-offset="224" max-vertical-offset="1275">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ajax/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="187">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/requests/packages/urllib3/packages/ordered_dict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="30" selection-start="254" selection-end="254" vertical-scroll-proportion="0.15789473" vertical-offset="0" max-vertical-offset="4505" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/db/models/loading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="55" selection-start="850" selection-end="850" vertical-scroll-proportion="0.35913312" vertical-offset="122" max-vertical-offset="4505" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/core/files/locks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="53" selection-start="225" selection-end="225" vertical-scroll-proportion="-0.0" vertical-offset="102" max-vertical-offset="1275" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/boto/opsworks/layer1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="602" column="68" selection-start="26031" selection-end="26031" vertical-scroll-proportion="0.18895349" vertical-offset="10084" max-vertical-offset="36856" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ajax/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="158" column="24" selection-start="6423" selection-end="6423" vertical-scroll-proportion="0.0755287" vertical-offset="2474" max-vertical-offset="2805" />
@@ -805,13 +826,6 @@
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/conf/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="217" column="33" selection-start="8581" selection-end="8581" vertical-scroll-proportion="3.8065693" vertical-offset="1433" max-vertical-offset="3893" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/webapp/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="43" selection-start="5325" selection-end="5325" vertical-scroll-proportion="0.0" vertical-offset="1611" max-vertical-offset="3825">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/locale/en/LC_MESSAGES/django.po">
@@ -861,20 +875,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/webapp/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="34" selection-start="465" selection-end="465" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1241">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="86" selection-start="528" selection-end="528" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="646">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/email/activation_email_subject.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="565" />
@@ -910,11 +910,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/webapp/css/bootstrap.css.map">
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="174890" selection-start="174890" selection-end="174890" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102" />
+      </provider>
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/webapp/css/font-awesome.css">
@@ -961,11 +961,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="195" column="45" selection-start="9043" selection-end="9043" vertical-scroll-proportion="-4.9342103" vertical-offset="2940" max-vertical-offset="6987">
           <folding>
-            <element signature="e#1062#1126#0" expanded="true" />
-            <element signature="e#1393#1449#0" expanded="true" />
-            <element signature="e#4705#4787#0" expanded="true" />
-            <element signature="e#6030#6059#0" expanded="true" />
-            <element signature="e#6168#6197#0" expanded="true" />
+            <element signature="e#1062#1126#0" expanded="false" />
+            <element signature="e#1393#1449#0" expanded="false" />
+            <element signature="e#4705#4787#0" expanded="false" />
+            <element signature="e#6030#6059#0" expanded="false" />
+            <element signature="e#6168#6197#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -983,23 +983,6 @@
     <entry file="file://$PROJECT_DIR$/static/webapp/css/font-awesome.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="6019" selection-start="6181" selection-end="6181" vertical-scroll-proportion="-1.02" vertical-offset="0" max-vertical-offset="153" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="5" selection-start="2826" selection-end="2826" vertical-scroll-proportion="-6.48" vertical-offset="1130" max-vertical-offset="1836" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/templatetags/experience_form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="17" selection-start="360" selection-end="360" vertical-scroll-proportion="-0.15697674" vertical-offset="207" max-vertical-offset="833" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/webapp/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="60" selection-start="3289" selection-end="3289" vertical-scroll-proportion="0.65265083" vertical-offset="1071" max-vertical-offset="3519">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/webapp/newexperience.html">
@@ -1023,20 +1006,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/views.py">
+    <entry file="file://$PROJECT_DIR$/templates/webapp/following.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="344" column="99" selection-start="11595" selection-end="11595" vertical-scroll-proportion="-10.52" vertical-offset="5585" max-vertical-offset="6545">
-          <folding>
-            <element signature="e#53#66#0" expanded="true" />
-          </folding>
+        <state line="35" column="79" selection-start="1261" selection-end="1261" vertical-scroll-proportion="-7.6666665" vertical-offset="204" max-vertical-offset="765">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/webapp/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="77" selection-start="1568" selection-end="1568" vertical-scroll-proportion="-15.038462" vertical-offset="357" max-vertical-offset="3519">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/webapp/search_person_result.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="567">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/webapp/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="34" selection-start="465" selection-end="465" vertical-scroll-proportion="3.8846154" vertical-offset="305" max-vertical-offset="1241">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/webapp/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="88" selection-start="5406" selection-end="5406" vertical-scroll-proportion="-6.3333335" vertical-offset="1428" max-vertical-offset="3825">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="4" selection-start="791" selection-end="791" vertical-scroll-proportion="-11.12" vertical-offset="62" max-vertical-offset="663">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/webapp/newaccount.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="60" selection-start="7019" selection-end="7019" vertical-scroll-proportion="1.8702011" vertical-offset="2037" max-vertical-offset="5746">
+        <state line="255" column="50" selection-start="9989" selection-end="9989" vertical-scroll-proportion="5.72549" vertical-offset="4627" max-vertical-offset="5746">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="0" selection-start="1508" selection-end="1533" vertical-scroll-proportion="-7.2" vertical-offset="269" max-vertical-offset="8024">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/templatetags/experience_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="17" selection-start="360" selection-end="360" vertical-scroll-proportion="-6.12" vertical-offset="0" max-vertical-offset="833">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="65" selection-start="3674" selection-end="3674" vertical-scroll-proportion="-17.76" vertical-offset="1256" max-vertical-offset="1938">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/webapp/image/profile_pic_anon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/templatetags/tags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="386" selection-end="386" vertical-scroll-proportion="-8.16" vertical-offset="0" max-vertical-offset="493">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/webapp/image/profile-big.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/webapp/image/profile_default.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
   </component>

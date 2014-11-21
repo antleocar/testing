@@ -14,10 +14,12 @@ urlpatterns = patterns('',
     url(r'^account/new/$', views.new_account, name='newaccount'),
     url(r'^newaccount_done/(?P<username>.+)/$', views.new_account_done, name='newaccount_done'),
     url(r'^account/activate/(?P<code>.+)/$', views.activate_account, name='activate'),
+    url(r'^profile/(?P<username>[.\w]+)/following/$', views.following, name='following'),
+    url(r'^profile/(?P<username>[.\w]+)/followers/$', views.followers, name='followers'),
 
 
     url(r'^profile/(?P<username>[.\w]+)/$', views.profile, name='profile'),
-
+    url(r'^profile/(?P<username>[.\w]+)/edit/$', views.modification_account, name='profile_edit'),
     url(r'^profile/(?P<username>[.\w]+)/experiences/$' , views.experiences, name='experiences'),
 
     url(r'^newexperience', views.new_experience, name='newexperience'),

@@ -35,14 +35,14 @@
                     </div>
 
                     <div class="col-md-4">
-                        <a >
+                        <a href="{% url 'followers' profile.user.username %}">
                         <span class="DashboardProfileCard-statLabel">Seguidores</span>
                         <span class="DashboardProfileCard-statValue">{{ followers_list|length }}</span>
                         </a>
                     </div>
 
                     <div class="col-md-4">
-                        <a >
+                        <a href="{% url 'following' profile.user.username %}">
                         <span class="DashboardProfileCard-statLabel">Seguidos</span>
                         <span class="DashboardProfileCard-statValue">{{ profile.following|length }}</span>
                         </a>

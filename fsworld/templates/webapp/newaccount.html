@@ -252,8 +252,8 @@
                    class="col-sm-2 control-label">Localización</label>
 
             <div class="col-sm-3">
-                 País, ciudad o localidad
-                {% trans "Your city, country or else" as your_city %}
+
+                {% trans "País, ciudad o localidad" as your_city %}
                 <input type="text" class="form-control" placeholder="{{ your_city }}"
                        name="{{ form.location.name }}" id="id_{{ form.location.name }}"
                        value="{{ form.location.value | default_if_none:'' }}">
@@ -314,7 +314,7 @@
         <label for="inputDisplayName" class="col-sm-1 control-label"></label>
 
         {% if edit %}
-            {% trans "Save changes" as submit_text %}
+            {% trans "Guardar cambios" as submit_text %}
         {% else %}
             {% trans "Crear cuenta" as submit_text %}
         {% endif %}
