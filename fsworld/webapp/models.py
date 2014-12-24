@@ -44,13 +44,16 @@ class Experience(models.Model):
     description = TextField(blank=False)
     creation_date = DateTimeField(auto_now_add=True)
     modification_date = DateTimeField(auto_now_add=True, null=True)
+    aparejos = ListField(blank=False)
+    type_of_fishing = CharField(max_length=50, blank=True)
     notes = TextField(null=True)
+    difficult = IntegerField(null=True, validators=[validate_difficult])
     tags = ListField(null=True, validators=[validate_tags])
     #embedded
     author = ForeignKey(User)
     pictures = ListField(EmbeddedModelField('Picture'))
     comments = ListField(EmbeddedModelField('Comment'), blank=True)
-    setups = ListField(EmbeddedModelField('SetUp', blank=True))
+    steps = ListField(EmbeddedModelField('Step'), null=False)
     positives = ListField(EmbeddedModelField('Vote'))
     negatives = ListField(EmbeddedModelField('Vote'))
     objects = MongoDBManager()
@@ -92,11 +95,9 @@ class Vote(models.Model):
         return self.user is other.user and self.date == other.date
 
 
-class SetUp(models.Model):
+class Step(models.Model):
     text = models.TextField(blank=False)
     image = models.ImageField(upload_to="images/experience/", null=True)
-    type_of_fishing = models.CharField(max_length=50, blank=False)
-    difficult = IntegerField(null=True, validators=[validate_difficult])
 
 
 class Picture(models.Model):

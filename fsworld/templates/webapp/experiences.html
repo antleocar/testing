@@ -14,7 +14,7 @@
                          src="{{ experience.main_image.url }}"/>
 
                     <div class="limit-text experience-title-max-height">
-                        <h3 class="user-name"><a >
+                        <h3 class="user-name"><a href="{% url 'experience' experience.id %}">
                             {{ experience.title }}</a></h3>
                     </div>
 
@@ -32,11 +32,11 @@
 {% else %}
     {% if is_owner %}
         <div class="experience-name">
-            <h2 class="follow-msg">You do not have any experience yet</h2>
+            <h2 class="follow-msg">Todavía no tienes ninguna experiencia</h2>
         </div>
     {% else %}
         <div class="experience-name">
-            <h2 class="follow-msg">This user does not has any experience yet</h2>
+            <h2 class="follow-msg">Este usuario no tiene ninguna experiencia</h2>
         </div>
     {% endif %}
 {% endif %}

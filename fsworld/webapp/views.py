@@ -16,13 +16,13 @@ from ajax import models as models_ajax
 from bson import ObjectId
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
-django.contrib.auth.forms.UserCreationForm
-from webapp.models import Profile, Comment, Picture, Experience,  SetUp, Activation
+
+from webapp.models import Profile, Comment, Picture, Experience,  Step, Activation
 from ajax.models import UploadedImage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views
-from webapp.forms import NewAccountForm,EditAccountForm,ExperienceForm,SearchExperienceForm,AddComment
+from webapp.forms import NewAccountForm,EditAccountForm,ExperienceForm, SearchExperienceForm, AddComment
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpResponseNotAllowed
@@ -56,7 +56,7 @@ def main(request):
     if request.user.is_authenticated():
 
         experiences = Experience.objects.all().order_by('-creation_date')
-    return render(request, 'webapp/main.html')
+    return render(request, 'webapp/main.html', {'experiences': experiences[:9]})
 
 @login_required
 def new_experience(request):
@@ -73,19 +73,42 @@ def new_experience(request):
 
     return render(request, 'webapp/newexperience.html', {'form': form})
 
+@login_required
+def edit_experience(request, experience_id):
+    user = request.user
+    e = Experience.objects.get(id=ObjectId(experience_id))
 
-def store_experience(form, user, experience=None, parent=None):
+    if e.author != user:
+        return HttpResponse('Unauthorized', status=401)
+    if request.method == 'POST':
+        form = ExperienceForm(request.POST)
+        if form.is_valid:  # else -> render respone with the obtained form, with errors and stuff
+
+            experience = store_experience(form, request.user, e)
+            if experience:
+                return HttpResponseRedirect(reverse('experience', kwargs={'experience_id': experience.id}))  # Redirect after POST
+
+    else:
+        # fill the form with the recipe's data
+        form = ExperienceForm.get_filled_form(e)
+        return render(request, 'webapp/newexperience.html', {'form': form, 'edit': True})
+
+
+def store_experience(form, user, experience=None):
     if form.is_valid():
         # Extract the data from the form and create the User and Profile instance
         data = form.cleaned_data
 
         # Basic information
         title = data['title']
+        type_of_fishing = data['type_of_fishing']
         description = data['description']
         main_picture = data['main_picture_id']
         pictures_id_list = form.get_pictures_ids_list()
-        setups = form.get_setups_list()
+        aparejos = form.get_aparejos_list()
+        steps = form.get_steps_list()
         notes = data['notes']
+        difficult = data['difficult']
         tags = []
         tags_all = data['tags']
 
@@ -100,24 +123,26 @@ def store_experience(form, user, experience=None, parent=None):
             experience = Experience()
 
         experience.title = title
+        experience.type_of_fishing = type_of_fishing
         experience.description = description
+        experience.aparejos = aparejos
         experience.notes = notes
         experience.tags = tags
+        experience.difficult = difficult
         experience.main_image = imagen_principal
         u = user
 
-        # setups is a list of dict
-        setup_list = list()
-        for setup in setups:
-            if "picture" in setup:
-                picture = UploadedImage.objects.get(id=setup["picture"]).image
-                setup_object = SetUp(text=setup['text'],type_of_fishing=setup['type_of_fishing'], difficult=setup['difficult'],
-                                     enumerate=setup['enumerate'], image=picture)
+        # steps is a list of dict
+        step_list = list()
+        for step in steps:
+            if "picture" in step:
+                picture = UploadedImage.objects.get(id=step["picture"]).image
+                step_object = Step(text=step['text'], image=picture)
             else:
-                setup_object = SetUp(text=setup['text'],type_of_fishing=setup['type_of_fishing'])
+                step_object = Step(text=step['text'])
 
-            setup_list.append(setup_object)
-        experience.setups = setup_list
+            step_list.append(step_object)
+        experience.steps = step_list
 
         # pictures_id_list is a list of ids
         pictures_list = list()
@@ -335,23 +360,6 @@ def modification_account(request, username):
     return render(request, 'webapp/newaccount.html', {'form': form, 'edit': True})
 
 
-def activate_account(request, code):
-    try:
-        a = Activation.objects.get(code=code)
-    except Activation.DoesNotExist:
-        raise Http404
-
-    if a.user.is_active:
-        return HttpResponseRedirect(reverse('main'))
-
-    a.user.is_active = True
-    a.user.save()
-
-    messages.success(request, _("Tú registro se ha completado satisfactoriamente"))
-    return HttpResponseRedirect(reverse('login'))
-
-
-
 def new_account_done(request, username):
     try:
         user = User.objects.get(username=username)
@@ -413,7 +421,6 @@ def activate_account(request, code):
     return HttpResponseRedirect(reverse('login'))
 
 
-
 def experience(request, experience_id):
 
     following = None
@@ -432,10 +439,15 @@ def experience(request, experience_id):
         porcentaje_positivos = (len(experience.positives) / float(total_votos))*100
         porcentaje_negativos = (len(experience.negatives) / float(total_votos))*100
 
+    num = experience.difficult
+    difficult = "Dificil"
+    if num>=0 and num<=1:
+        difficult = "Facil"
+    elif num>=2 and num<=3:
+        difficult = "Media"
 
 
-
-    return render(request, 'webapp/experience_template.html', {'experience': experience, 'total_votos': total_votos,
+    return render(request, 'webapp/experience_template.html', {'experience': experience, 'total_votos': total_votos,'difficult_value': difficult,
                                                            'por_pos': int(porcentaje_positivos), 'por_neg': int(porcentaje_negativos),
                                                            'following': following})
 
@@ -471,6 +483,43 @@ def followers(request, username):
     tag = _("Followers")
     return render(request, 'webapp/following.html',
                   {'follows': followers_list, 'profile': user_profile, 'tag': tag, 'is_owner': is_owner})
+
+
+@login_required
+def comment(request, experience_id):
+    if request.method == 'POST':
+        u = request.user
+        profile = u.profile.get()
+        form = AddComment(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            c = Comment(text=text, create_date=datetime.datetime.now(), user_own=u, )
+            e = Experience.objects.get(id=experience_id)
+            e.comments.append(c)
+            e.save()
+    return HttpResponseRedirect(reverse('experience', args=(experience_id,)))
+
+
+@login_required
+def ban_comment(request, experience_id, comment_id):
+    if request.method == 'GET':
+        u = request.user
+        if u.is_staff:
+            e = Experience.objects.get(id=experience_id)
+            e.comments[int(comment_id)].is_banned = True
+            e.save()
+    return HttpResponseRedirect(reverse('experience', args=(experience_id,)))
+
+
+@login_required
+def unban_comment(request, experience_id, comment_id):
+    if request.method == 'GET':
+        u = request.user
+        if u.is_staff:
+            e = Experience.objects.get(id=experience_id)
+            e.comments[int(comment_id)].is_banned = False
+            e.save()
+    return HttpResponseRedirect(reverse('experience', args=(experience_id,)))
 
 
 def terms_and_conditions(request):

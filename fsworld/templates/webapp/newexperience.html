@@ -36,10 +36,10 @@
                         before_remove: null,
                         after_remove: null,
                         after_add: function (container, new_row) {
-                            if(new_row.hasClass("ingredient-item")){
-                                new_row.find(".ingredient-input").focus();
-                            }else if(new_row.hasClass("setup-item")){
-                                new_row.find(".setup-input").focus();
+                            if(new_row.hasClass("aparejo-item")){
+                                new_row.find(".aparejo-input").focus();
+                            }else if(new_row.hasClass("step-item")){
+                                new_row.find(".step-input").focus();
                             }
 
                         }
@@ -50,7 +50,7 @@
     </script>
     <script>
         var galleryArray = {};
-        var associationsetupPicture = {};
+        var associationStepPicture = {};
 
         function setMainPicture(url) {
             $("#main-picture").css('background-image', 'url(' + url + ')');
@@ -104,35 +104,51 @@
                     $form.append(picturesInput);
                 }
 
+                // Genera el json de aparejos
+                var aparejos = [];
+                $(".aparejo-item").each(function (index, element) {
+                    if (!$(element).hasClass("repeatable-template")) {
+                        var aparejo = $(element).find(".aparejo-input").val();
+                        if (aparejo) {
+                            aparejos.push(aparejo);
+                        }
+                    }
+                });
+                if (aparejos.length) {
+                    var aparejosInput = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "{{ form.aparejos_json.name }}")
+                            .val(JSON.stringify(aparejos));
+                    $form.append(aparejosInput);
+                }
 
 
 
                 // Genera el json de montaje
-                var setups = [];
-                $(".setup").each(function (index, element) {
+                var steps = [];
+                $(".step").each(function (index, element) {
                     if (!$(element).hasClass("repeatable-template")) {
-                        var setup = {};
-                        var setupText = $(element).find(".setup-input").val();
-                        var setupTypeOfFishing = $(element).find(".setup-input").val();
-                        var setupDifficult = $(element).find(".setup-input").val();
-                        if (setupText) {
-                            setup['text'] = setupText;
-                            setup['type_of_fishing'] = setupTypeOfFishing;
+                        var step = {};
+                        var stepText = $(element).find(".step-input").val();
+
+                        if (stepText) {
+                            step['text'] = stepText;
+
                             var pictureId = $(element).find("img").attr("data-picture-id");
                             if (pictureId) {
-                                setup['picture'] = pictureId;
-                                setup['difficult'] = setupDifficult;
+                                step['picture'] = pictureId;
+
                             }
-                            setups.push(setup);
+                            steps.push(step);
                         }
                     }
                 });
-                if (setups.length) {
-                    var setupsInput = $("<input>")
+                if (steps.length) {
+                    var stepsInput = $("<input>")
                             .attr("type", "hidden")
-                            .attr("name", "{{ form.setups_json.name }}")
-                            .val(JSON.stringify(setps));
-                    $form.append(setupsInput);
+                            .attr("name", "{{ form.steps_json.name }}")
+                            .val(JSON.stringify(steps));
+                    $form.append(stepsInput);
                 }
             });
 
@@ -164,9 +180,9 @@
                 galleryArray[response.url] = response.id;
             });
 
-            $(".setup-list").on("click", ".setup-picture", function (event) {
-                var setupPicture = $(this);
-                var setupIndex = setupPicture.attr("data-setup-index");
+            $(".step-list").on("click", ".step-picture", function (event) {
+                var stepPicture = $(this);
+                var stepIndex = stepPicture.attr("data-step-index");
 
                 var $modal = $("#modal-picture");
                 $modal.modal("show");
@@ -186,8 +202,8 @@
                     var url = $(this).find("img").attr("src");
                     var id = galleryArray[url];
 
-                    var $control = setupPicture.children(".setup-picture-add");
-                    var $pic = setupPicture.children("img");
+                    var $control = stepPicture.children(".step-picture-add");
+                    var $pic = stepPicture.children("img");
 
                     $pic.attr("src", url);
                     $pic.attr("data-picture-id", id);
@@ -304,7 +320,18 @@
             </div>
         {% endif %}
         </div>
-        Tipo de Pesca<input type="text" class="form-control" >
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="id_{{ form.type_of_fishing.name }}">{% trans "Tipo de Pesca" %}</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-xlg"
+                       name="{{ form.type_of_fishing.name }}" id="id_{{ form.type_of_fishing.name }}"
+                       value="{{ form.type_of_fishing.value | default_if_none:'' }}">
+                    </div>
+                </div>
+            </div>
     </fieldset>
 
     <span class="clearfix"></span>
@@ -312,30 +339,93 @@
     <h3 class="col-lg-offset-1">{% trans "¿Cómo lo has hecho?" %}</h3>
     <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 100px">
 
+        <!-- Aparejos -->
+        <h4>{% trans "Aparejos" %}</h4>
 
-        <h4>{% trans "Montaje " %}</h4>
-
+        <input type="hidden" id="id_{{ form.aparejos_list.name }}" name="{{ form.aparejos_list.name }}">
 
         <div class="repeat">
-            <div class="form-group repeatable-wrapper setup-list">
+            <div class="form-group repeatable-wrapper">
                 <div class="repeatable-container">
-                    <!-- Setup item -->
-                    <div class="repeatable-row repeatable-template setup-item">
-                        <div class="form-group setup">
+                    <!-- aparejo-item -->
+                    <div class="form-group aparejo-item repeatable-row repeatable-template">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="input-group">
+                            <span class="input-group-addon repeatable-move"><span
+                                    class="glyphicon glyphicon-sort"></span> </span>
+                                <input type="text" class="form-control aparejo-input"
+                                       name="aparejo_{row-count-placeholder}"
+                                       id="id_aparejo_{row-count-placeholder}"
+                                       autofocus="autofocus"
+                                        >
+                            <span class="input-group-btn aparejo-remove">
+                                <button class="btn btn-default repeatable-remove" type="button"><span
+                                        class="glyphicon glyphicon-remove"></span></button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /aparejo-item -->
+
+                    {% for aparejo in form.get_aparejos_list %}
+                        <div class="form-group aparejo-item repeatable-row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="input-group">
+                                <span class="input-group-addon repeatable-move"><span
+                                        class="glyphicon glyphicon-sort"></span> </span>
+                                    <input type="text" class="form-control aparejo-input"
+                                           name="aparejo_{{ forloop.counter0 }}"
+                                           id="id_aparejo_{{ forloop.counter0 }}"
+                                           value="{{ aparejo }}"
+                                            >
+                                <span class="input-group-btn aparejo-remove">
+                                    <button class="btn btn-default repeatable-remove" type="button"><span
+                                            class="glyphicon glyphicon-remove"></span></button>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+                <div class="form-group aparejo-item ">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <span class="form-control repeatable-add">{% trans "Añade el aparejo necesario" %}</span>
+                    </div>
+                </div>
+                {% if form.aparejos_json.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.aparejos_json.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <h4>{% trans "Montaje" %}</h4>
+
+        <div class="repeat">
+            <div class="form-group repeatable-wrapper step-list">
+                <div class="repeatable-container">
+                    <!-- Step item -->
+                    <div class="repeatable-row repeatable-template step-item">
+                        <div class="form-group step">
                             <div class="col-sm-1">
                                 <span>{row-number-placeholder}</span>
                             </div>
                             <div class="col-sm-9">
-                                {% trans "Describe el montaje" as setup_description %}
-                                <textarea class="form-control input-lg setup-input"
-                                          placeholder="{{ setup_description }}"
+                                {% trans "Describe el montaje" as step_description %}
+                                <textarea class="form-control input-lg step-input"
+                                          placeholder="{{ step_description }}"
                                           rows="4"
-                                          name="setup_{row-count-placeholder}" id="id_setup_{row-count-placeholder}"
+                                          name="step_{row-count-placeholder}" id="id_step_{row-count-placeholder}"
                                           autofocus="autofocus"
                                         ></textarea>
                             </div>
-                            <div class="col-sm-2 setup-picture" data-setup-index="{row-count-placeholder}">
-                                <a class="btn btn-default setup-picture-add"><span
+                            <div class="col-sm-2 step-picture" data-step-index="{row-count-placeholder}">
+                                <a class="btn btn-default step-picture-add"><span
                                         class="glyphicon glyphicon-camera"></span></a>
                                 <img class="img-rounded"
                                      src="" style="display: none">
@@ -343,33 +433,32 @@
                         </div>
                         <hr>
                     </div>
+                    <!-- /Step item -->
 
-                    <!-- /Setup item -->
-
-                    {% for setup in form.get_stups_list %}
+                    {% for step in form.get_steps_list %}
                         <div class="repeatable-row">
-                            <div class="form-group setup">
+                            <div class="form-group step">
                                 <div class="col-sm-1">
                                     <span>{{ forloop.counter }}</span>
                                 </div>
                                 <div class="col-sm-9">
                                     {% trans "Describe el montaje" as the_description %}
-                                    <textarea class="form-control input-lg setup-input"
+                                    <textarea class="form-control input-lg step-input"
                                               placeholder="{{ the_description }}"
                                               rows="4"
-                                              name="setup_{{ forloop.counter0 }}" id="id_setup_{{ forloop.counter0 }}"
-                                            >{{ setup.text }}</textarea>
+                                              name="step_{{ forloop.counter0 }}" id="id_step_{{ forloop.counter0 }}"
+                                            >{{ step.text }}</textarea>
                                 </div>
-                                <div class="col-sm-2 setup-picture" data-setup-index="{{ forloop.counter0 }}">
-                                    <input type="text" hidden name="setup-picture-id_{{ forloop.counter0 }}"
-                                           value="{% setup_picture form.data forloop.counter0 %}">
-                                    {% if setup.picture %}
-                                        <a class="btn btn-default setup-picture-add" style="display: none"><span
+                                <div class="col-sm-2 step-picture" data-step-index="{{ forloop.counter0 }}">
+                                    <input type="text" hidden name="step-picture-id_{{ forloop.counter0 }}"
+                                           value="{% step_picture form.data forloop.counter0 %}">
+                                    {% if step.picture %}
+                                        <a class="btn btn-default step-picture-add" style="display: none"><span
                                                 class="glyphicon glyphicon-camera"></span></a>
-                                        <img class="img-rounded" data-picture-id="{{ setup.picture }}"
-                                             src="{% picture_from_id setup.picture %}">
+                                        <img class="img-rounded" data-picture-id="{{ step.picture }}"
+                                             src="{% picture_from_id step.picture %}">
                                     {% else %}
-                                        <a class="btn btn-default setup-picture-add"><span
+                                        <a class="btn btn-default step-picture-add"><span
                                                 class="glyphicon glyphicon-camera"></span></a>
                                         <img class="img-rounded"
                                              src="" style="display: none">
@@ -380,29 +469,30 @@
                         </div>
                     {% endfor %}
                 </div>
-                <div class="form-group setup">
+                <div class="form-group step">
                     <div class="col-sm-1">
                         <span>+</span>
                     </div>
                     <div class="col-sm-9">
-                        {% trans "¿Próximo montaje?" as the_new_desc %}
+                        {% trans "¿Próximo paso?" as the_new_desc %}
                         <textarea class="form-control input-lg repeatable-add"
                                   placeholder="{{ the_new_desc }}"
                                   rows="4"
-                                  name="setup" id="id_setup"
+                                  name="step" id="id_step"
                                 ></textarea>
                     </div>
                 </div>
                 {% comment %}TODO: colocar mejor el mensaje de error{% endcomment %}
-                {% if form.setups_json.errors %}
+                {% if form.steps_json.errors %}
                     <div class="alert alert-danger">
-                        {% for error in form.setups_json.errors %}
+                        {% for error in form.steps_json.errors %}
                             {{ error|escape }}
                         {% endfor %}
                     </div>
                 {% endif %}
             </div>
         </div>
+
 
         <div class="modal fade" id="modal-picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
@@ -490,12 +580,9 @@
     <span class="clearfix"></span>
 
 
-
-            <div id="setups-div">
-                <textarea id="setups" style="display:none" name="setups"></textarea>
+              <div id="steps-div">
+                <textarea id="steps" style="display:none" name="steps"></textarea>
             </div>
-
-
 
 
     <!-- Submit Button -->

@@ -368,17 +368,17 @@ header .container {
     border-radius: 6px;
 }
 
-.setup span {
+.step span {
     font-size: 50px;
     color: #669933;
 }
 
-.setup.next span {
+.step.next span {
     font-size: 50px;
     color: #ccc4bc;
 }
 
-.setup img {
+.step img {
     height: auto;
     width: 100%;
 }
@@ -390,7 +390,7 @@ header .container {
     padding: 20px;
 }
 
-.ingredient-item span.repeatable-add {
+.aparejo-item span.repeatable-add {
     color: #ababab;
 }
 
@@ -992,12 +992,12 @@ header .container {
     margin: 5px 0 10px;
 }
 
-.experience-ingredients {
+.experience-aparejos {
     /*background-color: #FCF0AD;*/
     min-height: 200px;
 }
 
-.experience-ingredients ul {
+.experience-aparejos ul {
     list-style: none;
     padding: 0;
     margin-left: 10px;
@@ -1005,13 +1005,13 @@ header .container {
     font-style: italic;
 }
 
-.experience-ingredients li:before{
+.experience-aparejos li:before{
     content: "-";
     position:relative; left:-5px;
     color: #5a5a5a;
 }
 
-.experience-ingredients-parent{
+.experience-aparejos-parent{
     padding-left: 0;
     padding-right: 5px;
 }
@@ -1027,28 +1027,28 @@ header .container {
     padding-right: 0;
 }
 
-.experience-setup-list{
+.experience-step-list{
     margin-top: 80px;
     margin-bottom: 50px;
 }
 
-.experience-setup {
+.experience-step {
 
 }
 
-.experience-setup-count {
+.experience-step-count {
     font-size: 55px;
     color: #669933;
     text-align: center;
 }
 
-.experience-setup p {
+.experience-step p {
     font-size: 16px;
     color: #424242;
     line-height: 1.7;
 }
 
-.experience-setup-separator {
+.experience-step-separator {
     background: url('../image/separator.png') no-repeat center;
     height: 65px;
     width: auto;
@@ -1056,7 +1056,7 @@ header .container {
     margin-bottom: 20px;
 }
 
-.experience-setup-picture {
+.experience-step-picture {
     margin-top: 10px;
     height: 200px;
     width: auto;

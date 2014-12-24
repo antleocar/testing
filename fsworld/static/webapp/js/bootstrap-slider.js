@@ -68,7 +68,7 @@
 
 		this.min = this.element.data('slider-min')||options.min;
 		this.max = this.element.data('slider-max')||options.max;
-		this.setup = this.element.data('slider-setup')||options.setup;
+		this.step = this.element.data('slider-step')||options.step;
 		this.value = this.element.data('slider-value')||options.value;
 		if (this.value[1]) {
 			this.range = true;
@@ -115,7 +115,7 @@
 		this.percentage = [
 			(this.value[0]-this.min)*100/this.diff,
 			(this.value[1]-this.min)*100/this.diff,
-			this.setup*100/this.diff
+			this.step*100/this.diff
 		];
 
 		this.offset = this.picker.offset();
@@ -303,12 +303,12 @@
 			var val;
 			if (this.range) {
 				val = [
-					(this.min + Math.round((this.diff * this.percentage[0]/100)/this.setup)*this.setup),
-					(this.min + Math.round((this.diff * this.percentage[1]/100)/this.setup)*this.setup)
+					(this.min + Math.round((this.diff * this.percentage[0]/100)/this.step)*this.step),
+					(this.min + Math.round((this.diff * this.percentage[1]/100)/this.step)*this.step)
 				];
 				this.value = val;
 			} else {
-				val = (this.min + Math.round((this.diff * this.percentage[0]/100)/this.setup)*this.setup);
+				val = (this.min + Math.round((this.diff * this.percentage[0]/100)/this.step)*this.step);
 				this.value = [val, this.value[1]];
 			}
 			return val;
@@ -349,7 +349,7 @@
 			this.percentage = [
 				(this.value[0]-this.min)*100/this.diff,
 				(this.value[1]-this.min)*100/this.diff,
-				this.setup*100/this.diff
+				this.step*100/this.diff
 			];
 			this.layout();
 		}
@@ -372,7 +372,7 @@
 	$.fn.slider.defaults = {
 		min: 0,
 		max: 10,
-		setup: 1,
+		step: 1,
 		orientation: 'horizontal',
 		value: 5,
 		selection: 'before',

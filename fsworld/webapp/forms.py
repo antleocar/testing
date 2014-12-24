@@ -3,8 +3,7 @@ import django
 from ajax.models import UploadedImage
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from models import Experience, Profile, SetUp
-
+from models import Experience, Profile, Step
 
 
 class NewAccountForm(forms.Form):
@@ -27,15 +26,28 @@ class ExperienceForm(forms.Form):
     DIFFICULT = [(1, _("Facil")), (2, _("Media")), (3, _("Dificil"))]
     difficult = forms.ChoiceField(choices=DIFFICULT, required=False)
     title = forms.CharField(max_length=50, required=False)
+    type_of_fishing = forms.CharField(max_length=50, required=False)
     main_picture_id = forms.CharField(required=True)
+
     pictures_ids_json = forms.CharField(required=False)
     description = forms.CharField(required=False)
-    setups_json = forms.CharField(required=False)
+    aparejos_json = forms.CharField(required=True)
+    steps_json = forms.CharField(required=True)
     notes = forms.CharField(widget=forms.Textarea, required=False)
     tags = forms.CharField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(ExperienceForm, self).__init__(*args, **kwargs)
+
+    def get_aparejos_list(self):
+        try:
+            json_data = self.cleaned_data['aparejos_json']
+            data = json.loads(json_data)
+            return data
+        except AttributeError:
+            return None
+        except KeyError:
+            return None
 
     def get_pictures_ids_list(self):
         try:
@@ -49,9 +61,9 @@ class ExperienceForm(forms.Form):
             return None
         return None
 
-    def get_setups_list(self):
+    def get_steps_list(self):
         try:
-            json_data = self.cleaned_data['setups_json']
+            json_data = self.cleaned_data['steps_json']
             data = json.loads(json_data)
             return data
         except AttributeError:
@@ -63,11 +75,17 @@ class ExperienceForm(forms.Form):
     def get_filled_form(e):
         data = {
             'title': e.title,
+            'type_of_fishing': e.type_of_fishing,
             'description': e.description,
             'main_picture_id': UploadedImage.objects.get(image=e.main_image).id,
             'notes': e.notes,
+            'difficult': e.difficult,
             'tags': ",".join(e.tags),
-                    }
+        }
+
+        #aparejos
+        aparejos_list = e.aparejos
+        data['aparejos_json'] = json.dumps(aparejos_list)
 
         #pictures
         pictures_ids_list = list()
@@ -75,16 +93,14 @@ class ExperienceForm(forms.Form):
             pictures_ids_list.append(UploadedImage.objects.get(image=pic.image).id)
         data['pictures_ids_json'] = json.dumps(pictures_ids_list)
 
-        #setups
-        setups_list = list()
-        for setup in e.setups:
-            if setup.image:
-
-                setups_list.append({"text": setup.text, "difficult": setup.difficult,
-                                    "type_of_fishing": setup.type_of_fishing,"picture": UploadedImage.objects.get(image=setup.image).id})
+        #steps
+        steps_list = list()
+        for step in r.steps:
+            if step.image:
+                steps_list.append({"text": step.text, "picture": UploadedImage.objects.get(image=step.image).id})
             else:
-                setups_list.append({"text": setup.text, "type_of_fishing": setup.type_of_fishing})
-        data['setups_json'] = json.dumps(setups_list)
+                steps_list.append({"text": step.text})
+        data['steps_json'] = json.dumps(steps_list)
 
         return ExperienceForm(data)
 

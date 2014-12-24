@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^newaccount_done/(?P<username>.+)/$', views.new_account_done, name='newaccount_done'),
     url(r'^account/activate/(?P<code>.+)/$', views.activate_account, name='activate'),
     url(r'^profile/(?P<username>[.\w]+)/following/$', views.following, name='following'),
+
     url(r'^profile/(?P<username>[.\w]+)/followers/$', views.followers, name='followers'),
 
 
@@ -24,6 +25,7 @@ urlpatterns = patterns('',
 
     url(r'^newexperience', views.new_experience, name='newexperience'),
     url(r'^experience/(?P<experience_id>\w+)/$' , views.experience, name='experience'),
+    url(r'^experience/(?P<experience_id>\w+)/edit/$' , views.edit_experience, name='editexperience'),
     url(r'^about/contact/$', views.contact, name='contact'),
     url(r'^about/terms/$', views.terms_and_conditions, name='terms_and_conditions'),
 

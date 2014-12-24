@@ -147,6 +147,7 @@ def vote_experience(request):
 
     return HttpResponse(json.dumps({"message": "OK"}), status=201)
 
+
 def experience_votes(request, experience_id):
     if experience_id == u'':
         return HttpResponse(json.dumps({"message": "ERROR: you must specify experience id"}), status=400)
@@ -165,6 +166,5 @@ def experience_votes(request, experience_id):
               "total": total_votos,
               "por_pos": porcentaje_positivos,
               "por_neg": porcentaje_negativos}
-
 
     return HttpResponse(json.dumps(context), status=200)

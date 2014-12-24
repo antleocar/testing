@@ -9,9 +9,9 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def setup_picture(context, form, token):
-    value = form.get("setup-picture-id_"+str(token), '')
-    context['setupimageid'] = value
+def step_picture(context, form, token):
+    value = form.get("step-picture-id_"+str(token), '')
+    context['stepimageid']=value
     return value
 
 

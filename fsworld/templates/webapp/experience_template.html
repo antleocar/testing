@@ -1,6 +1,6 @@
 {% extends "webapp/base.html" %}
 {% load staticfiles %}
-
+{% load i18n %}
 {% load tags %}
 {% load experience_form %}
 
@@ -53,29 +53,15 @@
         </div>
     {% if user.is_authenticated %}
 
-            <div class="modal fade experience-modal-affinity" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">Select the users: </h4>
-                        </div>
+
                         <div class="modal-body">
                             {% if following %}
                                 <ul>
                                     {% for friend in following %}
-                                        <li class="list-affinity">
-                                            <div class="col-md-10 panel follow-list-item"><a class="get-affinity" >
-                                                <div class="col-md-10">
-                                                    <span><img class="img-rounded"
-                                                         src="{% avatar friend.user.profile.get.avatar %}"/>
+
                                                     <h3 class="user-name-affinity">
                                                     {{ friend.display_name }}</h3></span>
-                                                </div>
-                                                <div class="col-md-2 ">
-                                                    <span class="glyphicon glyphicon-chevron-right affinity-right"></span>
-                                                </div>
-                                            </a></div>
+
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -91,9 +77,7 @@
 
                             {% endif %}
                         </div>
-                    </div>
-                </div>
-            </div>
+
     {% endif %}
 
         <!-- Author overlay -->
@@ -158,7 +142,15 @@
 
 
     <div class="row">
-        <div class="col-md-6 experience-ingredients-parent {% if not experience.notes %}col-md-offset-3{% endif %}">
+        <div class="col-md-6 experience-aparejos-parent {% if not experience.notes %}col-md-offset-3{% endif %}">
+        <div class="panel-body experience-aparejos post-it-left">
+                <h3 class="experience-panel-title"> Aparejos</h3>
+                <ul>
+                    {% for aparejo in experience.aparejos %}
+                        <li>{{ aparejo }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
         </div>
 
@@ -173,27 +165,27 @@
         {% endif %}
     </div>
 
-    <div class="experience-setup-list">
+    <div class="experience-step-list">
 
-        {% for setup in experience.setups %}
+        {% for step in experience.steps %}
 
-            <div id="setup-{{ forloop.counter }}" class="experience-setup">
+            <div id="step-{{ forloop.counter }}" class="experience-step">
                 <div class="row">
-                    <div class="col-md-1 col-md-offset-1 experience-setup-count">{{ forloop.counter }}</div>
+                    <div class="col-md-1 col-md-offset-1 experience-step-count">{{ forloop.counter }}</div>
                     <div class="col-md-9">
-                        <p class="text-soft">{{ setup.text|linebreaks }}</p>
+                        <p class="text-soft">{{ step.text|linebreaks }}</p>
                     </div>
                 </div>
-                {% if setup.image %}
-                    <a class="" href="{{ setup.image.url }}" data-lightbox="setuplightbox2-{{ forloop.counter }}">
-                        <img class="img-rounded experience-setup-picture img-thumbnail center-block"
-                             src="{{ setup.image.url }}">
+                {% if step.image %}
+                    <a class="" href="{{ step.image.url }}" data-lightbox="steplightbox2-{{ forloop.counter }}">
+                        <img class="img-rounded experience-step-picture img-thumbnail center-block"
+                             src="{{ step.image.url }}">
                     </a>
                 {% endif %}
             </div>
 
             {% if not forloop.last %}
-                <span class="experience-setup-separator center-block"></span>
+                <span class="experience-step-separator center-block"></span>
             {% endif %}
 
         {% endfor %}
@@ -208,7 +200,8 @@
                 {% if experience.tags %}
                     <div class="experience-more-title"> Tags:</div>
                     {% for tag in experience.tags %}
-                        <span><a class="experience-tag" href="{% url 'search_experience' %}?srchterm={{ tag }}">{{ tag }}</a></span>
+                        <!---->
+                        <span><a class="experience-tag" >{{ tag }}</a></span>
                     {% endfor %}
                 {% endif %}
 
@@ -236,14 +229,14 @@
                                     >{{ comment.text|linebreaks }}</p>
                             {% if user.is_staff %}
                                 {% if comment.is_banned %}
-                                    <a
+                                    <a href="{% url 'unban' receta.id forloop.counter0 %}"
                                        class="plus btn btn-default">Unban Comment</a>
                                 {% else %}
-                                    <a
+                                    <a href="{% url 'ban' receta.id forloop.counter0 %}"
                                        class="plus btn btn-default">Ban comment</a>
                                 {% endif %}
                             {% elif comment.user_own == user and comment.is_banned %}
-                                <div class="alert alert-danger">This comment has been banned.</div>
+                                <div class="alert alert-danger">Este comentario ha sido baneado</div>
                             {% endif %}
                         </div>
                         <hr>
@@ -251,7 +244,7 @@
                 {% endfor %}
             {% else %}
                 <div class="experience-comment-empty">
-                    <p class="text-soft">No comments yet. Be the first!</p>
+                    <p class="text-soft">No hay comentarios. Sé el primero</p>
                 </div>
             {% endif %}
 
@@ -260,17 +253,17 @@
                     <img class="img-circle experience-comment-picture"
                          src="{% avatar user.profile.get.avatar %}">
 
-                    <form method="POST" action="{% url 'comment' experience.id %}">
+                    <form method="POST" >
                         {% csrf_token %}
                         <textarea class="form-control" name="text"
-                                  placeholder=" Write a comment about the experience…"  rows="5"></textarea>
+                                  placeholder=" Escribe un comentario sobre la experiencia"  rows="5"></textarea>
                         <input class="plus btn btn-default" type="submit" value=" Send" >
                     </form>
                 </div>
             {% else %}
                 <div class="experience-comment-login text-soft">
                     {% url 'login' as the_url %}
-                    {% blocktrans %}Want to comment? <a href="{{ the_url }}">Log in</a> first.{% endblocktrans %}
+                    {% blocktrans %}¿Quieres comentar?<a href="{{ the_url }}">Loguéate</a> primero{% endblocktrans %}
                 </div>
             {% endif %}
         </div>
