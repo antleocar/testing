@@ -95,7 +95,7 @@ class ExperienceForm(forms.Form):
 
         #steps
         steps_list = list()
-        for step in r.steps:
+        for step in e.steps:
             if step.image:
                 steps_list.append({"text": step.text, "picture": UploadedImage.objects.get(image=step.image).id})
             else:

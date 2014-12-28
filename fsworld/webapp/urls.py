@@ -24,11 +24,12 @@ urlpatterns = patterns('',
     url(r'^profile/(?P<username>[.\w]+)/experiences/$' , views.experiences, name='experiences'),
 
     url(r'^newexperience', views.new_experience, name='newexperience'),
+    url(r'^experience/(?P<experience_id>\w+)/comment/$' , views.comment, name='comment'),
     url(r'^experience/(?P<experience_id>\w+)/$' , views.experience, name='experience'),
     url(r'^experience/(?P<experience_id>\w+)/edit/$' , views.edit_experience, name='editexperience'),
     url(r'^about/contact/$', views.contact, name='contact'),
     url(r'^about/terms/$', views.terms_and_conditions, name='terms_and_conditions'),
-
+    url(r'^search/experience/$' , views.search_experience, name='search_experience'),
     url(r'^search/person/(?P<terms>.+)$' , views.search_profile, name='search_person'),
 
 

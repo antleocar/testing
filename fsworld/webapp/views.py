@@ -186,6 +186,25 @@ def logout_user(request):
     return views.logout(request, next_page=reverse('main'))
 
 
+def search_experience(request):
+    results_experiences = dict()
+    if request.method == 'GET':
+        form = SearchExperienceForm(request.GET)
+        if form.is_valid():
+            data = form.cleaned_data
+            query = dict()
+            queryFullText = ""
+            if data['difficult'] != "":
+                query["difficult"]=data['difficult']
+            if data['srchterm'] != "":
+                queryFullText = queryFullText + data['srchterm']
+            if queryFullText != "":
+                query["$text"] = {"$search": queryFullText}
+
+            results_experiences = Experience.objects.raw_query(query)
+
+    return render(request, 'webapp/search_experience_result.html', {'matches_experience': results_experiences, 'results': len(results_experiences), 'form': form})
+
 def search_profile(request, terms):
     if request.method == 'GET':
         client = MongoClient()
