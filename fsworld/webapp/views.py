@@ -56,7 +56,8 @@ def main(request):
     if request.user.is_authenticated():
 
         experiences = Experience.objects.all().order_by('-creation_date')
-    return render(request, 'webapp/main.html', {'experiences': experiences[:9]})
+
+        return render(request, 'webapp/main.html', {'experiences': experiences[:9]})
 
 @login_required
 def new_experience(request):
