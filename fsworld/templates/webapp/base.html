@@ -50,9 +50,9 @@
                         <li><a class="" href="#">Experiencias</a></li>
                         <li><a class="" href="#">Explora</a></li>
                         <li><div class="input-group navbar-input-group fbSearch">
-                        <form id="search-form" class="navbar-form navbar-left hidden-xs hidden-sm" role="search" method="get" >
+                        <form id="search-form" class="navbar-form navbar-left hidden-xs hidden-sm" role="search" method="get" action="{% url 'search_experience'%}">
                             <div class="form-group">
-                                <input type="text" class="form-control border-search border-rect-red"  name="srchterm"
+                                <input type="text" class="form-control border-search border-rect-red" placeholder="Buscar..."  name="srchterm"
                                    id="srchterm">
                                 <span class="input-group-btn-red navbar-input-group-btn">
                                     <button class="btn btn-default" type="submit">
@@ -64,7 +64,7 @@
                             <ul>
                             <li class="header"><span class="text">Experiencias</span></li>
                                 <li>
-                                    <a >
+                                    <a href="{% url 'search_experience'%}">
                                         <span class="glyphicon glyphicon-search"></span>
                                         <span class="text">Buscar experiencias </span>
                                         <span class="category"></span>

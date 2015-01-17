@@ -196,7 +196,7 @@ def search_experience(request):
             query = dict()
             queryFullText = ""
             if data['difficult'] != "":
-                query["difficult"]=data['difficult']
+                query["difficult"] = data['difficult']
             if data['srchterm'] != "":
                 queryFullText = queryFullText + data['srchterm']
             if queryFullText != "":
@@ -205,6 +205,7 @@ def search_experience(request):
             results_experiences = Experience.objects.raw_query(query)
 
     return render(request, 'webapp/search_experience_result.html', {'matches_experience': results_experiences, 'results': len(results_experiences), 'form': form})
+
 
 def search_profile(request, terms):
     if request.method == 'GET':

@@ -39,7 +39,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label class="col-sm-4 control-label"
-                       for="id_{{ form.srchterm.name }}">{% trans "Search" %}</label>
+                       for="id_{{ form.srchterm.name }}"> Buscar </label>
 
                 <div class="col-sm-6">
                     <input type="text" class="form-control" name="{{ form.srchterm.name }}"
@@ -93,7 +93,7 @@
     </div>
     </div>
     {% if matches_experience %}
-        <h1>{% blocktrans %}Found {{ results }} experiences{% endblocktrans %}</h1>
+        <h1>{% blocktrans %}Encontradas {{ results }} experiencias{% endblocktrans %}</h1>
         {% for experience in matches_experience %}
             <div class="col-sm-6 col-md-4">
                 <div class="panel panel-body main-card">
@@ -121,7 +121,7 @@
         {% endfor %}
     {% else %}
         <div class="experience-name">
-            <h2 class="follow-msg">{% trans "No results found!" %}</h2>
+            <h2 class="follow-msg">No hay resultados</h2>
         </div>
     {% endif %}
 {% endblock %}

@@ -1,12 +1,10 @@
 {% extends "webapp/base.html" %}
 {% load staticfiles %}
-
 {% load tags %}
-
 {% block container %}
 
 {% if matches_profile %}
-    <h1>Users</h1>
+    <h1>Usuarios</h1>
     <div class="row">
         {% for match in matches_profile %}
                 <div class="col-md-3 panel follow-list-item">

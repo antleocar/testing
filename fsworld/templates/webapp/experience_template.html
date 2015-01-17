@@ -201,7 +201,7 @@
                     <div class="experience-more-title"> Tags:</div>
                     {% for tag in experience.tags %}
                         <!---->
-                        <span><a class="experience-tag" >{{ tag }}</a></span>
+                        <span><a class="experience-tag" href="{% url 'search_experience' %}?srchterm={{ tag }}">{{ tag }}></a></span>
                     {% endfor %}
                 {% endif %}
 
