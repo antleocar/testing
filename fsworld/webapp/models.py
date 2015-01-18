@@ -44,6 +44,7 @@ class Experience(models.Model):
     description = TextField(blank=False)
     creation_date = DateTimeField(auto_now_add=True)
     modification_date = DateTimeField(auto_now_add=True, null=True)
+    main_image=models.ImageField(upload_to="images/experience/", null=False)
     aparejos = ListField(blank=False)
     type_of_fishing = CharField(max_length=50, blank=True)
     notes = TextField(null=True)

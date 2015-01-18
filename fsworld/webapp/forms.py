@@ -127,3 +127,9 @@ class SearchExperienceForm(forms.Form):
         super(SearchExperienceForm, self).__init__(*args, **kwargs)
 
 
+class SearchProfileForm(forms.Form):
+
+    srchterm = forms.CharField(max_length=100, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(SearchProfileForm, self).__init__(*args, **kwargs)
