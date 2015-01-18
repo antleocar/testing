@@ -21,6 +21,6 @@ def avatar(avatar):
         if default_storage.exists(avatar.name):
             return avatar.url
         else:
-            return static("webapp/image/profile_pic_anon.png")
+            return static("webapp/image/fondo_ps.png")
     else:
-        return static("webapp/image/profile_pic_anon.png")
+        return static("webapp/image/fondo_ps.png")

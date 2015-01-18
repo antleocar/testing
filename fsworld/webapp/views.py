@@ -375,7 +375,7 @@ def modification_account(request, username):
         if p.avatar:
             data['avatar_url']=p.avatar.url
         else:
-            data['avatar_url']=static("webapp/image/profile_pic_anon.png")
+            data['avatar_url']=static("webapp/image/fondo_ps.png")
         form = EditAccountForm(initial=data)
 
     return render(request, 'webapp/newaccount.html', {'form': form, 'edit': True})
