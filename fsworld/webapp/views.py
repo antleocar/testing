@@ -53,7 +53,6 @@ from pymongo import *
 
 
 def main(request):
-    if request.user.is_authenticated():
 
         experiences = Experience.objects.all().order_by('-creation_date')
 
