@@ -159,7 +159,7 @@ INSTALLED_APPS = (
     'djangotoolbox',
     'rest_framework',
     'sorl.thumbnail',
-    'registration'
+
 
 )
 

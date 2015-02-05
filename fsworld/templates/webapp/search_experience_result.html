@@ -50,10 +50,10 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label class="col-sm-4 control-label"
-                       for="id_{{ form.difficult.name }}">{% trans "Difficulty" %}</label>
+                       for="id_{{ form.difficult.name }}">Dificultad</label>
 
                 <div class="col-sm-6">
-                    <select class="form-control" name="{{ form.difficult.name }}" title="{% trans "None selected" %}"
+                    <select class="form-control" name="{{ form.difficult.name }}" title="Ninguna seleccionada"
                             id="id_{{ form.difficult.name }}">
                         <option value=""></option>
                         {% for choice in form.difficult.field.choices %}
@@ -95,9 +95,9 @@
     {% if matches_experience %}
         <h1>{% blocktrans %}Encontradas {{ results }} experiencias{% endblocktrans %}</h1>
         {% for experience in matches_experience %}
-            <div class="col-sm-6 col-md-4">
+        <div class="col-sm-6 col-md-4">
                 <div class="panel panel-body main-card">
-                    <div class="main-card-picture" style="background-image: url('{{ recipe.main_image.url }}')">
+                    <div class="main-card-picture" style="background-image: url('{{ experience.main_image.url }}')">
                         <a href="{% url 'experience' experience.id %}">
                             <img src="{{ experience.main_image.url }}" style="width: 100%; height: 100%; opacity: 0">
                         </a>
@@ -108,16 +108,13 @@
                         </div>
 
                         <div class="main-card-description">
-                            {{ experience.description }}
+                            {{ recipe.description }}
                         </div>
-                    </div>
-
-                    <div class="experience-author-main">
+                        <div class="experience-author-main">
                             <span><a class="experience-link-main"
-                                     href="{% url 'profile' experience.author.username %}">by {{ experience.author.profile.get.display_name }}</a></span>
+                                     href="{% url 'profile' experience.author.username %}"> creada por {{ experience.author.profile.get.display_name }}</a></span>
                     </div>
-                </div>
-            </div>
+                    </div>
         {% endfor %}
     {% else %}
         <div class="experience-name">
