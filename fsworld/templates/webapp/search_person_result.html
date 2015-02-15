@@ -1,20 +1,32 @@
 {% extends "webapp/base.html" %}
 {% load staticfiles %}
 {% load tags %}
+{% load i18n %}
 
 {% block container %}
-{% if matches_profile %}
-    <h1>Usuarios</h1>
-    <div class="row">
-        {% for match in matches_profile %}
-                <div class="col-md-3 panel follow-list-item">
-                    <img class="img-rounded"
-                         src="{{ match.avatar.url }}"/>
+    {% if matches_profile %}
+        <h1>{% blocktrans %}Encontrados {{ results }} perfiles{% endblocktrans %}</h1>
+        {% for profile in matches_profile %}
+        <div class="col-sm-6 col-md-4">
+                <div class="panel panel-body main-card">
+                    <div class="main-card-picture" style="background-image: url('{{ profile.avatar.url }}')">
+                        <a href="{% url 'profile' profile.id %}">
+                            <img src="{{ profile.avatar.url }}" style="width: 100%; height: 100%; opacity: 0">
+                        </a>
+                    </div>
+                    <div class="main-card-content">
+                        <div class="main-card-name">
+                            <a class="experience-title" href="{% url 'profile' profile.username %}"><span>{{ profile.username }}</span></a>
+                        </div>
 
-                    <h3 class="user-name"><a href="{% url 'profile' match.username %}">
-                        {{ match.display_name }}</a></h3>
-                </div>
+
+                    </div>
+            </div>
+            </div>
         {% endfor %}
-    </div>
-{% endif %}
+    {% else %}
+        <div class="experience-name">
+            <h2 class="follow-msg">No hay resultados</h2>
+        </div>
+    {% endif %}
 {% endblock %}

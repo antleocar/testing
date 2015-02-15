@@ -23,7 +23,7 @@ from ajax.models import UploadedImage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views
-from webapp.forms import NewAccountForm,EditAccountForm,ExperienceForm, SearchExperienceForm, AddComment
+from webapp.forms import NewAccountForm,EditAccountForm,ExperienceForm, SearchExperienceForm, SearchProfileForm, AddComment
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpResponseNotAllowed
@@ -207,12 +207,24 @@ def search_experience(request):
     return render(request, 'webapp/search_experience_result.html', {'matches_experience': results_experiences, 'results': len(results_experiences), 'form': form})
 
 
-def search_profile(request, terms):
+def search_profile(request):
+    results_profiles = dict()
     if request.method == 'GET':
-        client = MongoClient()
-        results_profiles = Profile.objects.raw_query({"$text": {"$search": terms}})
+        form = SearchProfileForm(request.GET)
+        if form.is_valid():
+            data = form.cleaned_data
+            query = dict()
+            queryFullText = ""
+            if data['srchterm'] != "":
+                queryFullText = queryFullText + data['srchterm']
+            if queryFullText != "":
+                query["$text"] = {"$search": queryFullText}
 
-        return render(request, 'webapp/search_person_result.html', {'matches_profile': results_profiles})
+            results_profiles = Profile.objects.raw_query(query)
+
+    return render(request, 'webapp/search_person_result.html', {'matches_profile': results_profiles, 'results': len(results_profiles), 'form': form})
+
+
 
 
 def profile(request, username):
