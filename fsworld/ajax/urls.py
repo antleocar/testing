@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'^follow/$', views.follow, name='follow'),
     url(r'^unfollow/$', views.unfollow, name='unfollow'),
     url(r'^vote/$', views.vote_experience, name='vote'),
-    url(r'^votes/(?P<experience_id>\w+)/$', views.experience_votes, name='experience_votes')
+    url(r'^votes/(?P<experience_id>\w+)/$', views.experience_votes, name='experience_votes'),
+    #url(r'^search/', include('haystack.urls'))
 )

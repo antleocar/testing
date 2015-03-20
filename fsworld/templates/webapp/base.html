@@ -48,6 +48,8 @@
                         <li class="{% navactive request 'main' %}"><a href="{% url 'main' %}">Principal</a>
                         </li>
                         <li><a class="" href="{% url 'search_experience'%}">Experiencias</a></li>
+                        <li><a class="" href="{% url 'search'%}">Personas</a></li>
+
                         <li><a >  </a></li>
                         <li><div class="input-group navbar-input-group fbSearch">
                         <form id="search-form" class="navbar-form navbar-left hidden-xs hidden-sm" role="search" method="get" action="{% url 'search_experience'%}">
@@ -72,7 +74,7 @@
                                 </li>
                                 <li class="header"><span class="text">Gente</span></li>
                                 <li>
-                                    <a href="{% url 'search_person'%}">
+                                    <a href="{% url 'search' %}">
                                         <span class="glyphicon glyphicon-search"></span>
                                         <span class="text">Buscar personas</span>
                                         <span class="category"></span>
@@ -82,6 +84,7 @@
                         </div>
                         </form>
                     </div>
+
                     <!-- Button trigger modal -->
 
                     </li>
@@ -209,7 +212,7 @@
            $(".suggest").find(".category")[0].textContent=$(this).val();
            $(".suggest").find("a")[0].href=urlR;
            $(".suggest").find(".category")[1].textContent=$(this).val();
-           $(".suggest").find("a")[1].href='/search/person/' +$(this).val();
+           $(".suggest").find("a")[1].href='/search/' +$(this).val();
         });
     </script>
     {% block custom_js %} {% endblock %}

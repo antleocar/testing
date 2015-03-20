@@ -29,69 +29,7 @@
 {% endblock %}
 
 {% block container %}
-    <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-    <div id="collapseTwo" class="panel-collapse collapse">
-    <div class="panel-body">
-    <form role="form well well-lg" class="form-horizontal" id="search-form" method="get"
-          action="">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label class="col-sm-4 control-label"
-                       for="id_{{ form.srchterm.name }}"> Buscar </label>
 
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="{{ form.srchterm.name }}"
-                            id="id_{{ form.srchterm.name }}" value="{{ form.srchterm.value| default_if_none:'' }}"/>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label class="col-sm-4 control-label"
-                       for="id_{{ form.difficult.name }}">Dificultad</label>
-
-                <div class="col-sm-6">
-                    <select class="form-control" name="{{ form.difficult.name }}" title="Ninguna seleccionada"
-                            id="id_{{ form.difficult.name }}">
-                        <option value=""></option>
-                        {% for choice in form.difficult.field.choices %}
-                            <option value="{{ choice.0 }}"
-                                    {% ifequal form.difficult.value choice.0 %}
-                                    selected
-                                    {% endifequal %}
-                                    >{{ choice.1 }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    {% csrf_token %}
-    <fieldset class="col-sm-10 col-sm-offset-1" style="padding: 20px 50px">
-        <div class="form-group">
-            <label for="inputDisplayName" class="col-sm-1 control-label"></label>
-
-            <div class="col-sm-3">
-                <input type="submit" class="btn btn-success" value="{% trans "Filter" %}"/>
-            </div>
-        </div>
-    </fieldset>
-    </form>
-    </div>
-    </div>
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                Filtros
-            </a>
-        </h4>
-    </div>
-    </div>
-    </div>
     {% if matches_experience %}
         <h1>{% blocktrans %}Encontradas {{ results }} experiencias{% endblocktrans %}</h1>
         {% for experience in matches_experience %}

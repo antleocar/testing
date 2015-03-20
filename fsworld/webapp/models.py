@@ -11,6 +11,7 @@ from datetime import datetime
 from django_mongodb_engine.contrib import MongoDBManager
 
 
+
 # Validators
 
 def validate_tags(tags):
@@ -37,6 +38,8 @@ def validate_past_date(date):
 def validate_difficult(difficult):
     if difficult <= 0 or difficult >= 4:
         raise ValidationError("Difficult must be in range 1 to 3")
+
+
 
 
 class Experience(models.Model):
