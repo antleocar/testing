@@ -14,8 +14,8 @@ class NewAccountForm(forms.Form):
     password_repeat = forms.CharField(widget=forms.PasswordInput)
     display_name = forms.CharField(max_length=50, required=True)
     location = forms.CharField(max_length=50, required=False)
-    avatar_url = forms.URLField(required=False)
-    avatar_id = forms.CharField(max_length=200, required=False)
+    avatar_url = forms.URLField(required=True)
+    avatar_id = forms.CharField(max_length=200, required=True)
 
     def __init__(self, *args, **kwargs):
         super(NewAccountForm, self).__init__(*args, **kwargs)
@@ -25,7 +25,7 @@ class ExperienceForm(forms.Form):
 
     DIFFICULT = [(1, _("Facil")), (2, _("Media")), (3, _("Dificil"))]
     difficult = forms.ChoiceField(choices=DIFFICULT, required=False)
-    title = forms.CharField(max_length=50, required=False)
+    title = forms.CharField(max_length=50, required=True)
     type_of_fishing = forms.CharField(max_length=50, required=False)
     main_picture_id = forms.CharField(required=True)
 

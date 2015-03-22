@@ -208,7 +208,7 @@ def search_experience(request):
 
 
 def search_profile(request):
-    results_profiles = dict()
+    '''results_profiles = dict()
     if request.method == 'GET':
         form = SearchProfileForm(request.GET)
         if form.is_valid():
@@ -222,8 +222,15 @@ def search_profile(request):
 
             results_profiles = Profile.objects.raw_query(query)
 
-    return render(request, 'webapp/search_person_result.html', {'matches_profile': results_profiles, 'results': len(results_profiles), 'form': form})
+    return render(request, 'webapp/search.html', {'matches_profile': results_profiles, 'results': len(results_profiles), 'form': form})'''
 
+    if request.method == "POST":
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+
+    results_profiles = Profile.objects.filter(display_name__contains=search_text)
+    return render(request,'webapp/search.html',{'matches_profile': results_profiles})
 
 
 
@@ -387,7 +394,7 @@ def modification_account(request, username):
         if p.avatar:
             data['avatar_url']=p.avatar.url
         else:
-            data['avatar_url']=static("webapp/image/fondo_ps.png")
+            data['avatar_url']=p.avatar.url    #static("webapp/image/logo_mini.png")
         form = EditAccountForm(initial=data)
 
     return render(request, 'webapp/newaccount.html', {'form': form, 'edit': True})
@@ -450,7 +457,7 @@ def activate_account(request, code):
     a.user.is_active = True
     a.user.save()
 
-    messages.success(request, _("Your account has been successfully activated. You can log in now."))
+    messages.success(request, _("Tu cuenta ha sido correctamente activada.Prueba a loguearte ahora."))
     return HttpResponseRedirect(reverse('login'))
 
 

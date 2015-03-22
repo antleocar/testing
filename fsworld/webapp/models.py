@@ -76,7 +76,7 @@ class Profile(models.Model):
     display_name = models.CharField(max_length=50, blank=False)
     #Past
     modification_date = models.DateTimeField(null=True)
-    avatar = models.ImageField(upload_to='avatars/', null=True)
+    avatar = models.ImageField(upload_to='avatars/', null=False)
     location = models.CharField(max_length=50, blank=False)
     user = models.ForeignKey(User, related_name="profile", unique=True)
     following = ListField(EmbeddedModelField('Following'))

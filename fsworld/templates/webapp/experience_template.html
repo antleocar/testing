@@ -51,34 +51,6 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         </div>
-    {% if user.is_authenticated %}
-
-
-                        <div class="modal-body">
-                            {% if following %}
-                                <ul>
-                                    {% for friend in following %}
-
-                                                    <h3 class="user-name-affinity">
-                                                    {{ friend.display_name }}</h3></span>
-
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-
-                                <div class="modal-footer hide-divider">
-
-                                </div>
-
-                            {% else %}
-                                <div class="experience-modal-children-empty">
-                                    <span>Todavía no tienes amigos</span>
-                                </div>
-
-                            {% endif %}
-                        </div>
-
-    {% endif %}
 
         <!-- Author overlay -->
         <a class="experience-author-link" href="{% url 'profile' experience.author.username %}">
@@ -132,9 +104,9 @@
         </div>
     {% endif %}
 
-    <div class="panel panel-body row experience-description">
-        <p class="text-soft"> {{ experience.description }} </p>
-    </div>
+        <div class="panel panel-body row experience-description">
+            <p class="text-soft"> {{ experience.description }} </p>
+         </div>
 
 
 

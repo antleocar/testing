@@ -25,29 +25,28 @@ def upload_picture(request):
 
 
 def follow(request):
-    # Saco el usuario actual, y me aseguro de que esté logueado
+
     me = request.user
     if not me.is_authenticated():
-        return HttpResponse(json.dumps({"message": "No user logued in"}), status=403)
+        return HttpResponse(json.dumps({"message": "No está logueado"}), status=403)
     my_profile = me.profile.get()
 
-    # Saco de la petición el usuario al que se le quiere seguir
+
     username = request.POST['username']
     if not username:
-        return HttpResponse(json.dumps({"message": "You must specify a user to follow by its username"}), status=400)
+        return HttpResponse(json.dumps({"message": "Debe especificar un usuario a seguir por su nombre"}), status=400)
     elif username == me.username:
-        return HttpResponse(json.dumps({"message": "You can't follow yourself."}), status=400)
+        return HttpResponse(json.dumps({"message": "No puedes seguirte a ti mismo"}), status=400)
     try:
         who = User.objects.get(username=username)
     except ObjectDoesNotExist:
-        return HttpResponse(json.dumps({"message": "Invalid username"}), status=400)
+        return HttpResponse(json.dumps({"message": "Nombre usuario inválido"}), status=400)
 
-    # Compruebo si ya está en mi lista de seguidos
-    #TODO: INEFICIENTE, habría que hacer una búsqueda de verdad en la bbdd, pero ahora mismo no sé cómo se haría
+
     following_now = my_profile.following
     for f in following_now:
         if f.user.id == who.id:
-            return HttpResponse(json.dumps({"message": "You are already following " + who.username}), status=400)
+            return HttpResponse(json.dumps({"message": "Ya lo estás siguiendo " + who.username}), status=400)
 
     # Lo añado a mi lista
     following_now.append(Following.create_following(who))
@@ -62,20 +61,19 @@ def unfollow(request):
     # Saco el usuario actual, y me aseguro de que esté logueado
     me = request.user
     if not me.is_authenticated():
-        return HttpResponse(json.dumps({"message": "No user logued in"}), status=403)
+        return HttpResponse(json.dumps({"message": "El usuario no está logueado"}), status=403)
     my_profile = me.profile.get()
 
-    # Saco de la petición el usuario al que se le quiere dejar de seguir
+
     username = request.POST['username']
     if not username:
-        return HttpResponse(json.dumps({"message": "You must specify a user to follow by its username"}), status=400)
+        return HttpResponse(json.dumps({"message": "Debe especificar un usuario a seguir por su nombre"}), status=400)
     try:
         who = User.objects.get(username=username)
     except ObjectDoesNotExist:
-        return HttpResponse(json.dumps({"message": "Invalid username"}), status=400)
+        return HttpResponse(json.dumps({"message": "Nombre usuario inválido"}), status=400)
 
-    # Compruebo que está en mi lista de seguidos
-    #TODO: INEFICIENTE, habría que hacer una búsqueda de verdad en la bbdd, pero ahora mismo no sé cómo se haría
+
     following_now = my_profile.following
     for f in following_now:
         if f.user.id == who.id:
@@ -84,45 +82,42 @@ def unfollow(request):
             my_profile.save()
             return HttpResponse(json.dumps({"message": "OK"}), status=200)
 
-    return HttpResponse(json.dumps({"message": "You are not following " + who.username}), status=400)
+    return HttpResponse(json.dumps({"message": "No estás siguiendo a" + who.username}), status=400)
 
 
 def vote_experience(request):
-    # Compruebo que el usuario actual este logeado
+
     ppal = request.user
     if not ppal.is_authenticated():
-        return HttpResponse(json.dumps({"message":"No user logged in"}), status=403)
+        return HttpResponse(json.dumps({"message":"El usuario no está logueado"}), status=403)
 
-    # Comprobacion previa y carga de los datos de la peticion
 
-    # Compruebo que se ha especificado un id y que existe una receta con ese id
     experience_id = request.POST['experience']
     if not experience_id:
-        return HttpResponse(json.dumps({"message": "You must specify a experience to vote by its id"}), status=400)
+        return HttpResponse(json.dumps({"message": "Debes especificar una experiencia para poder votarla"}), status=400)
 
     try:
         experience = Experience.objects.get(id=experience_id)
     except ObjectDoesNotExist:
-        return HttpResponse(json.dumps({"message": "Invalid experience"}), status=400)
+        return HttpResponse(json.dumps({"message": "Experiencia inválida"}), status=400)
 
     # Compruebo que se ha especificado un tipo de voto valido y construyo un nuevo voto con el
     vote_type = request.POST['type']
     if not vote_type:
-        return HttpResponse(json.dumps({"message": "You must specify a vote type (positive or negative)"}), status=400)
+        return HttpResponse(json.dumps({"message": "Debes especificar un tipo de voto(positivo o negativo)"}), status=400)
     if vote_type != u'positive' and vote_type != u'negative':
-        return HttpResponse(json.dumps({"message": "You must specify a valid vote type (positive or negative)"}), status=400)
+        return HttpResponse(json.dumps({"message": "Debes especificar un voto válido(positivo o negativo)"}), status=400)
 
     new_vote = Vote(user=ppal, date=datetime.now())
 
-    # Busco votos preexistentes del usuario a la receta y los elimino cuando sea necesario
-    found = False   #used to control when the vote has to be looked for into the lists
 
-    #TODO: refactorizar! los dos bucles for son muy parecidos... se podria extraer un metodo para no repetir codigo?
+    found = False
+
     if not found:
         for vote in experience.positives:
             if vote.user == ppal:
                 if vote_type == u'positive':
-                    return HttpResponse(json.dumps({"message": "already voted, no action is necessary"}), status=200)
+                    return HttpResponse(json.dumps({"message": "Ya está votada"}), status=200)
                 else:
                     experience.positives.remove(vote)
                     found = True
@@ -132,12 +127,12 @@ def vote_experience(request):
         for vote in experience.negatives:
             if vote.user == ppal:
                 if vote_type == u'negative':
-                    return HttpResponse(json.dumps({"message": "already voted, no action is necessary"}), status=200)
+                    return HttpResponse(json.dumps({"message": "Ya está votada"}), status=200)
                 else:
                     experience.negatives.remove(vote)
                     break
 
-    # Almaceno el nuevo voto
+
     if vote_type == u'positive':
         experience.positives.append(new_vote)
         experience.save()
@@ -150,7 +145,7 @@ def vote_experience(request):
 
 def experience_votes(request, experience_id):
     if experience_id == u'':
-        return HttpResponse(json.dumps({"message": "ERROR: you must specify experience id"}), status=400)
+        return HttpResponse(json.dumps({"message": "ERROR: debes especificar el identificador de la experiencia"}), status=400)
 
     experience = Experience.objects.get(id=experience_id)
 

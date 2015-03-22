@@ -270,7 +270,7 @@
 
         <!-- Avatar -->
         <div class="form-group">
-            <label for="id_{{ form.avatar.name }}" class="col-sm-2 control-label">Imagen de perfil</label>
+            <label for="id_{{ form.avatar_url.name }}" class="col-sm-2 control-label">Imagen de perfil</label>
             <!-- TODO alternativas para el estilo:
                 http://gregpike.net/demos/bootstrap-file-input/demo.html
                 http://markusslima.github.io/bootstrap-filestyle/
@@ -289,6 +289,9 @@
                         {{ error|escape }}
                     {% endfor %}
                 </span>
+                {% else %}
+                <span class="help-block">Obligatorio</span>
+
             {% endif %}
         </div>
 
