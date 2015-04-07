@@ -108,7 +108,14 @@
             <p class="text-soft"> {{ experience.description }} </p>
          </div>
 
-
+        <div class="col-md-6 experience-notes-parent">
+            <h4 class="experience-panel-title">Tipo de Pesca</h4>
+            <p class="text-soft"> {{ experience.type_of_fishing }} </p>
+        </div>
+        <div class="col-md-6 experience-notes-parent">
+             <h4 class="experience-panel-title"> Dificultad </h4>
+             <p class="text-soft"> {{ experience.difficult }} </p>
+        </div>
 
     <div class="row">
         <div class="col-md-6 experience-aparejos-parent {% if not experience.notes %}col-md-offset-3{% endif %}">
@@ -160,6 +167,7 @@
         {% endfor %}
     </div>
 
+    <!--
     <div class="row">
         <div class="col-md-6 experience-more-parent">
             <div class="panel panel-body experience-more">
@@ -169,7 +177,7 @@
                 {% if experience.tags %}
                     <div class="experience-more-title"> Tags:</div>
                     {% for tag in experience.tags %}
-                        <!---->
+
                         <span><a class="experience-tag" href="{% url 'search_experience' %}?srchterm={{ tag }}">{{ tag }}></a></span>
                     {% endfor %}
                 {% endif %}
@@ -179,7 +187,7 @@
         </div>
 
     </div>
-
+    -->
     <div class="row panel panel-body">
         <h3 class="experience-panel-title">Comentarios</h3>
 
@@ -226,7 +234,7 @@
                         {% csrf_token %}
                         <textarea class="form-control" name="text"
                                   placeholder=" Escribe un comentario sobre la experiencia"  rows="5"></textarea>
-                        <input class="plus btn btn-default" type="submit" value=" Send" >
+                        <input class="plus btn btn-default" type="submit" value=" Enviar" >
                     </form>
                 </div>
             {% else %}

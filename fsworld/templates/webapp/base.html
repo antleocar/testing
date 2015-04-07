@@ -43,13 +43,14 @@
                     </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
+
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="{% navactive request 'main' %}"><a href="{% url 'main' %}">Principal</a>
                         </li>
                         <li><a class="" href="{% url 'search_experience'%}">Experiencias</a></li>
                         <li><a class="" href="{% url 'search'%}">Personas</a></li>
-
+                        <!--
                         <li><a >  </a></li>
                         <li><div class="input-group navbar-input-group fbSearch">
                         <form id="search-form" class="navbar-form navbar-left hidden-xs hidden-sm" role="search" method="get" action="{% url 'search_experience'%}">

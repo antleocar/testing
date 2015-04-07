@@ -32,8 +32,14 @@
 
     {% if matches_experience %}
         <h1>{% blocktrans %}Encontradas {{ results }} experiencias{% endblocktrans %}</h1>
-        {% for experience in matches_experience %}
-        <div class="col-sm-6 col-md-4">
+
+
+
+
+
+
+          {% for experience in matches_experience %}
+            <div class="col-sm-6 col-md-4">
                 <div class="panel panel-body main-card">
                     <div class="main-card-picture" style="background-image: url('{{ experience.main_image.url }}')">
                         <a href="{% url 'experience' experience.id %}">
@@ -48,11 +54,14 @@
                         <div class="main-card-description">
                             {{ experience.description }}
                         </div>
-                        <div class="experience-author-main">
+                    </div>
+
+                    <div class="experience-author-main">
                             <span><a class="experience-link-main"
-                                     href="{% url 'profile' experience.author.username %}"> creada por {{ experience.author.profile.get.display_name }}</a></span>
+                                     href="{% url 'profile' experience.author.username %}"> creada por{{ experience.author.profile.get.display_name }}</a></span>
                     </div>
-                    </div>
+                </div>
+            </div>
         {% endfor %}
     {% else %}
         <div class="experience-name">
