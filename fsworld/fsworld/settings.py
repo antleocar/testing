@@ -160,15 +160,10 @@ INSTALLED_APPS = (
     'djangotoolbox',
     'rest_framework',
     'sorl.thumbnail',
-    'haystack',
+    
 
 )
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-    },
-}
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
