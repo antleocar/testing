@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\Antonio-PC\Desktop\TFG\fsworld\venv"
+set "VIRTUAL_ENV=C:\Users\AntPc\Documents\testing2\fsworld\venv"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
