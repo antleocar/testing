@@ -61,14 +61,14 @@ def main(request):
 
 @login_required
 def new_experience(request):
-    #TODO if user is authenticated redirect to main
+
     if request.method == 'POST':
-        # else -> render respone with the obtained form, with errors and stuff
+
         form = ExperienceForm(request.POST)
-        if form.is_valid:  # else -> render respone with the obtained form, with errors and stuff
+        if form.is_valid:
             experience = store_experience(form, request.user)
             if experience:
-                return HttpResponseRedirect(reverse('experience', kwargs={'experience_id': experience.id}))  # Redirect after POST
+                return HttpResponseRedirect(reverse('experience', kwargs={'experience_id': experience.id}))
     else:
         form = ExperienceForm()
 
@@ -83,24 +83,23 @@ def edit_experience(request, experience_id):
         return HttpResponse('Unauthorized', status=401)
     if request.method == 'POST':
         form = ExperienceForm(request.POST)
-        if form.is_valid:  # else -> render respone with the obtained form, with errors and stuff
+        if form.is_valid:
 
             experience = store_experience(form, request.user, e)
             if experience:
                 return HttpResponseRedirect(reverse('experience', kwargs={'experience_id': experience.id}))  # Redirect after POST
 
     else:
-        # fill the form with the recipe's data
+
         form = ExperienceForm.get_filled_form(e)
         return render(request, 'webapp/newexperience.html', {'form': form, 'edit': True})
 
 
 def store_experience(form, user, experience=None):
     if form.is_valid():
-        # Extract the data from the form and create the User and Profile instance
+
         data = form.cleaned_data
 
-        # Basic information
         title = data['title']
         type_of_fishing = data['type_of_fishing']
         description = data['description']
@@ -116,7 +115,6 @@ def store_experience(form, user, experience=None):
         if tags_all:
             tags = tags_all.split(",")
 
-        # Genera la experience
 
         imagen_principal = UploadedImage.objects.get(id=main_picture).image
 
@@ -133,7 +131,7 @@ def store_experience(form, user, experience=None):
         experience.main_image = imagen_principal
         u = user
 
-        # steps is a list of dict
+
         step_list = list()
         for step in steps:
             if "picture" in step:
@@ -145,7 +143,7 @@ def store_experience(form, user, experience=None):
             step_list.append(step_object)
         experience.steps = step_list
 
-        # pictures_id_list is a list of ids
+
         pictures_list = list()
         if pictures_id_list:
             for pic in pictures_id_list:
@@ -226,11 +224,12 @@ def search_profile(request):
 
     if request.method == "POST":
         search_text = request.POST['search_text']
+
     else:
         search_text = ''
 
     results_profiles = Profile.objects.filter(display_name__contains=search_text)
-    return render(request,'webapp/search.html',{'matches_profile': results_profiles})
+    return render(request,'webapp/search.html', {'matches_profile': results_profiles, 'results': len(results_profiles)})
 
 
 
@@ -267,8 +266,7 @@ def new_account(request):
 
     if request.method == 'POST':
         form = NewAccountForm(request.POST)
-        if form.is_valid():  # else -> render respone with the obtained form, with errors and stuff
-            # Extract the data from the form and create the User and Profile instance
+        if form.is_valid():
             data = form.cleaned_data
             username = data['username']
             email = data['email']
@@ -306,7 +304,7 @@ def new_account(request):
                 p = Profile(display_name=display_name, user=u,
                             location=location, username=username)
 
-                #avatar.image.name = str(p.id) + '.png' # No vale así, hay que copiar el archivo en otro
+
                 if avatar_id != u'':
                     p.avatar = avatar.image
 
@@ -315,7 +313,7 @@ def new_account(request):
                 p.clean()
                 p.save()
 
-                #Generar el codigo y meterlo en la BD.
+
 
                 if avatar_id != u'':
                     avatar.persist = True
@@ -336,7 +334,7 @@ def modification_account(request, username):
 
     if request.method == 'POST':
         form = EditAccountForm(request.POST)
-        if form.is_valid():  # else -> render respone with the obtained form, with errors and stuff
+        if form.is_valid():
             valid = True
             data = form.cleaned_data
             password = data['password']
@@ -380,7 +378,7 @@ def modification_account(request, username):
                 if request.user.is_authenticated():
 
 
-                    return HttpResponseRedirect(reverse('main'))  # Redirect after POST
+                    return HttpResponseRedirect(reverse('main'))
 
     else:
         u = request.user
@@ -394,7 +392,7 @@ def modification_account(request, username):
         if p.avatar:
             data['avatar_url']=p.avatar.url
         else:
-            data['avatar_url']=p.avatar.url    #static("webapp/image/logo_mini.png")
+            data['avatar_url']=p.avatar.url
         form = EditAccountForm(initial=data)
 
     return render(request, 'webapp/newaccount.html', {'form': form, 'edit': True})
@@ -406,7 +404,7 @@ def new_account_done(request, username):
     except User.DoesNotExist:
         raise Http404
 
-    #TODO: esto hay que cambiarlo para que se haga por post, y que muestre un mensaje mas concreto. De momento asi estaria eliminado el bug.
+
     if user.is_active:
         return HttpResponseRedirect(reverse('main'))
 
@@ -465,8 +463,7 @@ def experience(request, experience_id):
 
     following = None
     if request.user.is_authenticated():
-        #username = request.user.username
-        #user = User.objects.get(username=username)
+
         my_profile = request.user.profile.get()
         following = my_profile.following
 
